@@ -75,6 +75,10 @@ func (s *BlockNameStorage[EP]) Set(blk ir.IRBlock) {
 	// s.debugNumLookup[BlockHash(blk.Hash())] = rebuildIdx
 }
 
+func (s *BlockNameStorage[EP]) Has(hash BlockHash) bool {
+	_, ok := s.NumLookup.Get(hash)
+	return ok
+}
 func (s *BlockNameStorage[EP]) Get(hash BlockHash) (value ir.IRBlock, found bool) {
 	rebuildIdx, ok := s.NumLookup.Get(hash)
 	if !ok {
