@@ -237,6 +237,11 @@ func (s IRStates) CastToString() IRStates {
 	return IRStates(ir_states.CastToString(string(s)))
 }
 
+// 使用 fn 更新所有的 key 和 value，fn 接收 key,value 输入，并返回更新的 key 和 value
+func (s IRStates) Update(fn func(string, any) (string, any)) IRStates {
+	return IRStates(ir_states.Update(string(s), fn))
+}
+
 // CompareResult 表示两个 IRStates 的模糊比较结果。
 type CompareResult struct {
 	// ExactlySame 仅在原始 states 字节级完全相同时为 true。

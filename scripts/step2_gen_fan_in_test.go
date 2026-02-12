@@ -187,6 +187,20 @@ func TestStep2_2_GenJavaDefaultPropFanin(t *testing.T) {
 	}
 }
 
+func javaWallRelplacer(key string, value any) (string, any) {
+	if key == "up" {
+		return "wall_post_bit", value == `true`
+	}
+	switch value {
+	case `false`:
+		return "wall_connection_type_" + key, `none`
+	case `true`, `low`:
+		return "wall_connection_type_" + key, `short`
+	default:
+		return "wall_connection_type_" + key, value
+	}
+}
+
 func javaWallDirectConvert(inJava ir.IRBlock, expect ir.IRBlock) (outBedrock ir.IRBlock, ok bool) {
 	if !strings.HasSuffix(inJava.NameWithNameSpace(), "_wall") {
 		return "", false
@@ -195,32 +209,7 @@ func javaWallDirectConvert(inJava ir.IRBlock, expect ir.IRBlock) (outBedrock ir.
 	if !ok {
 		return "", false
 	}
-	outStates := ir.IRStates(`[]`)
-	for key, value := range inJava.States().KeyValueStrings {
-		if key == "up" {
-			if value == `"true"` {
-				outStates = outStates.Set("wall_post_bit", true)
-			} else {
-				outStates = outStates.Set("wall_post_bit", false)
-			}
-			continue
-		}
-		if len(value) >= 2 {
-			switch value {
-			case `"false"`:
-				outStates = outStates.Set("wall_connection_type_"+key, `none`)
-			case `"true"`:
-				outStates = outStates.Set("wall_connection_type_"+key, `short`)
-			case `"low"`:
-				outStates = outStates.Set("wall_connection_type_"+key, `short`)
-			default:
-				outStates = outStates.Set("wall_connection_type_"+key, value[1:len(value)-1])
-			}
-
-		} else {
-			return "", false
-		}
-	}
+	outStates := inJava.States().Update(javaWallRelplacer)
 	bedrockBlock := ir.IRBlock(inJava.NameWithNameSpace() + " " + string(outStates))
 
 	if presets.HasNEMCBlockHash(bedrockBlock.Hash()) {

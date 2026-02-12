@@ -339,6 +339,50 @@ func TestIRStatesCastToString(t *testing.T) {
 	}
 }
 
+func TestIRStatesUpdate(t *testing.T) {
+	t.Run("rename and rewrite value", func(t *testing.T) {
+		in := IRStates(`["a"=1,"b"=false,"c"="x"]`)
+		got := in.Update(func(k string, v any) (string, any) {
+			return "p_" + k, v
+		})
+		want := IRStates(`["p_a"=1,"p_b"=false,"p_c"="x"]`)
+		if got != want {
+			t.Fatalf("Update rename got %q, want %q", got, want)
+		}
+	})
+
+	t.Run("key collision keeps last seen value", func(t *testing.T) {
+		in := IRStates(`["a"=1,"b"=2]`)
+		got := in.Update(func(k string, v any) (string, any) {
+			return "x", v
+		})
+		want := IRStates(`["x"=2]`)
+		if got != want {
+			t.Fatalf("Update collision got %q, want %q", got, want)
+		}
+	})
+
+	t.Run("invalid input keeps original", func(t *testing.T) {
+		in := IRStates(`bad`)
+		got := in.Update(func(k string, v any) (string, any) {
+			return k, v
+		})
+		if got != in {
+			t.Fatalf("Update invalid input got %q, want %q", got, in)
+		}
+	})
+
+	t.Run("invalid transformed key keeps original", func(t *testing.T) {
+		in := IRStates(`["a"=1]`)
+		got := in.Update(func(k string, v any) (string, any) {
+			return "", v
+		})
+		if got != in {
+			t.Fatalf("Update invalid key got %q, want %q", got, in)
+		}
+	})
+}
+
 func TestIRStatesFuzzyCompare(t *testing.T) {
 	t.Run("exactly same", func(t *testing.T) {
 		s := IRStates(`["a"=1,"b"=true]`)
