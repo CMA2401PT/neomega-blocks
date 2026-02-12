@@ -255,6 +255,7 @@ func TestStep2_3_GenJavaFanin(t *testing.T) {
 	}
 
 	ignorePairs := 0
+	nonCannonPairs := 0
 	for _, p := range pairs {
 		if _, ok := javaWallDirectConvert(p.In, p.Out); ok {
 			directConvert += 1
@@ -268,12 +269,13 @@ func TestStep2_3_GenJavaFanin(t *testing.T) {
 		if found {
 			ignorePairs += 1
 		} else {
+			nonCannonPairs += 1
 			tidyPairs = append(tidyPairs, p)
 		}
 	}
 
 	fmt.Println(len(fullPairs))
-	fmt.Printf("skip %v pairs because cannon, skip %v pairs because direct, %v remaining\n", ignorePairs, directConvert, len(tidyPairs))
+	fmt.Printf("skip %v pairs because cannon, skip %v pairs because direct, %v (%v non cannon) remaining\n", ignorePairs, directConvert, len(tidyPairs), nonCannonPairs)
 	outStr := ""
 	for _, p := range tidyPairs {
 		outStr += fmt.Sprintf("%v#%v\n", p.In.String(), p.Out.String())
