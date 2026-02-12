@@ -219,6 +219,48 @@ func TestIRStatesGet(t *testing.T) {
 	}
 }
 
+func TestIRStatesSet(t *testing.T) {
+	cases := []struct {
+		in    IRStates
+		key   string
+		value any
+		want  IRStates
+	}{
+		{in: `[]`, key: "a", value: int32(1), want: `["a"=1]`},
+		{in: `["b"=2]`, key: "a", value: int32(1), want: `["a"=1,"b"=2]`},
+		{in: `["a"=1,"b"=2]`, key: "b", value: int32(3), want: `["a"=1,"b"=3]`},
+		{in: `["a"=1,"b"=2,]`, key: "c", value: int32(4), want: `["a"=1,"b"=2,"c"=4]`},
+		{in: `["a"=1]`, key: "s", value: `x"y`, want: `["a"=1,"s"="x\"y"]`},
+		{in: `["a"=1]`, key: "b1", value: int8(1), want: `["a"=1,"b1"=true]`},
+		{in: `["a"=1]`, key: "b0", value: int8(0), want: `["a"=1,"b0"=false]`},
+		{in: `["a"=1]`, key: "bb", value: true, want: `["a"=1,"bb"=true]`},
+	}
+	for _, c := range cases {
+		if got := c.in.Set(c.key, c.value); got != c.want {
+			t.Fatalf("Set(%q, %q, %#v) = %q, want %q", c.in, c.key, c.value, got, c.want)
+		}
+	}
+}
+
+func TestIRStatesDelete(t *testing.T) {
+	cases := []struct {
+		in   IRStates
+		key  string
+		want IRStates
+	}{
+		{in: `["a"=1,"b"=2]`, key: "a", want: `["b"=2]`},
+		{in: `["a"=1,"b"=2]`, key: "b", want: `["a"=1]`},
+		{in: `["a"=1]`, key: "a", want: `[]`},
+		{in: `["a"=1,"b"=2,]`, key: "a", want: `["b"=2]`},
+		{in: `["a"=1]`, key: "missing", want: `["a"=1]`},
+	}
+	for _, c := range cases {
+		if got := c.in.Delete(c.key); got != c.want {
+			t.Fatalf("Delete(%q, %q) = %q, want %q", c.in, c.key, got, c.want)
+		}
+	}
+}
+
 func TestIRBlockIsTidy(t *testing.T) {
 	cases := []struct {
 		in   IRBlock

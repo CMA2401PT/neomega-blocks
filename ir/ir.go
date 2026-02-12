@@ -178,6 +178,14 @@ func (s IRStates) Get(key string) (value any, found bool) {
 	return ir_states.Get(string(s), key)
 }
 
+func (s IRStates) Set(key string, value any) IRStates {
+	return IRStates(ir_states.Set(string(s), key, value))
+}
+
+func (s IRStates) Delete(key string) IRStates {
+	return IRStates(ir_states.Delete(string(s), key))
+}
+
 // decoders
 func (s IRStates) DecodeToHL(enc nbt.EncoderHighLevel) error {
 	return decoder_bedrock_block_props.Decode(s, enc, true)
