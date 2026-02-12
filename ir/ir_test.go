@@ -261,6 +261,69 @@ func TestIRStatesDelete(t *testing.T) {
 	}
 }
 
+func TestIRStatesCastToString(t *testing.T) {
+	cases := []struct {
+		in   IRStates
+		want IRStates
+	}{
+		{
+			in:   `["n"=123,"t"=true,"f"=false,"s"="x\\\"y"]`,
+			want: `["f"="0","n"="123","s"="x\\\"y","t"="1"]`,
+		},
+		{
+			in:   `[]`,
+			want: `[]`,
+		},
+		{
+			in:   `bad`,
+			want: `bad`,
+		},
+	}
+
+	for _, c := range cases {
+		if got := c.in.CastToString(); got != c.want {
+			t.Fatalf("CastToString(%q) = %q, want %q", c.in, got, c.want)
+		}
+	}
+}
+
+func TestIRStatesFuzzyCompare(t *testing.T) {
+	t.Run("exactly same", func(t *testing.T) {
+		s := IRStates(`["a"=1,"b"=true]`)
+		got := s.FuzzyCompare(s)
+		if !got.ExactlySame {
+			t.Fatalf("ExactlySame = false, want true")
+		}
+		if got.Same != 0 || got.Different != 0 || got.Missing != 0 || got.Extra != 0 {
+			t.Fatalf("unexpected non-zero counters: %#v", got)
+		}
+	})
+
+	t.Run("same after cast", func(t *testing.T) {
+		s1 := IRStates(`["a"=1,"b"=true,"c"="x"]`)
+		s2 := IRStates(`["a"="1","b"="1","c"="x"]`)
+		got := s1.FuzzyCompare(s2)
+		if got.ExactlySame {
+			t.Fatalf("ExactlySame = true, want false")
+		}
+		if got.Same != 3 || got.Different != 0 || got.Missing != 0 || got.Extra != 0 {
+			t.Fatalf("FuzzyCompare result mismatch: %#v", got)
+		}
+	})
+
+	t.Run("different missing extra", func(t *testing.T) {
+		s1 := IRStates(`["a"=1,"b"=true,"c"=3]`)
+		s2 := IRStates(`["a"="1","b"="0","d"="3"]`)
+		got := s1.FuzzyCompare(s2)
+		if got.ExactlySame {
+			t.Fatalf("ExactlySame = true, want false")
+		}
+		if got.Same != 1 || got.Different != 1 || got.Missing != 1 || got.Extra != 1 {
+			t.Fatalf("FuzzyCompare result mismatch: %#v", got)
+		}
+	})
+}
+
 func TestIRBlockIsTidy(t *testing.T) {
 	cases := []struct {
 		in   IRBlock

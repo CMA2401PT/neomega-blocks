@@ -147,8 +147,11 @@ func (b IRBlock) IsValid() bool {
 }
 
 func (b IRBlock) Hash() uint32 {
+	if b.NameWithNameSpace() == "minecraft:unknown" {
+		return ^uint32(1)
+	}
 	enc := encoder_block_hash.NewEncoder()
-	b.DecodeToLL(enc)
+	decodeToHL(b, decoder_shim.NewDecoderShim(enc))
 	return enc.Hash()
 }
 
@@ -184,6 +187,36 @@ func (s IRStates) Set(key string, value any) IRStates {
 
 func (s IRStates) Delete(key string) IRStates {
 	return IRStates(ir_states.Delete(string(s), key))
+}
+
+// 将所有的 value 全部转为 string 类型，
+// 若原本为 true/false 则转为 "0"/"1"
+// 若原本为 int，则转为 类似 "123" 的形式
+func (s IRStates) CastToString() IRStates {
+	return IRStates(ir_states.CastToString(string(s)))
+}
+
+type CompareResult struct {
+	// 若两个 states 完全相同，返回这个
+	ExactlySame bool
+	// 相同（value 映射为String之后）的属性个数
+	Same int
+	// 都存在且不同的属性个数
+	Different int
+	// s1 缺失的属性个数(s2存在)
+	Missing int
+	// s1 多余的属性个数(s2不存在)
+	Extra int
+}
+
+func (s1 IRStates) FuzzyCompare(s2 IRStates) CompareResult {
+	if s1 == s2 {
+		return CompareResult{ExactlySame: true}
+	}
+	s1u := s1.CastToString()
+	s2u := s2.CastToString()
+	s, d, m, e := ir_states.FuzzyCompare(string(s1u), string(s2u))
+	return CompareResult{ExactlySame: false, Same: s, Different: d, Missing: m, Extra: e}
 }
 
 // decoders

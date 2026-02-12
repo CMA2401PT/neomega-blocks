@@ -5,7 +5,7 @@ import (
 	nbt "neomega-nbt"
 )
 
-func decodeToHL(b IRBlock, encoder nbt.EncoderHighLevel) (err error) {
+func decodeToHL[E nbt.EncoderHighLevel](b IRBlock, encoder E) (err error) {
 	err = encoder.WriteRootTag("", nbt.ComplexCompound)
 	if err != nil {
 		return err
