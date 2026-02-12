@@ -144,3 +144,29 @@ func TestCompactRadixIter(t *testing.T) {
 		t.Fatalf("Iter should stop when callback returns false, got count=%d", count)
 	}
 }
+
+// Regression: when splitting an internal node, parentOrValue (parent pointer)
+// must be updated, otherwise Rebuild climbs to the wrong ancestor.
+func TestCompactRadixRebuildAfterNestedSplits(t *testing.T) {
+	r := NewCommonCompactRadix[uint32, uint16]()
+	keys := []string{
+		`["direction"=0,"door_hinge_bit"=false,"open_bit"=false,"upper_block_bit"=false]`,
+		`["direction"=1,"door_hinge_bit"=false,"open_bit"=false,"upper_block_bit"=false]`,
+		`["direction"=2,"door_hinge_bit"=false,"open_bit"=false,"upper_block_bit"=false]`,
+		`["direction"=3,"door_hinge_bit"=false,"open_bit"=false,"upper_block_bit"=false]`,
+		`["direction"=0,"door_hinge_bit"=true,"open_bit"=false,"upper_block_bit"=false]`,
+		`["direction"=1,"door_hinge_bit"=true,"open_bit"=false,"upper_block_bit"=false]`,
+		`["direction"=2,"door_hinge_bit"=true,"open_bit"=false,"upper_block_bit"=false]`,
+		`["direction"=3,"door_hinge_bit"=true,"open_bit"=false,"upper_block_bit"=false]`,
+	}
+	idxByKey := map[string]uint16{}
+	for _, k := range keys {
+		idxByKey[k] = r.Set([]byte(k), 0)
+	}
+	for _, k := range keys {
+		got := string(r.Rebuild(idxByKey[k]))
+		if got != k {
+			t.Fatalf("Rebuild(%d) = %q, want %q", idxByKey[k], got, k)
+		}
+	}
+}

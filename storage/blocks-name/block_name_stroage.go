@@ -38,18 +38,18 @@ type BlockNameStorage[EP ~uint8 | ~uint16 | ~uint32] struct {
 	// BlocksByIdx 用于从 RebuildIdx 反向构建 IRBlock
 	BlocksByIdx map[uint16]*compact_radix.CompactRadix[EP, uint16, *compact_radix.ByteEdgeLookup[EP]]
 	// 用于将 BlockHash 转换为 RebuildIdx
-	NumLookup      *num_lookup.TwoLayerNumMap[BlockHash, RebuildIdx]
-	debugNumLookup map[BlockHash]RebuildIdx
+	NumLookup *num_lookup.TwoLayerNumMap[BlockHash, RebuildIdx]
+	// debugNumLookup map[BlockHash]RebuildIdx
 }
 
 func NewBlockNameStorage[EP ~uint8 | ~uint16 | ~uint32]() *BlockNameStorage[EP] {
 	lookup := compact_radix.NewByteEdgeLookup[EP]()
 	return &BlockNameStorage[EP]{
-		Lookup:         lookup,
-		Blocks:         map[string]blockSet[EP]{},
-		BlocksByIdx:    map[uint16]*compact_radix.CompactRadix[EP, uint16, *compact_radix.ByteEdgeLookup[EP]]{},
-		NumLookup:      num_lookup.NewTwoLayerNumMap[BlockHash, RebuildIdx](),
-		debugNumLookup: make(map[BlockHash]RebuildIdx),
+		Lookup:      lookup,
+		Blocks:      map[string]blockSet[EP]{},
+		BlocksByIdx: map[uint16]*compact_radix.CompactRadix[EP, uint16, *compact_radix.ByteEdgeLookup[EP]]{},
+		NumLookup:   num_lookup.NewTwoLayerNumMap[BlockHash, RebuildIdx](),
+		// debugNumLookup: make(map[BlockHash]RebuildIdx),
 	}
 }
 
@@ -72,7 +72,7 @@ func (s *BlockNameStorage[EP]) Set(blk ir.IRBlock) {
 	stateIdx := set.CompactRadix.Set([]uint8(states), 0)
 	rebuildIdx := RebuildIdx(uint32(set.idx)<<16) | RebuildIdx(stateIdx)
 	s.NumLookup.Set(BlockHash(blk.Hash()), rebuildIdx)
-	s.debugNumLookup[BlockHash(blk.Hash())] = rebuildIdx
+	// s.debugNumLookup[BlockHash(blk.Hash())] = rebuildIdx
 }
 
 func (s *BlockNameStorage[EP]) Get(hash BlockHash) (value ir.IRBlock, found bool) {
@@ -80,9 +80,9 @@ func (s *BlockNameStorage[EP]) Get(hash BlockHash) (value ir.IRBlock, found bool
 	if !ok {
 		return "", false
 	}
-	if s.debugNumLookup[hash] != rebuildIdx {
-		panic("not equal")
-	}
+	// if expect, ok := s.debugNumLookup[hash]; ok && expect != rebuildIdx {
+	// 	panic("not equal")
+	// }
 	name, ok := s.blockNameByIdx(rebuildIdx.BlockNameIdx())
 	if !ok {
 		return "", false
@@ -110,6 +110,7 @@ func (s *BlockNameStorage[EP]) Dump() []uint8 {
 	for name, set := range s.Blocks {
 		namesByIdx[set.idx] = name
 		nodesByIdx[set.idx] = set.DumpNodes()
+		// fmt.Println(name, len(nodesByIdx[set.idx]))
 	}
 	if len(namesByIdx) > int(^uint16(0)) {
 		panic("block name count overflow")

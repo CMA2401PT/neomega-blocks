@@ -12,6 +12,7 @@ import (
 type CompactRadix[EP, NP ~uint8 | ~uint16 | ~uint32, Lookup EdgeLookup[EP]] struct {
 	Lookup Lookup
 	nodes  []node[EP, NP]
+	// debugMap map[NP][]uint8
 }
 
 type CommonCompactRadix[EP, NP ~uint8 | ~uint16 | ~uint32] struct {
@@ -41,10 +42,11 @@ func (r *CompactRadix[EP, NP, Lookup]) DumpNodes() []uint8 {
 		return nil
 	}
 	nodeSize := unsafe.Sizeof(node[EP, NP]{})
-	return unsafe.Slice(
+	out := unsafe.Slice(
 		(*uint8)(unsafe.Pointer(unsafe.SliceData(r.nodes))),
 		len(r.nodes)*int(nodeSize),
 	)
+	return out
 }
 
 func (r *CompactRadix[EP, NP, Lookup]) LoadNodes(data []uint8) {
@@ -95,6 +97,7 @@ func (r *CompactRadix[EP, NP, Lookup]) Set(key []uint8, value NP) (nodeIdx NP) {
 			parentOrValue:  ^NP(0),
 		}
 		r.appendNode(n)
+		// r.debugMap = map[NP][]uint8{}
 	}
 	if len(key) == 0 {
 		// r.nodes[0].hasValue = true
@@ -120,6 +123,7 @@ func (r *CompactRadix[EP, NP, Lookup]) Set(key []uint8, value NP) (nodeIdx NP) {
 			parentNode := r.nodes[parentIdx]
 			parentNode.parentChildXOR = parentNode.parentChildXOR ^ (^NP(0)) ^ thisNode
 			r.nodes[parentIdx] = parentNode
+			// r.debugMap[thisNode] = origKey
 			return thisNode
 		}
 		brotherNodeIdx, nodeIdx, label, ok := r.findEdge(firstSibling, key[0]) // 从这层的第一个节点开始找起
@@ -138,6 +142,11 @@ func (r *CompactRadix[EP, NP, Lookup]) Set(key []uint8, value NP) (nodeIdx NP) {
 			brotherNode := r.nodes[nodeIdx]
 			brotherNode.siblingXOR = (brotherNode.siblingXOR ^ (^NP(0))) ^ thisIdx //令兄节点指向它
 			r.nodes[nodeIdx] = brotherNode
+			// _, ok = r.debugMap[thisIdx]
+			// if ok {
+			// 	panic("should be an exist node")
+			// }
+			// r.debugMap[thisIdx] = origKey
 			return thisIdx
 		}
 		n := r.nodes[nodeIdx]
@@ -152,6 +161,12 @@ func (r *CompactRadix[EP, NP, Lookup]) Set(key []uint8, value NP) (nodeIdx NP) {
 			// n.hasValue = true
 			n.parentOrValue = value
 			r.nodes[nodeIdx] = n
+			// _, ok = r.debugMap[nodeIdx]
+			// if !ok {
+			// 	r.debugMap[nodeIdx] = origKey
+			// } else if !bytes.Equal(r.debugMap[nodeIdx], origKey) {
+			// 	panic("matched node index contains different debug key")
+			// }
 			return nodeIdx
 		case common == len(label):
 			// 前缀匹配了，需要检查这个节点的子节点
@@ -197,9 +212,14 @@ func (r *CompactRadix[EP, NP, Lookup]) Set(key []uint8, value NP) (nodeIdx NP) {
 			}
 
 			// n.firstByte = label[common]
+			oldFirstChild := n.parentChildXOR ^ parentIdx
 			n.start = suffixStart
 			n.end = suffixEnd
 			n.parentChildXOR = (n.parentChildXOR ^ parentIdx) ^ prefixNodeIdx
+			// If n is an internal node, parentOrValue stores parent index and must be rewired.
+			if oldFirstChild != ^NP(0) {
+				n.parentOrValue = prefixNodeIdx
+			}
 			n.siblingXOR = 0
 			r.nodes[nodeIdx] = n
 			parentIdx = prefixNodeIdx
@@ -294,6 +314,9 @@ func (r *CompactRadix[EP, NP, Lookup]) Rebuild(nodeIdx NP) []uint8 {
 	for i, j := 0, len(out)-1; i < j; i, j = i+1, j-1 {
 		out[i], out[j] = out[j], out[i]
 	}
+	// if expect, ok := r.debugMap[nodeIdx]; ok && !bytes.Equal(expect, out) {
+	// 	panic("rebuild error")
+	// }
 	return out
 }
 
