@@ -156,6 +156,58 @@ func TestIRStatesTidy(t *testing.T) {
 	}
 }
 
+func TestIRStatesCanon(t *testing.T) {
+	cases := []struct {
+		name string
+		in   IRStates
+		std  IRStates
+		want IRStates
+	}{
+		{
+			name: "keep overlap add missing remove extra",
+			in:   `["a"=2,"x"=9]`,
+			std:  `["a"=1,"b"=false]`,
+			want: `["a"=2,"b"=false]`,
+		},
+		{
+			name: "fill from std when missing",
+			in:   `[]`,
+			std:  `["b"=false,"a"=1]`,
+			want: `["a"=1,"b"=false]`,
+		},
+		{
+			name: "std empty means remove all",
+			in:   `["a"=1,"b"=2]`,
+			std:  `[]`,
+			want: `[]`,
+		},
+		{
+			name: "accept non tidy order",
+			in:   `["b"=true,"a"=2]`,
+			std:  `["a"=1,"b"=false]`,
+			want: `["a"=2,"b"=true]`,
+		},
+		{
+			name: "invalid states keep original",
+			in:   `bad`,
+			std:  `["a"=1]`,
+			want: `bad`,
+		},
+		{
+			name: "invalid std keep original",
+			in:   `["a"=2]`,
+			std:  `bad`,
+			want: `["a"=2]`,
+		},
+	}
+
+	for _, c := range cases {
+		if got := c.in.Canon(c.std); got != c.want {
+			t.Fatalf("%s: Canon(%q, %q) = %q, want %q", c.name, c.in, c.std, got, c.want)
+		}
+	}
+}
+
 func TestIRStatesIterKeyValueString(t *testing.T) {
 	states := IRStates(`["a"=1,"b"="x\\\"y","c"=true]`)
 	got := ""
