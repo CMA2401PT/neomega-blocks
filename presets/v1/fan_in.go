@@ -5,6 +5,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"neomega-blocks/ir"
+	"neomega-blocks/specific_converts"
 	"neomega-blocks/storage/num_lookup"
 	"strings"
 	"sync"
@@ -42,7 +43,7 @@ func loadJavaFanin() {
 }
 
 // 尝试将一个基岩方块转到 当前版本的方块
-func ConvertBedrockToNEMCBedrock(bedrock ir.IRBlock) (ir.IRBlock, bool) {
+func ConvertFromBedrock(bedrock ir.IRBlock) (ir.IRBlock, bool) {
 	loadBedrockFanin()
 	inHash := bedrock.Hash()
 	// 尝试直接匹配
@@ -98,20 +99,6 @@ func JavaCanon(blk ir.IRBlock) (ir.IRBlock, bool) {
 	return ir.IRBlock(blk.NameWithNameSpace() + " " + string(blk.States().Canon(props))), true
 }
 
-func javaWallRelplacer(key string, value any) (string, any) {
-	if key == "up" {
-		return "wall_post_bit", value == `true`
-	}
-	switch value {
-	case `false`:
-		return "wall_connection_type_" + key, `none`
-	case `true`, `low`:
-		return "wall_connection_type_" + key, `short`
-	default:
-		return "wall_connection_type_" + key, value
-	}
-}
-
 func javaWallDirectConvert(inJava ir.IRBlock) (outBedrock ir.IRBlock, ok bool) {
 	if !strings.HasSuffix(inJava.NameWithNameSpace(), "_wall") {
 		return "", false
@@ -120,7 +107,7 @@ func javaWallDirectConvert(inJava ir.IRBlock) (outBedrock ir.IRBlock, ok bool) {
 	if !ok {
 		return "", false
 	}
-	outStates := inJava.States().Update(javaWallRelplacer)
+	outStates := inJava.States().Update(specific_converts.JavaTobedrockWallRelplacer)
 	bedrockBlock := ir.IRBlock(inJava.NameWithNameSpace() + " " + string(outStates))
 
 	if HasNEMCBlockHash(bedrockBlock.Hash()) {
@@ -129,9 +116,24 @@ func javaWallDirectConvert(inJava ir.IRBlock) (outBedrock ir.IRBlock, ok bool) {
 	return "", false
 }
 
+func javaHangingSignDirectConvert(inJava ir.IRBlock) (outBedrock ir.IRBlock, ok bool) {
+	out, ok := specific_converts.JavaToBedrockHangingSign(inJava)
+	if !ok {
+		return "", false
+	}
+	if HasNEMCBlockHash(out.Hash()) {
+		return out, ok
+	}
+	return "", false
+}
+
 // 尝试将一个 Java 方块转到 当前版本的方块
-func ConvertJavaToNEMCBedrock(javaBlock ir.IRBlock) (ir.IRBlock, bool) {
+func ConvertFromJava(javaBlock ir.IRBlock) (ir.IRBlock, bool) {
+	// 特殊情况直接硬编码转换方式
 	if outBedrock, ok := javaWallDirectConvert(javaBlock); ok {
+		return outBedrock, true
+	}
+	if outBedrock, ok := javaHangingSignDirectConvert(javaBlock); ok {
 		return outBedrock, true
 	}
 	loadJavaFanin()

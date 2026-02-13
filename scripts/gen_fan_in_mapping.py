@@ -18,24 +18,28 @@ def prop_value_to_nbt(prop_value:str):
     else:
         return IntTag(int(prop_value))
 
-def iter_props(props:List[Tuple[str,List[str]]]):
+def iter_props(props:List[Tuple[str,List[str]]],defaults:Dict[str,str]):
     props_nbt: List[Tuple[str, List[StringTag | ByteTag | IntTag]]]=[(k,[
         prop_value_to_nbt(v) for v in vs]) 
         for k,vs in props
     ]
+    defaults_nbt={k:prop_value_to_nbt(v) for k,v in defaults.items()}
+    # 第一个返回有缺失的参数，第二个返回缺失值被默认值替代的参数
     def _iter(props_nbt:List[Tuple[str, List[StringTag | ByteTag | IntTag]]])\
-        ->Generator[Dict[str,StringTag | ByteTag | IntTag]]:
+        ->Generator[Tuple[Dict[str,StringTag | ByteTag | IntTag],Dict[str,StringTag | ByteTag | IntTag]]]:
         if len(props_nbt)==0:
-            yield {}
+            yield {},{}
         else:
             this_prop_name,this_prop_values=props_nbt[0]
             other_props=props_nbt[1:]
-            for ps in _iter(other_props):
-                yield ps
+            for ps,ps_with_default in _iter(other_props):
+                ps_with_default[this_prop_name]=defaults_nbt[this_prop_name]
+                yield ps,ps_with_default
             for prop_value in this_prop_values[::-1]:
-                for ps in _iter(other_props):
+                for ps,ps_with_default in _iter(other_props):
                     ps[this_prop_name]=prop_value
-                    yield ps
+                    ps_with_default[this_prop_name]=prop_value
+                    yield ps,ps_with_default
     return _iter(props_nbt)
 
 def block_to_blockstr(block:Block)->str:
@@ -56,54 +60,54 @@ def block_to_blockstr(block:Block)->str:
             return prop.to_snbt()
     prop_strings=[f'"{k}"={cast_prop(v)}' for k,v in props.items()]
     return f"{name} [{','.join(prop_strings)}]"
-def all_blocks(platform_name:str,version:Tuple[int,...]):
+
+def all_blocks(platform_name:str,version:Tuple[int,...],allow_missing:bool=True):
     exist:Set[str]=set()
     version_data=translations.get_version(platform_name,version)
     block_translator=version_data.block
-    def iter_blocks()->Generator[Block]:
+    def iter_blocks()->Generator[Tuple[Block,Block]]:
         block_names=block_translator.base_names("minecraft",force_blockstate=True)
         for block_name in block_names:
             block_specification = block_translator.get_specification(
                 "minecraft", block_name, force_blockstate=True
             )
             properties: Dict[str, List[str]] = cast(Dict[str,List[str]],block_specification.get("properties", {}))
-            # defaults: Dict[str, str]=cast(Dict[str,str],block_specification.get("defaults",{}))
-            for props in iter_props(list(properties.items())):
+            defaults: Dict[str, str]=cast(Dict[str,str],block_specification.get("defaults",{}))
+            for props,props_with_default in iter_props(list(properties.items()),defaults=defaults):
                 block:Block=cast(Block,Block("minecraft",block_name,props))
+                block_with_default:Block=cast(Block,Block("minecraft",block_name,props_with_default))
                 block_str=block_to_blockstr(block)
                 # block_str:str=cast(str,block.snbt_blockstate)
                 if block_str in exist:
                     continue
                 exist.add(block_str)
-                yield block
+                yield block,block_with_default
     return block_translator,iter_blocks()
 
-exist:Set[str]=set()
-def gen_fan_in(output_file:str,platform:str,output_translator:PyMCTranslate.BlockTranslator):
+
+def gen_fan_in(output_file:str,platform:str,output_translator:PyMCTranslate.BlockTranslator,allow_missing:bool=True):
+    exist:Set[str]=set()
     with open(output_file,"w") as f:
         for version_number in translations.version_numbers(platform)[::-1]:
             # for blocks like stone, hanging sign, newer version could have more correct mapping than older version
             print(version_number)
-            translater,block_iter=all_blocks(platform,version_number)
-            for block in block_iter:
+            translater,block_iter=all_blocks(platform,version_number,allow_missing)
+            for block,block_with_default in block_iter:
                 blk_str:str=block_to_blockstr(block)
                 if blk_str in exist:
                     continue
                 exist.add(blk_str)
-                uni_block=translater.to_universal(block)[0]
+                uni_block=translater.to_universal(block_with_default)[0]
                 out_block=output_translator.from_universal(uni_block)[0]
                 out_str=block_to_blockstr(out_block)
-                if out_str==blk_str:
-                    continue
                 f.write(f"{blk_str}#{out_str}\n")
+
 platform="bedrock"
 output_file=f"fan_in_{platform}.mapping"
 output_translator: PyMCTranslate.BlockTranslator=translations.get_version("bedrock",(1,21,50)).block
-
-gen_fan_in(output_file,platform,output_translator)
+gen_fan_in(output_file,platform,output_translator,allow_missing=False)
 
 platform="java"
 output_file=f"fan_in_{platform}.mapping"
 output_translator: PyMCTranslate.BlockTranslator=translations.get_version("bedrock",(1,21,50)).block
-
-gen_fan_in(output_file,platform,output_translator)
+gen_fan_in(output_file,platform,output_translator,allow_missing=False)

@@ -77,12 +77,16 @@ func ReadBlocks(path string) []Block {
 				panic(fmt.Errorf("unsupported state type %q for block %q key %q", s.Type, b.Name, s.Name))
 			}
 		}
+		irB := ir.IRBlock(b.Name + " " + string(states))
+		if irB.Hash() != b.NetworkID {
+			panic(fmt.Errorf("hash of %v mismatch %v!=%v", irB, irB.Hash(), b.NetworkID))
+		}
 		out = append(out, Block{
 			BlockID:   b.BlockID,
 			Data:      b.Data,
 			NameHash:  b.NameHash,
 			NetworkID: b.NetworkID,
-			IRBlock:   ir.IRBlock(b.Name + " " + string(states)),
+			IRBlock:   irB,
 		})
 	}
 	return out

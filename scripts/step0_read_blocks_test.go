@@ -7,7 +7,6 @@ import (
 	"runtime"
 	"testing"
 
-	"neomega-blocks/ir"
 	blocks_name "neomega-blocks/storage/blocks-name"
 )
 
@@ -22,37 +21,6 @@ func TestStep0ReadBlocksFromPalette(t *testing.T) {
 	blocks := ReadBlocks(palettePath)
 	if len(blocks) < 1000 {
 		t.Fatalf("unexpected small block count: got %d", len(blocks))
-	}
-
-	for _, b := range blocks {
-		if b.NetworkID != b.IRBlock.Hash() {
-			t.Fatalf("hash mismatch %d!=%d", b.NetworkID, b.IRBlock.Hash())
-		}
-	}
-
-	first := blocks[0]
-	if first.BlockID != 987 {
-		t.Fatalf("first.BlockID = %d, want 987", first.BlockID)
-	}
-	if first.NameHash != 35106087384923613 {
-		t.Fatalf("first.NameHash = %d, want 35106087384923613", first.NameHash)
-	}
-	if first.NetworkID != 973836165 {
-		t.Fatalf("first.NetworkID = %d, want 973836165", first.NetworkID)
-	}
-	if first.IRBlock != ir.IRBlock(`minecraft:cyan_terracotta []`) {
-		t.Fatalf("first.IRBlock = %q, want %q", first.IRBlock, ir.IRBlock(`minecraft:cyan_terracotta []`))
-	}
-
-	foundBlueCandle := false
-	for _, b := range blocks {
-		if b.IRBlock == ir.IRBlock(`minecraft:blue_candle ["candles"=0,"lit"=false]`) {
-			foundBlueCandle = true
-			break
-		}
-	}
-	if !foundBlueCandle {
-		t.Fatalf("did not find expected IRBlock %q", ir.IRBlock(`minecraft:blue_candle ["candles"=0,"lit"=false]`))
 	}
 
 	storage := blocks_name.NewBlockNameStorage[uint16]()

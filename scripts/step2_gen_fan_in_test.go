@@ -7,6 +7,7 @@ import (
 	"fmt"
 	"neomega-blocks/ir"
 	presets "neomega-blocks/presets/v1"
+	"neomega-blocks/specific_converts"
 	"neomega-blocks/storage/num_lookup"
 	"os"
 	"path/filepath"
@@ -47,16 +48,265 @@ func LoadMappingPairs(file string) []MappingPair {
 	return pairs
 }
 
+func outputFix(in ir.IRBlock) ir.IRBlock {
+	var err error
+	var outBlock ir.IRBlock
+	switch in.ShortName() {
+	case "stone_slab", "stone_slab2", "stone_slab3", "stone_slab4", "wooden_slab":
+		in = ir.IRBlock(fmt.Sprintf("%v %v", in.NameWithNameSpace(), in.States().Update(func(s string, a any) (string, any) {
+			if s == "stone_slab_type" {
+				s = "material"
+			}
+			if s == "material" && a == "stone" {
+				return "material", "stone_brick"
+			}
+			return s, a
+		})))
+		material, ok := in.States().Get("material")
+		if ok {
+			outBlock, err = ir.NewIRBlockFromGo(
+				fmt.Sprintf("minecraft:%v_slab", material),
+				map[string]any{"minecraft:vertical_half": in.States().GetDefault("type", "bottom")},
+			)
+		}
+	case "carpet":
+		outBlock, err = ir.NewIRBlockFromGo(
+			fmt.Sprintf("minecraft:%v_carpet", in.States().GetDefault("color", "")),
+			nil,
+		)
+	case "double_wooden_slab", "double_stone_slab", "double_stone_slab2", "double_stone_slab3", "double_stone_slab4":
+		in = ir.IRBlock(fmt.Sprintf("%v %v", in.NameWithNameSpace(), in.States().Update(func(s string, a any) (string, any) {
+			if s == "material" {
+				switch a {
+				case "stone":
+					return "material", "stone_brick"
+				case "smooth_stone_block":
+					return "material", "smooth_stone"
+				default:
+					return s, a
+				}
+
+			}
+			return s, a
+		})))
+		outBlock, err = ir.NewIRBlockFromGo(
+			fmt.Sprintf("minecraft:%v_double_slab", in.States().GetDefault("material", "")),
+			nil,
+		)
+
+	case "stained_glass":
+		outBlock, err = ir.NewIRBlockFromGo(
+			fmt.Sprintf("minecraft:%v_stained_glass", in.States().GetDefault("color", "")),
+			nil,
+		)
+	case "stained_glass_pane":
+		outBlock, err = ir.NewIRBlockFromGo(
+			fmt.Sprintf("minecraft:%v_stained_glass_pane", in.States().GetDefault("color", "")),
+			nil,
+		)
+	case "stained_hardened_clay":
+		outBlock, err = ir.NewIRBlockFromGo(
+			fmt.Sprintf("minecraft:%v_terracotta", in.States().GetDefault("color", "")),
+			nil,
+		)
+	case "leaves", "leaves2":
+		outBlock, err = ir.NewIRBlockFromGo(
+			fmt.Sprintf("minecraft:%v_leaves", in.States().GetDefault("material", "")),
+			nil,
+		)
+	case "planks":
+		outBlock, err = ir.NewIRBlockFromGo(
+			fmt.Sprintf("minecraft:%v_planks", in.States().GetDefault("material", "")),
+			nil,
+		)
+	case "log", "log2":
+		outBlock, err = ir.NewIRBlockFromGo(
+			fmt.Sprintf("minecraft:%v_log", in.States().GetDefault("material", "")),
+			nil,
+		)
+	case "fence":
+		outBlock, err = ir.NewIRBlockFromGo(
+			fmt.Sprintf("minecraft:%v_fence", in.States().GetDefault("material", "oak")),
+			nil,
+		)
+	case "stonebrick":
+		outBlock, err = ir.NewIRBlockFromGo(
+			fmt.Sprintf("minecraft:%v_stone_bricks", in.States().GetDefault("variant", "")),
+			nil,
+		)
+		if outBlock == "minecraft:normal_stone_bricks []" {
+			outBlock = ir.IRBlock("minecraft:stone_bricks []")
+		}
+	case "yellow_flower":
+		outBlock = ir.IRBlock("minecraft:dandelion []")
+	case "shulker_box":
+		outBlock, err = ir.NewIRBlockFromGo(
+			fmt.Sprintf("minecraft:%v_shulker_box", in.States().GetDefault("color", "")),
+			nil,
+		)
+	case "silver_shulker_box":
+		outBlock = ir.IRBlock("minecraft:light_gray_shulker_box []")
+	case "coral_fan_hang", "coral_fan_hang2", "coral_fan_hang3":
+		if in.States().GetDefault("dead", "false") == "false" {
+			outBlock, err = ir.NewIRBlockFromGo(
+				fmt.Sprintf("minecraft:%v_coral_fan", in.States().GetDefault("coral_type", "")),
+				nil,
+			)
+		} else {
+			outBlock, err = ir.NewIRBlockFromGo(
+				fmt.Sprintf("minecraft:dead_%v_coral_fan", in.States().GetDefault("coral_type", "")),
+				nil,
+			)
+		}
+	case "coral_fan":
+		outBlock, err = ir.NewIRBlockFromGo(
+			fmt.Sprintf("minecraft:%v_coral_fan", in.States().GetDefault("coral_type", "")),
+			nil,
+		)
+	case "coral_fan_dead":
+		outBlock, err = ir.NewIRBlockFromGo(
+			fmt.Sprintf("minecraft:dead_%v_coral_fan", in.States().GetDefault("coral_type", "")),
+			nil,
+		)
+	case "coral":
+		outBlock, err = ir.NewIRBlockFromGo(
+			fmt.Sprintf("minecraft:%v_coral", in.States().GetDefault("coral_type", "")),
+			nil,
+		)
+	case "coral_block":
+		if in.States().GetDefault("dead", "false") == "false" {
+			outBlock, err = ir.NewIRBlockFromGo(
+				fmt.Sprintf("minecraft:%v_coral_block", in.States().GetDefault("coral_type", "")),
+				nil,
+			)
+		} else {
+			outBlock, err = ir.NewIRBlockFromGo(
+				fmt.Sprintf("minecraft:dead_%v_coral_block", in.States().GetDefault("coral_type", "")),
+				nil,
+			)
+		}
+	case "wool":
+		outBlock, err = ir.NewIRBlockFromGo(
+			fmt.Sprintf("minecraft:%v_wool", in.States().GetDefault("color", "")),
+			nil,
+		)
+
+	case "concretePowder":
+		outBlock, err = ir.NewIRBlockFromGo(
+			fmt.Sprintf("minecraft:%v_concrete_powder", in.States().GetDefault("color", "")),
+			nil,
+		)
+	case "concrete_powder":
+		outBlock, err = ir.NewIRBlockFromGo(
+			fmt.Sprintf("minecraft:%v_concrete_powder", in.States().GetDefault("color", "")),
+			nil,
+		)
+	case "concrete":
+		outBlock, err = ir.NewIRBlockFromGo(
+			fmt.Sprintf("minecraft:%v_concrete", in.States().GetDefault("color", "")),
+			nil,
+		)
+	case "tallgrass":
+		if in.States().GetDefault("plant_type", "") == "grass" {
+			outBlock, err = ir.NewIRBlockFromGo(
+				"minecraft:tall_grass",
+				map[string]any{},
+			)
+		} else {
+			outBlock, err = ir.NewIRBlockFromGo(
+				"minecraft:large_fern",
+				map[string]any{},
+			)
+		}
+	case "skull":
+		outBlock, err = ir.NewIRBlockFromGo(
+			"minecraft:skeleton_skull",
+			nil,
+		)
+	case "double_plant", "red_flower":
+		outBlock, err = ir.NewIRBlockFromGo(
+			fmt.Sprintf("minecraft:%v", in.States().GetDefault("plant_type", "")),
+			nil,
+		)
+	case "monster_egg":
+		outBlock, err = ir.NewIRBlockFromGo(
+			fmt.Sprintf("minecraft:infested_%v", in.States().GetDefault("material", "")),
+			nil,
+		)
+	case "bell":
+		in = ir.IRBlock(fmt.Sprintf("%v %v", in.NameWithNameSpace(), in.States().Update(func(s string, a any) (string, any) {
+			if s == "attachment" {
+				switch a {
+				case "double_wall":
+					return s, "multiple"
+				case "single_wall":
+					return s, "side"
+				case "ceiling":
+					return s, "hanging"
+				case "floor":
+					return s, "standing"
+				}
+
+			}
+			return s, a
+		})))
+	case "tripWire":
+		outBlock = ir.IRBlock(fmt.Sprintf("minecraft:trip_wire %v", in.States()))
+	case "tripwire":
+		outBlock = ir.IRBlock(fmt.Sprintf("minecraft:trip_wire %v", in.States()))
+	case "piston_extension":
+		outBlock = ir.IRBlock(fmt.Sprintf("minecraft:air %v", in.States()))
+	case "pistonArmCollision":
+		outBlock = ir.IRBlock(fmt.Sprintf("minecraft:piston_arm_collision %v", in.States().Update(func(s string, a any) (string, any) {
+			if s == "facing" {
+				switch a {
+				case "east":
+					return "facing_direction", int32(5)
+				case "west":
+					return "facing_direction", int32(4)
+				case "south":
+					return "facing_direction", int32(3)
+				case "north":
+					return "facing_direction", int32(2)
+				case "up":
+					return "facing_direction", int32(1)
+				case "down":
+					return "facing_direction", int32(0)
+				}
+			}
+			return s, a
+		})))
+	}
+	if err != nil {
+		panic(err)
+	}
+	if outBlock != "" {
+		return outBlock
+	}
+	return in
+}
+
 // 从 fan_in_bedrock.mapping 中读取所有基岩版方块映射的状态，并保存到 2_bedrock_fan_in.json
 func TestStep2_1_GenBedrockFanin(t *testing.T) {
 	pairs := LoadMappingPairs("fan_in_bedrock.mapping")
 	tidyPairs := []MappingPair{}
 	ignorePairs := 0
 	nonsensePairs := 0
+	for i, p := range pairs {
+		cannonOut, ok := presets.NEMCBedrockCanon(outputFix(p.Out))
+		if !ok {
+			t.Errorf("output %v not in NEMC block space", p.Out.String())
+		}
+		_, ok = presets.NEMCBedrockHashToBlockStrict(cannonOut.Hash())
+		if !ok {
+			t.Errorf("output %v not in NEMC block space: hash=%v", p.Out.String(), p.Out.Hash())
+		}
+		pairs[i].Out = cannonOut
+	}
 	for _, p := range pairs {
 		_, ok := presets.NEMCBedrockHashToBlockStrict(p.Out.Hash())
 		if !ok {
-			t.Fatalf("output %v not in NEMC block space", p.Out.String())
+			t.Fatalf("output %v not in NEMC block space: hash=%v", p.Out.String(), p.Out.Hash())
 		}
 		cannonIn, _ := presets.NEMCBedrockCanon(p.In)
 		_, ok = presets.NEMCBedrockHashToBlockStrict(cannonIn.Hash())
@@ -187,21 +437,7 @@ func TestStep2_2_GenJavaDefaultPropFanin(t *testing.T) {
 	}
 }
 
-func javaWallRelplacer(key string, value any) (string, any) {
-	if key == "up" {
-		return "wall_post_bit", value == `true`
-	}
-	switch value {
-	case `false`:
-		return "wall_connection_type_" + key, `none`
-	case `true`, `low`:
-		return "wall_connection_type_" + key, `short`
-	default:
-		return "wall_connection_type_" + key, value
-	}
-}
-
-func javaWallDirectConvert(inJava ir.IRBlock, expect ir.IRBlock) (outBedrock ir.IRBlock, ok bool) {
+func javaWallDirectConvert(inJava ir.IRBlock) (outBedrock ir.IRBlock, ok bool) {
 	if !strings.HasSuffix(inJava.NameWithNameSpace(), "_wall") {
 		return "", false
 	}
@@ -209,14 +445,30 @@ func javaWallDirectConvert(inJava ir.IRBlock, expect ir.IRBlock) (outBedrock ir.
 	if !ok {
 		return "", false
 	}
-	outStates := inJava.States().Update(javaWallRelplacer)
+	outStates := inJava.States().Update(specific_converts.JavaTobedrockWallRelplacer)
 	bedrockBlock := ir.IRBlock(inJava.NameWithNameSpace() + " " + string(outStates))
 
 	if presets.HasNEMCBlockHash(bedrockBlock.Hash()) {
 		return bedrockBlock, ok
 	}
-	fmt.Println(bedrockBlock)
-	fmt.Println(expect)
+	fmt.Println(inJava)
+	// fmt.Println(expect)
+	return "", false
+}
+
+func javaHangingSignDirectConvert(inJava ir.IRBlock) (outBedrock ir.IRBlock, ok bool) {
+	out, ok := specific_converts.JavaToBedrockHangingSign(inJava)
+	if !ok {
+		return "", false
+	}
+	// bedrockBlock, ok := presets.NEMCBedrockCanon(out)
+	// if !ok {
+	// 	return "", false
+	// }
+	if presets.HasNEMCBlockHash(out.Hash()) {
+		return out, ok
+	}
+	fmt.Println(inJava)
 	return "", false
 }
 
@@ -225,14 +477,27 @@ func TestStep2_3_GenJavaFanin(t *testing.T) {
 	pairs := LoadMappingPairs("fan_in_java.mapping")
 	fullPairs := map[ir.IRBlock]ir.IRBlock{}
 	tidyPairs := []MappingPair{}
-	directConvert := 0
+
+	for i, p := range pairs {
+		cannonOut, ok := presets.NEMCBedrockCanon(outputFix(p.Out))
+		if !ok {
+			t.Errorf("output %v not in NEMC block space", p.Out.String())
+		}
+		_, ok = presets.NEMCBedrockHashToBlockStrict(cannonOut.Hash())
+		if !ok {
+			t.Errorf("output %v not in NEMC block space: hash=%v", p.Out.String(), p.Out.Hash())
+		}
+		pairs[i].Out = cannonOut
+	}
 	for _, p := range pairs {
 		_, ok := presets.NEMCBedrockHashToBlockStrict(p.Out.Hash())
 		if !ok {
 			t.Fatalf("output %v not in NEMC block space", p.Out.String())
 		}
-		if _, ok := javaWallDirectConvert(p.In, p.Out); ok {
-			directConvert += 1
+		if _, ok := javaWallDirectConvert(p.In); ok {
+			continue
+		}
+		if _, ok := javaHangingSignDirectConvert(p.In); ok {
 			continue
 		}
 		cannonIn, _ := presets.JavaCanon(p.In)
@@ -242,12 +507,15 @@ func TestStep2_3_GenJavaFanin(t *testing.T) {
 			tidyPairs = append(tidyPairs, p)
 		}
 	}
-
+	directConvert := 0
 	ignorePairs := 0
 	nonCannonPairs := 0
 	for _, p := range pairs {
-		if _, ok := javaWallDirectConvert(p.In, p.Out); ok {
+		if _, ok := javaWallDirectConvert(p.In); ok {
 			directConvert += 1
+			continue
+		}
+		if _, ok := javaHangingSignDirectConvert(p.In); ok {
 			continue
 		}
 		cannonIn, ok := presets.JavaCanon(p.In)
