@@ -26,6 +26,7 @@ func TestStep0ReadBlocksFromPalette(t *testing.T) {
 	storage := blocks_name.NewBlockNameStorage[uint16]()
 	for _, b := range blocks {
 		storage.Set(b.IRBlock)
+		storage.SetExtraValue(blocks_name.BlockHash(b.IRBlock.Hash()), uint16(b.Data))
 	}
 
 	for _, b := range blocks {
@@ -48,6 +49,10 @@ func TestStep0ReadBlocksFromPalette(t *testing.T) {
 		}
 		if got != b.IRBlock {
 			t.Fatalf("loaded.Get(%q hash) = %q, want %q", b.IRBlock, got, b.IRBlock)
+		}
+		name, data, ok := loaded.GetExtraValue(blocks_name.BlockHash(b.IRBlock.Hash()))
+		if name != b.IRBlock.NameWithNameSpace() || data != uint16(b.Data) || !ok {
+			t.Fatalf("loaded.Get(%q data) = %q, want %q", b.IRBlock, data, b.Data)
 		}
 	}
 	fmt.Printf("%v MiB\n", float32(len(storage.Dump()))/(1<<20))

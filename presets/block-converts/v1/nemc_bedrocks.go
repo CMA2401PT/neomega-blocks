@@ -2,9 +2,12 @@ package v1
 
 import (
 	_ "embed"
+	"encoding/binary"
 	"encoding/json"
+	"fmt"
 	"neomega-blocks/ir"
 	blocks_name "neomega-blocks/storage/blocks-name"
+	"strings"
 	"sync"
 )
 
@@ -14,10 +17,15 @@ var data0BedrockBlocksBytes []uint8
 //go:embed 1_bedrock_default_props.bin
 var data1BedrockDefaultPropsBytes []uint8
 
+//go:embed 4_block_data.bin
+var data4BlockDataBytes []uint8
+
 var nemcBedrockNameStorage *blocks_name.BlockNameStorage[uint16]
 var nemcBedrockNameStorageLoaded sync.Once
 var nemcBedrockDefaultProps map[string]ir.IRStates
 var nemcBedrockDefaultPropsLoaded sync.Once
+var nemcBedrockDataValueToHash map[string][]uint32
+var nemcBedrockDataValueToHashLoaded sync.Once
 
 //	func GetInstance() *Singleton {
 //		once.Do(func() {
@@ -42,6 +50,16 @@ func loadNemcBedrockDefaultProps() {
 	})
 }
 
+func loadNemcBedrockDataValueToHash() {
+	nemcBedrockDataValueToHashLoaded.Do(func() {
+		loaded, err := loadStep4Storage(data4BlockDataBytes)
+		if err != nil {
+			panic(err)
+		}
+		nemcBedrockDataValueToHash = loaded
+	})
+}
+
 func HasNEMCBlockHash(hash uint32) bool {
 	loadNemcBedrockNameStorage()
 	return nemcBedrockNameStorage.Has(blocks_name.BlockHash(hash))
@@ -51,6 +69,54 @@ func HasNEMCBlockHash(hash uint32) bool {
 func NEMCBedrockHashToBlockStrict(hash uint32) (ir.IRBlock, bool) {
 	loadNemcBedrockNameStorage()
 	return nemcBedrockNameStorage.Get(blocks_name.BlockHash(hash))
+}
+
+// 从 NEMC 的 hash 映射到 数据值
+func NEMCBedrockHashToBlockData(hash uint32) (string, uint16, bool) {
+	loadNemcBedrockNameStorage()
+	return nemcBedrockNameStorage.GetExtraValue(blocks_name.BlockHash(hash))
+}
+
+// BedrockDataValueToHash 将 legacy data value 映射到 hash。
+// name 若缺少 namespace 会自动加上 "minecraft:" 前缀。
+// 当 value 越界或该位置 hash 为 0 时，返回 (0,false)。
+func BedrockDataValueToHash(name string, value uint32) (hash uint32, ok bool) {
+	if name == "unknown" || name == "minecraft:unknown" {
+		return ^uint32(1), true
+	}
+	if !strings.Contains(name, ":") {
+		name = "minecraft:" + name
+	}
+	loadNemcBedrockDataValueToHash()
+	arr, ok := nemcBedrockDataValueToHash[name]
+	if !ok {
+		return 0, false
+	}
+	if int(value) >= len(arr) {
+		return 0, false
+	}
+	hash = arr[value]
+	if hash == 0 {
+		return 0, false
+	}
+	return hash, true
+}
+
+// BedrockDataValueToBlock 将 legacy data value 映射到 IRBlock
+// name 若缺少 namespace 会自动加上 "minecraft:" 前缀。
+// 当 value 越界或该位置 hash 为 0 时，返回 minecraft:unknown [] false
+func BedrockDataValueToBlock(name string, value uint32) (block ir.IRBlock, ok bool) {
+	if name == "unknown" || name == "minecraft:unknown" {
+		return ir.IRBlock("minecraft:unknown []"), true
+	}
+	if !strings.Contains(name, ":") {
+		name = "minecraft:" + name
+	}
+	hash, ok := BedrockDataValueToHash(name, value)
+	if !ok {
+		return ir.IRBlock("minecraft:unknown []"), false
+	}
+	return NEMCBedrockHashToBlockStrict(hash)
 }
 
 // 通过方块名（含命名空间）获取默认属性。
@@ -69,4 +135,49 @@ func NEMCBedrockCanon(blk ir.IRBlock) (ir.IRBlock, bool) {
 		return blk, false
 	}
 	return ir.IRBlock(blk.NameWithNameSpace() + " " + string(blk.States().Canon(props))), true
+}
+
+func loadStep4Storage(data []byte) (map[string][]uint32, error) {
+	if len(data) < 8 {
+		return nil, fmt.Errorf("invalid step4 storage: too short")
+	}
+	if string(data[:4]) != "BDS1" {
+		return nil, fmt.Errorf("invalid step4 storage: bad magic")
+	}
+	off := 4
+	count := int(binary.LittleEndian.Uint32(data[off : off+4]))
+	off += 4
+
+	out := make(map[string][]uint32, count)
+	for i := 0; i < count; i++ {
+		if off+4 > len(data) {
+			return nil, fmt.Errorf("invalid step4 storage: missing key length")
+		}
+		keyLen := int(binary.LittleEndian.Uint32(data[off : off+4]))
+		off += 4
+		if keyLen < 0 || off+keyLen > len(data) {
+			return nil, fmt.Errorf("invalid step4 storage: bad key length")
+		}
+		key := string(data[off : off+keyLen])
+		off += keyLen
+
+		if off+4 > len(data) {
+			return nil, fmt.Errorf("invalid step4 storage: missing array length")
+		}
+		arrLen := int(binary.LittleEndian.Uint32(data[off : off+4]))
+		off += 4
+		if arrLen < 0 || off+arrLen*4 > len(data) {
+			return nil, fmt.Errorf("invalid step4 storage: bad array length")
+		}
+		arr := make([]uint32, arrLen)
+		for j := 0; j < arrLen; j++ {
+			arr[j] = binary.LittleEndian.Uint32(data[off : off+4])
+			off += 4
+		}
+		out[key] = arr
+	}
+	if off != len(data) {
+		return nil, fmt.Errorf("invalid step4 storage: trailing bytes")
+	}
+	return out, nil
 }

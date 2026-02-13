@@ -79,6 +79,32 @@ func (s *BlockNameStorage[EP]) Set(blk ir.IRBlock) {
 	s.SetWithSpecificHash(blk, BlockHash(blk.Hash()))
 }
 
+// 向一个已经存在的方块注入额外的数据值，默认情况下为零，如果不存在则会导致 panic
+func (s *BlockNameStorage[EP]) SetExtraValue(hash BlockHash, extraValue uint16) {
+	rebuildIdx, ok := s.NumLookup.Get(hash)
+	if !ok {
+		panic(fmt.Errorf("block hash %v not exist", hash))
+	}
+	set := s.BlocksByIdx[rebuildIdx.BlockNameIdx()]
+	if set == nil {
+		panic(fmt.Errorf("block hash %v not exist", hash))
+	}
+	set.SetByIdx(rebuildIdx.StatesIdx(), extraValue)
+}
+
+func (s *BlockNameStorage[EP]) GetExtraValue(hash BlockHash) (string, uint16, bool) {
+	rebuildIdx, ok := s.NumLookup.Get(hash)
+	if !ok {
+		return "", 0, false
+	}
+	set := s.BlocksByIdx[rebuildIdx.BlockNameIdx()]
+	if set == nil {
+		return "", 0, false
+	}
+	name, _ := s.blockNameByIdx(rebuildIdx.BlockNameIdx())
+	return name, set.GetByIdx(rebuildIdx.StatesIdx()), true
+}
+
 func (s *BlockNameStorage[EP]) Has(hash BlockHash) bool {
 	_, ok := s.NumLookup.Get(hash)
 	return ok

@@ -36,6 +36,41 @@ func TestNEMCBedrockNameToDefaultProps(t *testing.T) {
 	}
 }
 
+func TestBedrockDataValueToHash(t *testing.T) {
+	hash, ok := BedrockDataValueToHash("air", 0)
+	if !ok {
+		t.Fatal("air data=0 should be found")
+	}
+	if hash != 3690217760 {
+		t.Fatalf("air data=0 hash=%d, want 3690217760", hash)
+	}
+
+	hash, ok = BedrockDataValueToHash("minecraft:air", 9999)
+	if ok || hash != 0 {
+		t.Fatalf("air data out of range should be (0,false), got (%d,%v)", hash, ok)
+	}
+
+	hash, ok = BedrockDataValueToHash("polished_blackstone_button", 6)
+	if ok || hash != 0 {
+		t.Fatalf("hole data should be (0,false), got (%d,%v)", hash, ok)
+	}
+
+	hash, ok = BedrockDataValueToHash("birch_standing_sign", 2)
+	if hash != 1099896350 {
+		t.Fatalf("should be 1099896350, got (%d,%v)", hash, ok)
+	}
+
+	blk, ok := BedrockDataValueToBlock("birch_standing_sign", 2)
+	if blk.String() != `minecraft:birch_standing_sign ["ground_sign_direction"=2]` {
+		t.Fatalf("got (%v,%v)", blk, ok)
+	}
+
+	name, data, ok := NEMCBedrockHashToBlockData(ir.IRBlock(`minecraft:birch_standing_sign ["ground_sign_direction"=2]`).Hash())
+	if name != `minecraft:birch_standing_sign` || data != 2 || !ok {
+		t.FailNow()
+	}
+}
+
 func TestNEMCBedrockCanon(t *testing.T) {
 	blk := ir.IRBlock(`minecraft:bed ["occupied_bit"=true,"direction"=3,"extraKey"="???"]`)
 	out, _ := NEMCBedrockCanon(blk)

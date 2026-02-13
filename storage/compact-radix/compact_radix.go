@@ -295,6 +295,13 @@ func (r *CompactRadix[EP, NP, Lookup]) Get(key []uint8) (value NP, found bool) {
 	}
 }
 
+func (r *CompactRadix[EP, NP, Lookup]) SetByIdx(nodeIdx NP, value NP) {
+	r.nodes[nodeIdx].parentOrValue = value
+}
+
+func (r *CompactRadix[EP, NP, Lookup]) GetByIdx(nodeIdx NP) NP {
+	return r.nodes[nodeIdx].parentOrValue
+}
 func (r *CompactRadix[EP, NP, Lookup]) Rebuild(nodeIdx NP) []uint8 {
 	// 从 nodeIdx 重新构建整个key(path)
 	out := make([]uint8, 0)
