@@ -26,7 +26,7 @@ func bedrockWallDirectConvert(inBedrock ir.IRBlock) (outJava ir.IRBlock, ok bool
 	if !strings.HasSuffix(inBedrock.NameWithNameSpace(), "_wall") {
 		return "", false
 	}
-	inBedrock, ok = NEMCBedrockCanon(inBedrock)
+	inBedrock, ok = BedrockCanon(inBedrock)
 	if !ok {
 		return "", false
 	}
@@ -49,7 +49,7 @@ func ConvertToJava(bedrock ir.IRBlock) (javaBlock ir.IRBlock, ok bool) {
 	if javaBlock, ok = bedrockHangingSignDirectConvert(bedrock); ok {
 		return javaBlock, true
 	}
-	bedrock, ok = NEMCBedrockCanon(bedrock)
+	bedrock, ok = BedrockCanon(bedrock)
 	if !ok {
 		return "", false
 	}

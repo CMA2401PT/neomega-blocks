@@ -293,23 +293,23 @@ func TestStep2_1_GenBedrockFanin(t *testing.T) {
 	ignorePairs := 0
 	nonsensePairs := 0
 	for i, p := range pairs {
-		cannonOut, ok := presets.NEMCBedrockCanon(outputFix(p.Out))
+		cannonOut, ok := presets.BedrockCanon(outputFix(p.Out))
 		if !ok {
 			t.Errorf("output %v not in NEMC block space", p.Out.String())
 		}
-		_, ok = presets.NEMCBedrockHashToBlockStrict(cannonOut.Hash())
+		_, ok = presets.BedrockHashToBlockStrict(cannonOut.Hash())
 		if !ok {
 			t.Errorf("output %v not in NEMC block space: hash=%v", p.Out.String(), p.Out.Hash())
 		}
 		pairs[i].Out = cannonOut
 	}
 	for _, p := range pairs {
-		_, ok := presets.NEMCBedrockHashToBlockStrict(p.Out.Hash())
+		_, ok := presets.BedrockHashToBlockStrict(p.Out.Hash())
 		if !ok {
 			t.Fatalf("output %v not in NEMC block space: hash=%v", p.Out.String(), p.Out.Hash())
 		}
-		cannonIn, _ := presets.NEMCBedrockCanon(p.In)
-		_, ok = presets.NEMCBedrockHashToBlockStrict(cannonIn.Hash())
+		cannonIn, _ := presets.BedrockCanon(p.In)
+		_, ok = presets.BedrockHashToBlockStrict(cannonIn.Hash())
 		if !ok {
 			if p.In.NameWithNameSpace() == p.Out.NameWithNameSpace() {
 				ret := p.In.States().FuzzyCompare(p.Out.States())
@@ -448,7 +448,7 @@ func javaWallDirectConvert(inJava ir.IRBlock) (outBedrock ir.IRBlock, ok bool) {
 	outStates := inJava.States().Update(specific_converts.JavaTobedrockWallRelplacer)
 	bedrockBlock := ir.IRBlock(inJava.NameWithNameSpace() + " " + string(outStates))
 
-	if presets.HasNEMCBlockHash(bedrockBlock.Hash()) {
+	if presets.HasBedrockBlockHash(bedrockBlock.Hash()) {
 		return bedrockBlock, ok
 	}
 	fmt.Println(inJava)
@@ -465,7 +465,7 @@ func javaHangingSignDirectConvert(inJava ir.IRBlock) (outBedrock ir.IRBlock, ok 
 	// if !ok {
 	// 	return "", false
 	// }
-	if presets.HasNEMCBlockHash(out.Hash()) {
+	if presets.HasBedrockBlockHash(out.Hash()) {
 		return out, ok
 	}
 	fmt.Println(inJava)
@@ -479,18 +479,18 @@ func TestStep2_3_GenJavaFanin(t *testing.T) {
 	tidyPairs := []MappingPair{}
 
 	for i, p := range pairs {
-		cannonOut, ok := presets.NEMCBedrockCanon(outputFix(p.Out))
+		cannonOut, ok := presets.BedrockCanon(outputFix(p.Out))
 		if !ok {
 			t.Errorf("output %v not in NEMC block space", p.Out.String())
 		}
-		_, ok = presets.NEMCBedrockHashToBlockStrict(cannonOut.Hash())
+		_, ok = presets.BedrockHashToBlockStrict(cannonOut.Hash())
 		if !ok {
 			t.Errorf("output %v not in NEMC block space: hash=%v", p.Out.String(), p.Out.Hash())
 		}
 		pairs[i].Out = cannonOut
 	}
 	for _, p := range pairs {
-		_, ok := presets.NEMCBedrockHashToBlockStrict(p.Out.Hash())
+		_, ok := presets.BedrockHashToBlockStrict(p.Out.Hash())
 		if !ok {
 			t.Fatalf("output %v not in NEMC block space", p.Out.String())
 		}

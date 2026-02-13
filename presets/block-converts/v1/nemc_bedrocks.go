@@ -60,19 +60,19 @@ func loadNemcBedrockDataValueToHash() {
 	})
 }
 
-func HasNEMCBlockHash(hash uint32) bool {
+func HasBedrockBlockHash(hash uint32) bool {
 	loadNemcBedrockNameStorage()
 	return nemcBedrockNameStorage.Has(blocks_name.BlockHash(hash))
 }
 
 // 从 NEMC 的 hash 映射到 方块，必须保证 hash 在 NEMC 的表中存在
-func NEMCBedrockHashToBlockStrict(hash uint32) (ir.IRBlock, bool) {
+func BedrockHashToBlockStrict(hash uint32) (ir.IRBlock, bool) {
 	loadNemcBedrockNameStorage()
 	return nemcBedrockNameStorage.Get(blocks_name.BlockHash(hash))
 }
 
 // 从 NEMC 的 hash 映射到 数据值
-func NEMCBedrockHashToBlockData(hash uint32) (string, uint16, bool) {
+func BedrockHashToBlockData(hash uint32) (string, uint16, bool) {
 	loadNemcBedrockNameStorage()
 	return nemcBedrockNameStorage.GetExtraValue(blocks_name.BlockHash(hash))
 }
@@ -116,7 +116,7 @@ func BedrockDataValueToBlock(name string, value uint32) (block ir.IRBlock, ok bo
 	if !ok {
 		return ir.IRBlock("minecraft:unknown []"), false
 	}
-	return NEMCBedrockHashToBlockStrict(hash)
+	return BedrockHashToBlockStrict(hash)
 }
 
 // 通过方块名（含命名空间）获取默认属性。
@@ -128,7 +128,7 @@ func nemcBedrockNameToDefaultProps(name string) (ir.IRStates, bool) {
 
 // bedrockCanon 标准化 基岩版 的方块，根据记录删除不应该存在的key，并填补缺失的 key
 // 如果失败则返回原值
-func NEMCBedrockCanon(blk ir.IRBlock) (ir.IRBlock, bool) {
+func BedrockCanon(blk ir.IRBlock) (ir.IRBlock, bool) {
 	blk = blk.Tidy()
 	props, ok := nemcBedrockNameToDefaultProps(blk.NameWithNameSpace())
 	if !ok {

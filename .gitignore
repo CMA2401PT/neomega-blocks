@@ -3,3 +3,4 @@
 PyMCTranslate
 .DS_Store
 *.mapping
+private_*

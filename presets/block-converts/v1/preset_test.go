@@ -6,21 +6,21 @@ import (
 )
 
 func TestNEMCBedrockHashGet(t *testing.T) {
-	blk, _ := NEMCBedrockHashToBlockStrict(3690217760)
+	blk, _ := BedrockHashToBlockStrict(3690217760)
 	if blk != "minecraft:air []" {
 		t.FailNow()
 	}
 	var ok bool
-	_, ok = NEMCBedrockHashToBlockStrict(23768)
+	_, ok = BedrockHashToBlockStrict(23768)
 	if ok {
 		t.FailNow()
 	}
-	blk, _ = NEMCBedrockHashToBlockStrict(4107799631)
+	blk, _ = BedrockHashToBlockStrict(4107799631)
 	if blk != `minecraft:bed ["direction"=3,"head_piece_bit"=false,"occupied_bit"=true]` {
 		t.FailNow()
 	}
 
-	blk, ok = NEMCBedrockHashToBlockStrict(ir.IRBlock(`minecraft:nether_wart ["age"=3]`).Hash())
+	blk, ok = BedrockHashToBlockStrict(ir.IRBlock(`minecraft:nether_wart ["age"=3]`).Hash())
 	if blk != `minecraft:nether_wart ["age"=3]` {
 		t.FailNow()
 	}
@@ -65,7 +65,7 @@ func TestBedrockDataValueToHash(t *testing.T) {
 		t.Fatalf("got (%v,%v)", blk, ok)
 	}
 
-	name, data, ok := NEMCBedrockHashToBlockData(ir.IRBlock(`minecraft:birch_standing_sign ["ground_sign_direction"=2]`).Hash())
+	name, data, ok := BedrockHashToBlockData(ir.IRBlock(`minecraft:birch_standing_sign ["ground_sign_direction"=2]`).Hash())
 	if name != `minecraft:birch_standing_sign` || data != 2 || !ok {
 		t.FailNow()
 	}
@@ -73,19 +73,19 @@ func TestBedrockDataValueToHash(t *testing.T) {
 
 func TestNEMCBedrockCanon(t *testing.T) {
 	blk := ir.IRBlock(`minecraft:bed ["occupied_bit"=true,"direction"=3,"extraKey"="???"]`)
-	out, _ := NEMCBedrockCanon(blk)
+	out, _ := BedrockCanon(blk)
 	if out != `minecraft:bed ["direction"=3,"head_piece_bit"=false,"occupied_bit"=true]` {
 		t.Fatalf("output= %v", out)
 	}
 
 	blk = ir.IRBlock(`minecraft:notexist ["occupied_bit"=true,"direction"=3,"extraKey"="???"]`)
-	out, _ = NEMCBedrockCanon(blk)
+	out, _ = BedrockCanon(blk)
 	if out != `minecraft:notexist ["direction"=3,"extraKey"="???","occupied_bit"=true]` {
 		t.Fatalf("output= %v", out)
 	}
 
 	blk = ir.IRBlock(`minecraft:bed ["occupied_bit"=true,"direction"=3,"extraKey"="???"`)
-	out, _ = NEMCBedrockCanon(blk)
+	out, _ = BedrockCanon(blk)
 	if out != `minecraft:bed ["direction"=0,"head_piece_bit"=false,"occupied_bit"=false]` {
 		t.Fatalf("output= %v", out)
 	}

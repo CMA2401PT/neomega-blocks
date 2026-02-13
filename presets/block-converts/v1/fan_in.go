@@ -47,14 +47,14 @@ func ConvertFromBedrock(bedrock ir.IRBlock) (ir.IRBlock, bool) {
 	loadBedrockFanin()
 	inHash := bedrock.Hash()
 	// 尝试直接匹配
-	outBlock, ok := NEMCBedrockHashToBlockStrict(inHash)
+	outBlock, ok := BedrockHashToBlockStrict(inHash)
 	if ok {
 		return outBlock, true
 	}
 	// 尝试标准化
-	cannonBlock, ok := NEMCBedrockCanon(bedrock)
+	cannonBlock, ok := BedrockCanon(bedrock)
 	if ok {
-		outBlock, ok := NEMCBedrockHashToBlockStrict(cannonBlock.Hash())
+		outBlock, ok := BedrockHashToBlockStrict(cannonBlock.Hash())
 		if ok {
 			return outBlock, true
 		}
@@ -64,7 +64,7 @@ func ConvertFromBedrock(bedrock ir.IRBlock) (ir.IRBlock, bool) {
 	if !ok {
 		return "minecraft:unknown []", false
 	}
-	outBlock, ok = NEMCBedrockHashToBlockStrict(outHash)
+	outBlock, ok = BedrockHashToBlockStrict(outHash)
 	if ok {
 		return outBlock, true
 	}
@@ -110,7 +110,7 @@ func javaWallDirectConvert(inJava ir.IRBlock) (outBedrock ir.IRBlock, ok bool) {
 	outStates := inJava.States().Update(specific_converts.JavaTobedrockWallRelplacer)
 	bedrockBlock := ir.IRBlock(inJava.NameWithNameSpace() + " " + string(outStates))
 
-	if HasNEMCBlockHash(bedrockBlock.Hash()) {
+	if HasBedrockBlockHash(bedrockBlock.Hash()) {
 		return bedrockBlock, ok
 	}
 	return "", false
@@ -121,7 +121,7 @@ func javaHangingSignDirectConvert(inJava ir.IRBlock) (outBedrock ir.IRBlock, ok 
 	if !ok {
 		return "", false
 	}
-	if HasNEMCBlockHash(out.Hash()) {
+	if HasBedrockBlockHash(out.Hash()) {
 		return out, ok
 	}
 	return "", false
@@ -142,7 +142,7 @@ func ConvertFromJava(javaBlock ir.IRBlock) (ir.IRBlock, bool) {
 	if ok {
 		outHash, ok := javaFanin.Get(cannonBlock.Hash())
 		if ok {
-			outBlock, ok := NEMCBedrockHashToBlockStrict(outHash)
+			outBlock, ok := BedrockHashToBlockStrict(outHash)
 			if ok {
 				return outBlock, true
 			}
@@ -152,7 +152,7 @@ func ConvertFromJava(javaBlock ir.IRBlock) (ir.IRBlock, bool) {
 	// 尝试从Fanin中读取
 	outHash, ok := javaFanin.Get(javaBlock.Hash())
 	if ok {
-		outBlock, ok := NEMCBedrockHashToBlockStrict(outHash)
+		outBlock, ok := BedrockHashToBlockStrict(outHash)
 		if ok {
 			return outBlock, true
 		}

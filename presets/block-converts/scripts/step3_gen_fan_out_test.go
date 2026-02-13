@@ -38,7 +38,7 @@ func bedrockWallDirectConvert(inBedrock ir.IRBlock) (outJava ir.IRBlock, ok bool
 	if !strings.HasSuffix(inBedrock.NameWithNameSpace(), "_wall") {
 		return "", false
 	}
-	inBedrock, ok = presets.NEMCBedrockCanon(inBedrock)
+	inBedrock, ok = presets.BedrockCanon(inBedrock)
 	if !ok {
 		return "", false
 	}
@@ -85,7 +85,7 @@ func TestStep3GenJavaFanout(t *testing.T) {
 		if !isAllow(p.Out) {
 			t.Errorf("output %v not in java block space", p.Out.String())
 		}
-		cannonIn, ok := presets.NEMCBedrockCanon(p.In)
+		cannonIn, ok := presets.BedrockCanon(p.In)
 		if !ok {
 			panic("non cannon bedrock block exist")
 		}
@@ -110,7 +110,7 @@ func TestStep3GenJavaFanout(t *testing.T) {
 			continue
 		}
 
-		cannonIn, ok := presets.NEMCBedrockCanon(p.In)
+		cannonIn, ok := presets.BedrockCanon(p.In)
 		if !ok {
 			t.FailNow()
 		}
