@@ -188,6 +188,36 @@ func TestIRStatesCanon(t *testing.T) {
 			want: `["a"=2,"b"=true]`,
 		},
 		{
+			name: "coerce string number to int32",
+			in:   `["a"="3"]`,
+			std:  `["a"=1]`,
+			want: `["a"=3]`,
+		},
+		{
+			name: "coerce string true to int32",
+			in:   `["a"="true"]`,
+			std:  `["a"=7]`,
+			want: `["a"=1]`,
+		},
+		{
+			name: "coerce string true to bool-int8",
+			in:   `["a"="true"]`,
+			std:  `["a"=false]`,
+			want: `["a"=true]`,
+		},
+		{
+			name: "coerce int32 one to bool-int8",
+			in:   `["a"=1]`,
+			std:  `["a"=false]`,
+			want: `["a"=true]`,
+		},
+		{
+			name: "fallback to orig when coercion fails",
+			in:   `["a"="abc"]`,
+			std:  `["a"=5]`,
+			want: `["a"="abc"]`,
+		},
+		{
 			name: "invalid states keep original",
 			in:   `bad`,
 			std:  `["a"=1]`,
@@ -268,6 +298,35 @@ func TestIRStatesGet(t *testing.T) {
 
 	if v, ok := states.Get("missing"); ok || v != nil {
 		t.Fatalf(`missing key should return (nil,false), got (%#v,%v)`, v, ok)
+	}
+}
+
+func TestIRStatesCheckKey(t *testing.T) {
+	s := IRStates(`["n"=3,"b"=true,"s"="x"]`)
+
+	if !s.CheckKey("n", int32(3)) {
+		t.Fatalf(`CheckKey("n", int32(3)) = false, want true`)
+	}
+	if !s.CheckKey("n", "3") {
+		t.Fatalf(`CheckKey("n", "3") = false, want true`)
+	}
+	if !s.CheckKey("b", "true") {
+		t.Fatalf(`CheckKey("b", "true") = false, want true`)
+	}
+	if !s.CheckKey("b", int8(1)) {
+		t.Fatalf(`CheckKey("b", int8(1)) = false, want true`)
+	}
+	if !s.CheckKey("b", true) {
+		t.Fatalf(`CheckKey("b", int8(1)) = false, want true`)
+	}
+	if !s.CheckKey("s", "x") {
+		t.Fatalf(`CheckKey("s", "x") = false, want true`)
+	}
+	if s.CheckKey("missing", "x") {
+		t.Fatalf(`CheckKey("missing", "x") = true, want false`)
+	}
+	if s.CheckKey("n", "4") {
+		t.Fatalf(`CheckKey("n", "4") = true, want false`)
 	}
 }
 

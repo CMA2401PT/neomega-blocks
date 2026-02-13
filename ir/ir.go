@@ -200,6 +200,7 @@ func (s IRStates) Tidy() IRStates {
 // std 中包括允许的所有 keys 的默认值
 // 当 s 中缺少 std 中的某个 key 时，从 std 中的 key 设置 s 的值
 // 当 s 中包括 std 中不存在的 key 时，从 s 中移除这个 key
+// 根据 std 尝试变换 key 的数据类型，失败时保持不变
 func (s IRStates) Canon(std IRStates) IRStates {
 	return IRStates(ir_states.Canon(string(s), string(std)))
 }
@@ -216,9 +217,34 @@ func (s IRStates) KeyValues(yield func(string, any) bool) {
 	ir_states.KeyValues((string(s)))(yield)
 }
 
-// Get 在 states 中查找指定 key，并返回其类型化值。
+// Get 在 states 中查找指定 key，并返回其类型化值,value 只可能为 string / int32 / uint8
 func (s IRStates) Get(key string) (value any, found bool) {
 	return ir_states.Get(string(s), key)
+}
+
+// Get 在 states 中查找指定 key，并返回其类型化值,value 只可能为 string / int32 / uint8
+// 若没有，则返回 default
+func (s IRStates) GetDefault(key string, defaultValue any) (value any) {
+	value, ok := ir_states.Get(string(s), key)
+	if ok {
+		return value
+	}
+	return defaultValue
+}
+
+// CheckKey 比较指定 key 的值是否与 val 相同。
+// 当两者类型不同，会尝试都转换为字符串后再比较。
+func (s IRStates) CheckKey(key string, val any) bool {
+	return ir_states.CheckKey(string(s), key, val)
+}
+
+// 返回 go 字典形式的 props, value 只可能为 string / int32 / uint8
+func (s IRStates) GoMap() map[string]any {
+	out := map[string]any{}
+	for key, v := range s.KeyValues {
+		out[key] = v
+	}
+	return out
 }
 
 // Set 插入或更新一个键值对，并返回规范化后的 states。
@@ -326,6 +352,9 @@ func (e *BlockEncoder) Block() IRBlock {
 func NewIRBlockFromGo(nameWithNamespace string, props map[string]any) (IRBlock, error) {
 	if props == nil {
 		props = map[string]any{}
+	}
+	if !strings.Contains(nameWithNamespace, ":") {
+		nameWithNamespace = "minecraft:" + nameWithNamespace
 	}
 	enc := &BlockEncoder{}
 	err := decoder_go_object.HighLevelDecodeTo(
