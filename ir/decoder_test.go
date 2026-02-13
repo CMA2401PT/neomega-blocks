@@ -87,7 +87,7 @@ func TestHash(t *testing.T) {
 	}
 
 	block, err = NewIRBlockFromGo("minecraft:warped_door", map[string]any{
-		"direction":       int32(0),
+		"direction":       0,
 		"door_hinge_bit":  int8(0),
 		"open_bit":        int8(0),
 		"upper_block_bit": int8(0),

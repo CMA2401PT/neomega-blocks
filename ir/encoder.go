@@ -139,8 +139,8 @@ func (e *BlockEncoder) WriteInt16(int16) (err error) {
 	return errInvalidOperate
 }
 
-func (e *BlockEncoder) WriteInt64(int64) (err error) {
-	return errInvalidOperate
+func (e *BlockEncoder) WriteInt64(i int64) (err error) {
+	return e.WriteInt32(int32(i))
 }
 
 func (e *BlockEncoder) WriteFloat32(float32) (err error) {

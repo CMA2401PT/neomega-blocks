@@ -47,7 +47,7 @@ func (e *BedrockBlockPropsEncoder[W]) WriteType(t nbt.TagType) error {
 		return nil
 	}
 	switch t {
-	case nbt.TagByte, nbt.TagInt, nbt.TagString:
+	case nbt.TagByte, nbt.TagInt, nbt.TagString, nbt.TagLong:
 		return nil
 	default:
 		return errInvalidPropType
@@ -165,8 +165,8 @@ func (e BedrockBlockPropsEncoder[W]) WriteInt32(i int32) (err error) {
 	return nil
 }
 
-func (e BedrockBlockPropsEncoder[W]) WriteInt64(int64) (err error) {
-	return errInvalidOperate
+func (e BedrockBlockPropsEncoder[W]) WriteInt64(i int64) (err error) {
+	return e.WriteInt32(int32(i))
 }
 
 func (e BedrockBlockPropsEncoder[W]) WriteFloat32(float32) (err error) {
