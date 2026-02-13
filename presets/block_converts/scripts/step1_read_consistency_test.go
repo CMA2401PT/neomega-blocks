@@ -128,7 +128,7 @@ func TestReadDefaultsReadBlocksConsistency(t *testing.T) {
 	if err != nil {
 		t.Fatalf("marshal defaults: %v", err)
 	}
-	if err := os.WriteFile("../presets/v1/1_bedrock_default_props.bin", data, 0o644); err != nil {
+	if err := os.WriteFile("../v1/1_bedrock_default_props.bin", data, 0o644); err != nil {
 		t.Fatalf("write defaults bin: %v", err)
 	}
 }

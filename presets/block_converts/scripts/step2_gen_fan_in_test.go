@@ -6,7 +6,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"neomega-blocks/ir"
-	presets "neomega-blocks/presets/v1"
+	presets "neomega-blocks/presets/block_converts/v1"
 	"neomega-blocks/specific_converts"
 	"neomega-blocks/storage/num_lookup"
 	"os"
@@ -334,7 +334,7 @@ func TestStep2_1_GenBedrockFanin(t *testing.T) {
 	for _, p := range tidyPairs {
 		lookup.Set(uint32(p.In.Hash()), uint32(p.Out.Hash()))
 	}
-	if err := os.WriteFile("../presets/v1/2_bedrock_fan_in.bin", lookup.Dump(), 0o644); err != nil {
+	if err := os.WriteFile("../v1/2_bedrock_fan_in.bin", lookup.Dump(), 0o644); err != nil {
 		t.Fatalf("write defaults bin: %v", err)
 	}
 }
@@ -432,7 +432,7 @@ func TestStep2_2_GenJavaDefaultPropFanin(t *testing.T) {
 	if err != nil {
 		t.Fatalf("marshal defaults: %v", err)
 	}
-	if err := os.WriteFile("../presets/v1/2_2_java_default_props.bin", data, 0o644); err != nil {
+	if err := os.WriteFile("../v1/2_2_java_default_props.bin", data, 0o644); err != nil {
 		t.Fatalf("write defaults bin: %v", err)
 	}
 }
@@ -542,7 +542,7 @@ func TestStep2_3_GenJavaFanin(t *testing.T) {
 	for _, p := range tidyPairs {
 		lookup.Set(uint32(p.In.Hash()), uint32(p.Out.Hash()))
 	}
-	if err := os.WriteFile("../presets/v1/2_3_java_fan_in.bin", lookup.Dump(), 0o644); err != nil {
+	if err := os.WriteFile("../v1/2_3_java_fan_in.bin", lookup.Dump(), 0o644); err != nil {
 		t.Fatalf("write defaults bin: %v", err)
 	}
 }

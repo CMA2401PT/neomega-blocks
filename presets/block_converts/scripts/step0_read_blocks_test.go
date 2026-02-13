@@ -51,7 +51,7 @@ func TestStep0ReadBlocksFromPalette(t *testing.T) {
 		}
 	}
 	fmt.Printf("%v MiB\n", float32(len(storage.Dump()))/(1<<20))
-	os.WriteFile("../presets/v1/0_bedrock_blocks.bin", storage.Dump(), 0644)
+	os.WriteFile("../v1/0_bedrock_blocks.bin", storage.Dump(), 0644)
 
 	outNames := []uint8{}
 	for _, b := range blocks {

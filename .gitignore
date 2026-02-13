@@ -2,3 +2,4 @@
 .gocache
 PyMCTranslate
 .DS_Store
+*.mapping

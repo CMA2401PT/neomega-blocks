@@ -5,7 +5,7 @@ import (
 	"bytes"
 	"fmt"
 	"neomega-blocks/ir"
-	presets "neomega-blocks/presets/v1"
+	presets "neomega-blocks/presets/block_converts/v1"
 	"neomega-blocks/specific_converts"
 	blocks_name "neomega-blocks/storage/blocks-name"
 	"os"
@@ -157,6 +157,6 @@ func TestStep3GenJavaFanout(t *testing.T) {
 		}
 	}
 	fmt.Printf("%v MiB\n", float32(len(storage.Dump()))/(1<<20))
-	os.WriteFile("../presets/v1/3_to_java.bin", storage.Dump(), 0644)
+	os.WriteFile("../v1/3_to_java.bin", storage.Dump(), 0644)
 
 }
