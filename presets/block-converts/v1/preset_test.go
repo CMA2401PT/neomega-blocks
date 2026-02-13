@@ -242,3 +242,22 @@ func TestConvertToJava(t *testing.T) {
 		t.Fatalf("output= %v", out)
 	}
 }
+
+func TestConvertFromSchematic(t *testing.T) {
+	out, _ := ConvertFromSchematic(252, 12)
+	if out != `minecraft:brown_concrete_powder []` {
+		t.Fatalf("output= %v", out)
+	}
+	out, _ = ConvertFromSchematic(154, 4)
+	if out != `minecraft:hopper ["facing_direction"=4,"toggle_bit"=true]` {
+		t.Fatalf("output= %v", out)
+	}
+	out, _ = ConvertFromSchematic(180, 2)
+	if out != `minecraft:red_sandstone_stairs ["upside_down_bit"=false,"weirdo_direction"=2]` {
+		t.Fatalf("output= %v", out)
+	}
+	out, _ = ConvertFromSchematic(2, 0)
+	if out != `minecraft:grass_block []` {
+		t.Fatalf("output= %v", out)
+	}
+}

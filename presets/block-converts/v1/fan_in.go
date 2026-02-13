@@ -28,6 +28,12 @@ var data2_3JavaFanin []uint8
 var javaFanin num_lookup.TwoLayerNumMap[uint32, uint32]
 var javaFaninLoaded sync.Once
 
+//go:embed 6_schematic_fan_in.bin
+var data6SchematicFanin []uint8
+
+var schematicFanin num_lookup.TwoLayerNumMap[uint32, uint32]
+var schematicFaninLoaded sync.Once
+
 func loadBedrockFanin() {
 	// ensure load only once
 	bedrockFaninLoaded.Do(func() {
@@ -39,6 +45,13 @@ func loadJavaFanin() {
 	// ensure load only once
 	javaFaninLoaded.Do(func() {
 		javaFanin = num_lookup.LoadTwoLayerNumMap[uint32, uint32](data2_3JavaFanin)
+	})
+}
+
+func loadSchematicFanin() {
+	// ensure load only once
+	schematicFaninLoaded.Do(func() {
+		schematicFanin = num_lookup.LoadTwoLayerNumMap[uint32, uint32](data6SchematicFanin)
 	})
 }
 
@@ -68,7 +81,7 @@ func ConvertFromBedrock(bedrock ir.IRBlock) (ir.IRBlock, bool) {
 	if ok {
 		return outBlock, true
 	}
-	panic(fmt.Errorf("%v->%v(hash)-> block fail, should not happen as outHash exist", bedrock, outHash))
+	panic(fmt.Errorf("ConvertFromBedrock: %v->%v(hash)-> block fail, should not happen as outHash exist", bedrock, outHash))
 }
 
 func loadjavaDefaultProps() {
@@ -146,7 +159,7 @@ func ConvertFromJava(javaBlock ir.IRBlock) (ir.IRBlock, bool) {
 			if ok {
 				return outBlock, true
 			}
-			panic(fmt.Errorf("%v->%v(hash)-> block fail, should not happen as outHash exist", javaBlock, outHash))
+			panic(fmt.Errorf("ConvertFromJava: %v->%v(hash)-> block fail, should not happen as outHash exist", javaBlock, outHash))
 		}
 	}
 	// 尝试从Fanin中读取
@@ -159,4 +172,18 @@ func ConvertFromJava(javaBlock ir.IRBlock) (ir.IRBlock, bool) {
 		panic(fmt.Errorf("%v->%v(hash)-> block fail, should not happen as outHash exist", javaBlock, outHash))
 	}
 	return "minecraft:unknown []", false
+}
+
+func ConvertFromSchematic(schematicID, schematicMeta uint16) (ir.IRBlock, bool) {
+	loadSchematicFanin()
+	schematicHash := uint32(schematicID)<<16 | uint32(schematicMeta)
+	outHash, ok := schematicFanin.Get(schematicHash)
+	if !ok {
+		return "minecraft:unknown []", false
+	}
+	outBlock, ok := BedrockHashToBlockStrict(outHash)
+	if ok {
+		return outBlock, true
+	}
+	panic(fmt.Errorf("Schematic %v,%v->%v(hash)-> block fail, should not happen as outHash exist", schematicID, schematicMeta, outHash))
 }
