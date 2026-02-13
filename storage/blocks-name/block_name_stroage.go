@@ -53,7 +53,7 @@ func NewBlockNameStorage[EP ~uint8 | ~uint16 | ~uint32]() *BlockNameStorage[EP] 
 	}
 }
 
-func (s *BlockNameStorage[EP]) Set(blk ir.IRBlock) {
+func (s *BlockNameStorage[EP]) SetWithSpecificHash(blk ir.IRBlock, hash BlockHash) {
 	name := blk.NameWithNameSpace()
 	states := blk.States().Tidy()
 	set, ok := s.Blocks[name]
@@ -63,7 +63,7 @@ func (s *BlockNameStorage[EP]) Set(blk ir.IRBlock) {
 		}
 		idx := uint16(len(s.Blocks))
 		set = blockSet[EP]{
-			CompactRadix: compact_radix.NewCompactRadixWithLookup[EP, uint16, *compact_radix.ByteEdgeLookup[EP]](s.Lookup),
+			CompactRadix: compact_radix.NewCompactRadixWithLookup[EP, uint16](s.Lookup),
 			idx:          idx,
 		}
 		s.Blocks[name] = set
@@ -71,8 +71,12 @@ func (s *BlockNameStorage[EP]) Set(blk ir.IRBlock) {
 	}
 	stateIdx := set.CompactRadix.Set([]uint8(states), 0)
 	rebuildIdx := RebuildIdx(uint32(set.idx)<<16) | RebuildIdx(stateIdx)
-	s.NumLookup.Set(BlockHash(blk.Hash()), rebuildIdx)
+	s.NumLookup.Set(hash, rebuildIdx)
 	// s.debugNumLookup[BlockHash(blk.Hash())] = rebuildIdx
+}
+
+func (s *BlockNameStorage[EP]) Set(blk ir.IRBlock) {
+	s.SetWithSpecificHash(blk, BlockHash(blk.Hash()))
 }
 
 func (s *BlockNameStorage[EP]) Has(hash BlockHash) bool {
