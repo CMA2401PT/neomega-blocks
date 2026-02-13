@@ -30,7 +30,9 @@ func TestHash(t *testing.T) {
 			"states": map[string]any{},
 		},
 		decoder_shim.NewDecoderShim(enc),
-		decoder_go_object.DecodeOption{},
+		decoder_go_object.DecodeOption{
+			SortMapKey: true,
+		},
 	)
 	if enc.Hash() != 973836165 {
 		t.FailNow()
