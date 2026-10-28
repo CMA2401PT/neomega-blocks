@@ -1,5 +1,5 @@
 import os
-from typing import Dict, Generator, List, Set, Tuple, cast
+from typing import Dict, Iterator, List, Set, Tuple, cast
 import PyMCTranslate
 from amulet_nbt import ByteTag,IntTag,StringTag
 from PyMCTranslate.py3.api import Block
@@ -26,7 +26,7 @@ def iter_props(props:List[Tuple[str,List[str]]],defaults:Dict[str,str]):
     defaults_nbt={k:prop_value_to_nbt(v) for k,v in defaults.items()}
     # 第一个返回有缺失的参数，第二个返回缺失值被默认值替代的参数
     def _iter(props_nbt:List[Tuple[str, List[StringTag | ByteTag | IntTag]]])\
-        ->Generator[Tuple[Dict[str,StringTag | ByteTag | IntTag],Dict[str,StringTag | ByteTag | IntTag]]]:
+        ->Iterator[Tuple[Dict[str,StringTag | ByteTag | IntTag],Dict[str,StringTag | ByteTag | IntTag]]]:
         if len(props_nbt)==0:
             yield {},{}
         else:
@@ -62,10 +62,11 @@ def block_to_blockstr(block:Block)->str:
     return f"{name} [{','.join(prop_strings)}]"
 
 def all_blocks(platform_name:str,version:Tuple[int,...],allow_missing:bool=True):
+    # allow_missing 保留但不参与逻辑；转换必须使用补齐默认属性的对象。
     exist:Set[str]=set()
     version_data=translations.get_version(platform_name,version)
     block_translator=version_data.block
-    def iter_blocks()->Generator[Tuple[Block,Block]]:
+    def iter_blocks()->Iterator[Tuple[Block,Block]]:
         block_names=block_translator.base_names("minecraft",force_blockstate=True)
         for block_name in block_names:
             block_specification = block_translator.get_specification(
@@ -85,17 +86,22 @@ def all_blocks(platform_name:str,version:Tuple[int,...],allow_missing:bool=True)
     return block_translator,iter_blocks()
 
 
-output_translator,output_iter=all_blocks("java",(1,21,4))
-with open(f"fan_out_java_allowed.list","w") as f:
-    for java_block,_ in output_iter:
-        f.write(f"{block_to_blockstr(java_block)}\n")
+def main() -> None:
+    output_translator,output_iter=all_blocks("java",(1,21,4))
+    with open(f"fan_out_java_allowed.list","w") as f:
+        for java_block,_ in output_iter:
+            f.write(f"{block_to_blockstr(java_block)}\n")
 
 
-input_translator,input_iter=all_blocks("bedrock",(1,21,50))
-with open(f"fan_out_java.mapping","w") as f:
-    for bedrock_block,block_with_default in input_iter:
-        input_str:str=block_to_blockstr(bedrock_block)
-        uni_block,_,ok=input_translator.to_universal(block_with_default)
-        out_block,_,ok=output_translator.from_universal(uni_block)
-        output_str=block_to_blockstr(out_block)
-        f.write(f"{input_str}#{output_str}\n")
+    input_translator,input_iter=all_blocks("bedrock",(1,21,50))
+    with open(f"fan_out_java.mapping","w") as f:
+        for bedrock_block,block_with_default in input_iter:
+            input_str:str=block_to_blockstr(bedrock_block)
+            uni_block,_,ok=input_translator.to_universal(block_with_default)
+            out_block,_,ok=output_translator.from_universal(uni_block)
+            output_str=block_to_blockstr(out_block)
+            f.write(f"{input_str}#{output_str}\n")
+
+
+if __name__ == "__main__":
+    main()

@@ -1,5 +1,7 @@
 package num_lookup
 
+import "maps"
+
 type TwoLayerNumMap[K, V ~uint8 | ~uint16 | ~uint32] struct {
 	static  StaticNumMap[K, V]
 	dynamic map[K]V
@@ -60,6 +62,8 @@ func (m *TwoLayerNumMap[K, V]) Frozen() {
 }
 
 func (m TwoLayerNumMap[K, V]) Dump() []uint8 {
+	// Frozen removes merged keys; the value receiver still shares the original map.
+	m.dynamic = maps.Clone(m.dynamic)
 	m.Frozen()
 	return m.static.Dump()
 }

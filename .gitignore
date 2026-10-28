@@ -4,3 +4,4 @@ PyMCTranslate
 .DS_Store
 *.mapping
 private_*
+__pycache__/

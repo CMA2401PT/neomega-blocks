@@ -1,5 +1,5 @@
 import os
-from typing import Dict, Generator, List, Set, Tuple, cast
+from typing import Dict, Iterator, List, Set, Tuple, cast
 import PyMCTranslate
 from amulet_nbt import ByteTag,IntTag,StringTag
 from PyMCTranslate.py3.api import Block
@@ -26,7 +26,7 @@ def iter_props(props:List[Tuple[str,List[str]]],defaults:Dict[str,str]):
     defaults_nbt={k:prop_value_to_nbt(v) for k,v in defaults.items()}
     # 第一个返回有缺失的参数，第二个返回缺失值被默认值替代的参数
     def _iter(props_nbt:List[Tuple[str, List[StringTag | ByteTag | IntTag]]])\
-        ->Generator[Tuple[Dict[str,StringTag | ByteTag | IntTag],Dict[str,StringTag | ByteTag | IntTag]]]:
+        ->Iterator[Tuple[Dict[str,StringTag | ByteTag | IntTag],Dict[str,StringTag | ByteTag | IntTag]]]:
         if len(props_nbt)==0:
             yield {},{}
         else:
@@ -62,10 +62,11 @@ def block_to_blockstr(block:Block)->str:
     return f"{name} [{','.join(prop_strings)}]"
 
 def all_blocks(platform_name:str,version:Tuple[int,...],allow_missing:bool=True):
+    # allow_missing 保留但不参与逻辑；转换必须使用补齐默认属性的对象。
     exist:Set[str]=set()
     version_data=translations.get_version(platform_name,version)
     block_translator=version_data.block
-    def iter_blocks()->Generator[Tuple[Block,Block]]:
+    def iter_blocks()->Iterator[Tuple[Block,Block]]:
         block_names=block_translator.base_names("minecraft",force_blockstate=True)
         for block_name in block_names:
             block_specification = block_translator.get_specification(
@@ -102,12 +103,17 @@ def gen_fan_in(output_file:str,platform:str,output_translator:PyMCTranslate.Bloc
                 out_str=block_to_blockstr(out_block)
                 f.write(f"{blk_str}#{out_str}\n")
 
-platform="bedrock"
-output_file=f"fan_in_{platform}.mapping"
-output_translator: PyMCTranslate.BlockTranslator=translations.get_version("bedrock",(1,21,50)).block
-gen_fan_in(output_file,platform,output_translator,allow_missing=False)
+def main() -> None:
+    platform="bedrock"
+    output_file=f"fan_in_{platform}.mapping"
+    output_translator: PyMCTranslate.BlockTranslator=translations.get_version("bedrock",(1,21,50)).block
+    gen_fan_in(output_file,platform,output_translator,allow_missing=False)
 
-platform="java"
-output_file=f"fan_in_{platform}.mapping"
-output_translator: PyMCTranslate.BlockTranslator=translations.get_version("bedrock",(1,21,50)).block
-gen_fan_in(output_file,platform,output_translator,allow_missing=False)
+    platform="java"
+    output_file=f"fan_in_{platform}.mapping"
+    output_translator: PyMCTranslate.BlockTranslator=translations.get_version("bedrock",(1,21,50)).block
+    gen_fan_in(output_file,platform,output_translator,allow_missing=False)
+
+
+if __name__ == "__main__":
+    main()

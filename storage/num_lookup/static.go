@@ -24,8 +24,8 @@ func BuildStaticFromPairs[K ~uint8 | ~uint16 | ~uint32, V any](pairs []Pair[K, V
 		return StaticNumMap[K, V]{}
 	}
 
-	// Sort by key. We don't care about stable ordering for equal keys; we'll resolve duplicates below.
-	sort.Slice(pairs, func(i, j int) bool { return pairs[i].K < pairs[j].K })
+	// Preserve input order for equal keys so the last supplied value wins.
+	sort.SliceStable(pairs, func(i, j int) bool { return pairs[i].K < pairs[j].K })
 
 	keys := make([]K, 0, len(pairs))
 	vals := make([]V, 0, len(pairs))
@@ -154,17 +154,21 @@ func LoadStaticNumMap[K ~uint8 | ~uint16 | ~uint32, V any](data []uint8) StaticN
 		return StaticNumMap[K, V]{}
 	}
 
-	keysPtr := unsafe.Pointer(unsafe.SliceData(data[keysOffset : keysOffset+keysBytesLen]))
-	valsPtr := unsafe.Pointer(unsafe.SliceData(data[valsOffset : valsOffset+valsBytesLen]))
-
-	if uintptr(keysPtr)%uintptr(keyAlign) != 0 {
-		panic("invalid static map dump: keys data is not aligned")
+	return StaticNumMap[K, V]{
+		keys: loadSlice[K](data[keysOffset:keysOffset+keysBytesLen], count),
+		vals: loadSlice[V](data[valsOffset:valsOffset+valsBytesLen], count),
 	}
-	if uintptr(valsPtr)%uintptr(valAlign) != 0 {
-		panic("invalid static map dump: values data is not aligned")
-	}
+}
 
-	keys := unsafe.Slice((*K)(keysPtr), count)
-	vals := unsafe.Slice((*V)(valsPtr), count)
-	return StaticNumMap[K, V]{keys: keys, vals: vals}
+// The dump aligns offsets, but its backing byte slice may itself be unaligned.
+// Keep the zero-copy path when possible; otherwise copy into typed, aligned storage.
+func loadSlice[T any](data []byte, count int) []T {
+	ptr := unsafe.Pointer(unsafe.SliceData(data))
+	if uintptr(ptr)%unsafe.Alignof(*new(T)) == 0 {
+		return unsafe.Slice((*T)(ptr), count)
+	}
+	values := make([]T, count)
+	raw := unsafe.Slice((*byte)(unsafe.Pointer(unsafe.SliceData(values))), len(data))
+	copy(raw, data)
+	return values
 }

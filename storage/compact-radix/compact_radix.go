@@ -60,7 +60,10 @@ func (r *CompactRadix[EP, NP, Lookup]) LoadNodes(data []uint8) {
 	}
 	align := unsafe.Alignof(node[EP, NP]{})
 	if uintptr(unsafe.Pointer(unsafe.SliceData(data)))%align != 0 {
-		panic(fmt.Errorf("data pointer is not aligned for node (align=%d)", align))
+		// Serialized offsets do not guarantee alignment of the backing byte slice.
+		r.nodes = make([]node[EP, NP], len(data)/int(nodeSize))
+		copy(r.DumpNodes(), data)
+		return
 	}
 	r.nodes = unsafe.Slice(
 		(*node[EP, NP])(unsafe.Pointer(unsafe.SliceData(data))),

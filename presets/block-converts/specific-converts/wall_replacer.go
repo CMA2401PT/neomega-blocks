@@ -6,7 +6,7 @@ import "strings"
 func BedrockToJavaWallRelplacer(key string, value any) (string, any) {
 	if key == "wall_post_bit" {
 		vout := "false"
-		vin, _ := value.(uint8)
+		vin, _ := value.(int8)
 		if vin == 1 {
 			vout = "true"
 		}
