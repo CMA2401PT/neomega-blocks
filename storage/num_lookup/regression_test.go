@@ -56,3 +56,25 @@ func TestOverwriteKeepsLastInputPair(t *testing.T) {
 		}
 	}
 }
+
+func TestAllReadsTheMergedViewWithoutMutatingIt(t *testing.T) {
+	original := NewTwoLayerNumMap[uint32, uint32]()
+	original.Set(1, 10)
+	original.Set(2, 20)
+	original.Frozen()
+	original.Set(2, 25)
+	original.Set(3, 30)
+	got := map[uint32]uint32{}
+	for key, value := range original.All() {
+		if _, exists := got[key]; exists {
+			t.Fatal("duplicate key")
+		}
+		got[key] = value
+	}
+	if len(got) != 3 || got[1] != 10 || got[2] != 25 || got[3] != 30 {
+		t.Fatalf("merged entries: %v", got)
+	}
+	if value, _ := original.Get(2); value != 25 {
+		t.Fatal("iteration changed the map")
+	}
+}

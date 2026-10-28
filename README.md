@@ -15,7 +15,7 @@ Java 方块 ─────────┼─→ preset 的 NEMC/Bedrock 方块�
                            网络哈希、名称与 data value
 ```
 
-这里的“当前方块集合”由 preset 的数据决定，不是运行时检测出来的游戏版本。生成脚本以 Bedrock `1.21.50` 为转换参考，Java 输出目标为 `1.21.4`。实际可用的 NEMC 方块由输入的 `block_palette.json` 决定。
+这里的“当前方块集合”由 preset 的数据决定，不是运行时检测出来的游戏版本。生成脚本以 Bedrock `1.21.50` 为转换参考，Java 输出目标为 `1.21.4`。运行时可通过 `v1.JavaTargetVersion` 和 `v1.BedrockTargetVersion` 查询预设目标；渲染资源应与 Java 目标一致。实际可用的 NEMC 方块由输入的 `block_palette.json` 决定。
 
 转换通常不能保证可逆。不同源方块可能归到同一个目标方块，某些源属性也没有对应的目标属性。例如，NEMC 的 `micro_block` 在 Java 输出表中被映射为 `air`。
 
@@ -116,6 +116,7 @@ true true
 | 旧 Schematic 数字 ID、meta | `ConvertFromSchematic(id, meta)` |
 | 目标 Bedrock 方块转 Java | `ConvertToJava(IRBlock)` |
 | 已知网络哈希，取目标方块 | `BedrockHashToBlockStrict(hash)` |
+| 遍历目标集合中的网络哈希与方块 | `BedrockBlocks()`，返回只读迭代器，顺序不固定 |
 | 名称与 legacy data value，取哈希或方块 | `BedrockDataValueToHash(name, value)` / `BedrockDataValueToBlock(name, value)` |
 | 网络哈希反查名称与 data value | `BedrockHashToBlockData(hash)` |
 
@@ -147,6 +148,8 @@ true true
 - 本地 `PyMCTranslate/`：转换代码及 `json/versions` 数据库，提供默认属性与经 universal 表示中转的跨版本映射。生成脚本从高版本向低版本遍历，重复输入优先保留高版本结果。
 - `schematic.json`：旧 `id:meta` 到 Java 方块文本的映射，再经 Java 转入逻辑连接到目标集合。
 
+这些数据有独立的许可来源。本地 PyMCTranslate 记录 build 317，对应上游 1.2.30；其 Amulet Team License 1.0.0 包含非商业、教育和非竞争等使用条款。它不是 MIT 许可，生成运行时表也不应被视为消除了来源条款。原文、Required Notice 和版本依据见 [third_party/pymctranslate-notices/NOTICE.md](third_party/pymctranslate-notices/NOTICE.md)。更新上游版本前，应核对该版本的许可。
+
 这些输入产生的运行时文件如下。扩展名为 `.bin` 的默认属性表实际保存 JSON；其余文件使用各自的紧凑存储格式。
 
 | 产物，均位于 `presets/block-converts/v1` | 作用 | 生成入口 |
@@ -174,6 +177,7 @@ Go 准备步骤并不是单纯打包候选数据。`outputFix` 修正旧名称�
 
 - `gen_fan_in_mapping.py` 末尾的 Bedrock 输出版本。
 - `gen_fan_out_mapping.py` 的 Bedrock 输入版本与 Java 输出版本。
+- `presets/block-converts/v1/target.go` 中公开给消费者的版本常量。
 - `step1_read_consistency_test.go`、`read_defaults_test.go` 中的 Bedrock specification 目录。
 - 与版本相关的默认值测试、`outputFix` 和 `specific-converts` 规则。
 
@@ -244,6 +248,15 @@ go test ./ir/... ./storage/... ./encode-decode/... ./presets/block-converts/v1 .
 git diff --stat
 git status --short
 ```
+
+需要接入 `neomega-assets` 的渲染资源时，还应验证真实 palette 的转换结果能选择到资源里的模型。在 `neomega-blocks` 根目录执行：
+
+```sh
+NEOMEGA_ASSETS_DIR="$(cd ../neomega-assets/dist/final && pwd)" \
+  go test -v -count=1 -run '^TestJavaTargetAssets$' ./presets/block-converts/scripts
+```
+
+该检查核对目标版本、方块名称和 variant 选择。PyMCTranslate 将水表示为附加方块，单层方块预览以 `waterlogged=false` 补全这项显示条件；区块应用需要结合独立水层决定含水状态。
 
 检查目标版本、生成日志和实际方块样例，再将相应代码与 `.bin` 一起交付。失败步骤可能已经写入部分文件，所以更新应在可检查、可恢复的工作目录中进行。
 

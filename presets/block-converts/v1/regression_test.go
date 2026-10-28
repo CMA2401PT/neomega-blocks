@@ -55,3 +55,10 @@ func TestWallPostRoundTrip(t *testing.T) {
 		}
 	}
 }
+
+func TestConvertToJavaKeepsExplicitPaletteMappings(t *testing.T) {
+	got, ok := blocks.ConvertToJava(ir.IRBlock(`minecraft:micro_block []`))
+	if !ok || got != ir.IRBlock(`minecraft:air []`) {
+		t.Fatalf("explicit NEMC mapping was blocked by default lookup: %s, %v", got, ok)
+	}
+}

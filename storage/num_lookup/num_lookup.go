@@ -1,6 +1,9 @@
 package num_lookup
 
-import "maps"
+import (
+	"iter"
+	"maps"
+)
 
 type TwoLayerNumMap[K, V ~uint8 | ~uint16 | ~uint32] struct {
 	static  StaticNumMap[K, V]
@@ -72,5 +75,28 @@ func LoadTwoLayerNumMap[K, V ~uint8 | ~uint16 | ~uint32](data []uint8) TwoLayerN
 	return TwoLayerNumMap[K, V]{
 		static:  LoadStaticNumMap[K, V](data),
 		dynamic: nil,
+	}
+}
+
+// All iterates the merged view without freezing or mutating either layer.
+// Iteration order is unspecified; callers must not modify the map while reading.
+func (m TwoLayerNumMap[K, V]) All() iter.Seq2[K, V] {
+	return func(yield func(K, V) bool) {
+		for i, key := range m.static.keys {
+			value := m.static.vals[i]
+			if override, ok := m.dynamic[key]; ok {
+				value = override
+			}
+			if !yield(key, value) {
+				return
+			}
+		}
+		for key, value := range m.dynamic {
+			if _, exists := m.static.Get(key); !exists {
+				if !yield(key, value) {
+					return
+				}
+			}
+		}
 	}
 }

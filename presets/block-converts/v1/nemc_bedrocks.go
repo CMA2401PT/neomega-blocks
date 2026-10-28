@@ -5,6 +5,7 @@ import (
 	"encoding/binary"
 	"encoding/json"
 	"fmt"
+	"iter"
 	"neomega-blocks/ir"
 	blocks_name "neomega-blocks/storage/blocks-name"
 	"strings"
@@ -180,4 +181,18 @@ func loadStep4Storage(data []byte) (map[string][]uint32, error) {
 		return nil, fmt.Errorf("invalid step4 storage: trailing bytes")
 	}
 	return out, nil
+}
+
+// BedrockBlocks iterates the preset's actual ID space without exposing its
+// compact storage. IDs are network hashes; no new viewer-specific IDs are made.
+func BedrockBlocks() iter.Seq2[uint32, ir.IRBlock] {
+	loadNemcBedrockNameStorage()
+	return func(yield func(uint32, ir.IRBlock) bool) {
+		for hash := range nemcBedrockNameStorage.NumLookup.All() {
+			block, ok := nemcBedrockNameStorage.Get(hash)
+			if ok && !yield(uint32(hash), block) {
+				return
+			}
+		}
+	}
 }
