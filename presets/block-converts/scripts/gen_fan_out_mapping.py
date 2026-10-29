@@ -108,7 +108,34 @@ def iter_full_blocks(platform_name:str,version:Tuple[int,...])->Iterator[Block]:
             yield cast(Block,Block("minecraft",block_name,props))
 
 
+def iter_block_schema(platform_name:str,version:Tuple[int,...]):
+    # 每个方块一条：属性名、取值域、默认值。fixer 据此知道某方块能改哪些
+    # 属性、默认是什么，不必从完整组合反推（反推不出默认值）。
+    version_data=translations.get_version(platform_name,version)
+    block_translator=version_data.block
+    for block_name in block_translator.base_names("minecraft",force_blockstate=True):
+        spec=block_translator.get_specification("minecraft",block_name,force_blockstate=True)
+        properties:Dict[str,List[str]]=cast(Dict[str,List[str]],spec.get("properties",{}))
+        defaults:Dict[str,str]=cast(Dict[str,str],spec.get("defaults",{}))
+        yield block_name,properties,defaults
+
+
+def schema_line(block_name:str,properties:Dict[str,List[str]],defaults:Dict[str,str])->str:
+    # 格式：minecraft:name<TAB>key=default|v1,v2,v3<TAB>key2=...
+    # 默认值写在等号后、取值域前，二者用竖线分隔；无属性方块只有方块名。
+    fields=[]
+    for key,values in properties.items():
+        default=defaults.get(key,values[0] if values else "")
+        fields.append(f"{key}={default}|{','.join(values)}")
+    return "\t".join([f"minecraft:{block_name}",*fields])
+
+
 def main() -> None:
+    # 方块知识库：名称 → 属性域 + 默认值。presets/java/v1 据此支持 fixer 的查询。
+    with open(f"java_block_schema.list","w") as f:
+        for block_name,properties,defaults in iter_block_schema("java",(1,21,4)):
+            f.write(f"{schema_line(block_name,properties,defaults)}\n")
+
     # Java 侧完整状态全集：每行一个字段齐全的状态，供 viewer 直读建表。
     with open(f"fan_out_java_full.list","w") as f:
         for java_block in iter_full_blocks("java",(1,21,4)):
