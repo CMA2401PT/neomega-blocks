@@ -1,4 +1,5 @@
 import os
+import itertools
 from typing import Dict, Iterator, List, Set, Tuple, cast
 import PyMCTranslate
 from amulet_nbt import ByteTag,IntTag,StringTag
@@ -86,7 +87,33 @@ def all_blocks(platform_name:str,version:Tuple[int,...],allow_missing:bool=True)
     return block_translator,iter_blocks()
 
 
+def iter_full_blocks(platform_name:str,version:Tuple[int,...])->Iterator[Block]:
+    # 每个字段都取遍自己的取值域，做完整笛卡尔积；没有缺字段的残缺态。
+    # viewer 据此建 javaHash→状态 表，才能渲染北连栅栏这类 Bedrock 表达不了的状态。
+    version_data=translations.get_version(platform_name,version)
+    block_translator=version_data.block
+    block_names=block_translator.base_names("minecraft",force_blockstate=True)
+    for block_name in block_names:
+        block_specification=block_translator.get_specification(
+            "minecraft",block_name,force_blockstate=True
+        )
+        properties:Dict[str,List[str]]=cast(Dict[str,List[str]],block_specification.get("properties",{}))
+        keys=list(properties.keys())
+        if len(keys)==0:
+            yield cast(Block,Block("minecraft",block_name,{}))
+            continue
+        value_lists=[[prop_value_to_nbt(v) for v in properties[k]] for k in keys]
+        for combo in itertools.product(*value_lists):
+            props={k:v for k,v in zip(keys,combo)}
+            yield cast(Block,Block("minecraft",block_name,props))
+
+
 def main() -> None:
+    # Java 侧完整状态全集：每行一个字段齐全的状态，供 viewer 直读建表。
+    with open(f"fan_out_java_full.list","w") as f:
+        for java_block in iter_full_blocks("java",(1,21,4)):
+            f.write(f"{block_to_blockstr(java_block)}\n")
+
     output_translator,output_iter=all_blocks("java",(1,21,4))
     with open(f"fan_out_java_allowed.list","w") as f:
         for java_block,_ in output_iter:
