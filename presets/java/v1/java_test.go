@@ -50,6 +50,15 @@ func TestBlockProperties(t *testing.T) {
 	}
 }
 
+func TestHashToBlockWaterlogged(t *testing.T) {
+	for _, value := range []string{"true", "false"} {
+		want := ir.IRBlock(`minecraft:oak_stairs ["facing"="north","half"="bottom","shape"="straight","waterlogged"="` + value + `"]`).Tidy()
+		if got, ok := java.HashToBlock(java.BlockToHash(want)); !ok || got != want {
+			t.Fatalf("lookup = (%q, %v), want %q", got, ok, want)
+		}
+	}
+}
+
 func TestJavaFullStates(t *testing.T) {
 	count := 0
 	for block := range java.JavaFullStates() {

@@ -21,6 +21,12 @@ var loadStates = sync.OnceValues(func() ([]ir.IRBlock, map[uint32]ir.IRBlock) {
 		block := ir.IRBlock(strings.TrimSpace(line)).Tidy()
 		states = append(states, block)
 		byHash[block.Hash()] = block
+		// 含水是所有方块都可附带的状态，反查时保留它，供转换器和 fixer 传递。
+		for _, value := range []string{"true", "false"} {
+			properties := block.States().Set("waterlogged", value)
+			variant := ir.IRBlock(block.NameWithNameSpace() + " " + string(properties)).Tidy()
+			byHash[variant.Hash()] = variant
+		}
 	}
 	return states, byHash
 })
