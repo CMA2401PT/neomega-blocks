@@ -51,7 +51,6 @@ func ConvertToJava(bedrock ir.IRBlock) (javaBlock ir.IRBlock, ok bool) {
 	}
 	// The target palette can contain explicit mappings without a vanilla default
 	// specification (for example NEMC micro_block). Preserve those exact entries.
-	bedrock = bedrock.Tidy()
 	loadToJavaNameStorage()
 	if javaBlock, ok = toJavaNameStorage.Get(blocks_name.BlockHash(bedrock.Hash())); ok {
 		return javaBlock, true
