@@ -1,4 +1,6 @@
-package scripts
+//go:build resourcegen
+
+package blockconverts
 
 import (
 	"encoding/json"
@@ -18,18 +20,7 @@ func TestReadDefaultsReadBlocksConsistency(t *testing.T) {
 	}
 	baseDir := filepath.Dir(cur)
 	palettePath := filepath.Join(baseDir, "block_palette.json")
-	defaultsPath := filepath.Join(
-		baseDir,
-		"PyMCTranslate",
-		"json",
-		"versions",
-		"bedrock_1_21_50",
-		"block",
-		"blockstate",
-		"specification",
-		"minecraft",
-		"vanilla",
-	)
+	defaultsPath := filepath.Join(baseDir, "tmp", "defaults", "bedrock_1_21_50.json")
 
 	blocks := ReadBlocks(palettePath)
 	defaults := ReadDefaults(defaultsPath)
@@ -128,7 +119,7 @@ func TestReadDefaultsReadBlocksConsistency(t *testing.T) {
 	if err != nil {
 		t.Fatalf("marshal defaults: %v", err)
 	}
-	if err := os.WriteFile("../v1/1_bedrock_default_props.bin", data, 0o644); err != nil {
+	if err := os.WriteFile("../../../presets/block-converts/v1/1_bedrock_default_props.bin", data, 0o644); err != nil {
 		t.Fatalf("write defaults bin: %v", err)
 	}
 }

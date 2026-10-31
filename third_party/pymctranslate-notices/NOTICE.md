@@ -2,7 +2,7 @@
 
 本项目的离线脚本使用 [Amulet-Team/PyMCTranslate](https://github.com/Amulet-Team/PyMCTranslate) 的默认属性和跨版本映射，生成运行时的默认属性表、转入表及 Java 输出表。生成结果还经过 NEMC palette 和本项目转换规则的整理。
 
-本地 `presets/block-converts/scripts/PyMCTranslate/build_number.json` 记录 `317`，对应上游 [1.2.30](https://github.com/Amulet-Team/PyMCTranslate/tree/1.2.30/PyMCTranslate)，Java 输出目标为 1.21.4。本地目录另有针对 NEMC 外观的转换补丁，不是未经修改的上游分发包。
+生成环境通过根目录的 `pyproject.toml` 和 `uv.lock` 固定上游 [1.2.30](https://github.com/Amulet-Team/PyMCTranslate/tree/1.2.30/PyMCTranslate)，其 build number 为 `317`，Java 输出目标为 1.21.4。上游库安装在被 Git 忽略的 `.venv/` 中。NEMC 的工作台、熔炉和点燃熔炉具有额外的 `custom_appearance` 属性，由 [pymc_specification.py](../gen_resource/block-converts/pymc_specification.py) 在生成时补充；该规则不修改上游安装文件。
 
 Required Notice: Copyright Amulet Team. (https://www.amuletmc.com/)
 

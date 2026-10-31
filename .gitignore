@@ -1,7 +1,5 @@
-.gocache/README
-.gocache
-PyMCTranslate
+.gocache/
 .DS_Store
-*.mapping
-private_*
 __pycache__/
+.venv/
+/third_party/gen_resource/*/tmp/

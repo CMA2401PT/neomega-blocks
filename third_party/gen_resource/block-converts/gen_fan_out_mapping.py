@@ -1,10 +1,15 @@
-import os
+from pathlib import Path
 import itertools
 from typing import Dict, Iterator, List, Set, Tuple, cast
 import PyMCTranslate
 from amulet_nbt import ByteTag,IntTag,StringTag
 from PyMCTranslate.py3.api import Block
+from pymc_specification import get_specification
 
+
+SCRIPT_DIR = Path(__file__).resolve().parent
+TMP_DIR = SCRIPT_DIR / "tmp"
+JAVA_DIR = SCRIPT_DIR.parents[2] / "presets" / "java" / "v1"
 
 translations = PyMCTranslate.new_translation_manager()
 
@@ -70,8 +75,11 @@ def all_blocks(platform_name:str,version:Tuple[int,...],allow_missing:bool=True)
     def iter_blocks()->Iterator[Tuple[Block,Block]]:
         block_names=block_translator.base_names("minecraft",force_blockstate=True)
         for block_name in block_names:
-            block_specification = block_translator.get_specification(
-                "minecraft", block_name, force_blockstate=True
+            block_specification = get_specification(
+                translator=block_translator,
+                platform=platform_name,
+                version=version,
+                name=block_name,
             )
             properties: Dict[str, List[str]] = cast(Dict[str,List[str]],block_specification.get("properties", {}))
             defaults: Dict[str, str]=cast(Dict[str,str],block_specification.get("defaults",{}))
@@ -94,8 +102,11 @@ def iter_full_blocks(platform_name:str,version:Tuple[int,...])->Iterator[Block]:
     block_translator=version_data.block
     block_names=block_translator.base_names("minecraft",force_blockstate=True)
     for block_name in block_names:
-        block_specification=block_translator.get_specification(
-            "minecraft",block_name,force_blockstate=True
+        block_specification=get_specification(
+            translator=block_translator,
+            platform=platform_name,
+            version=version,
+            name=block_name,
         )
         properties:Dict[str,List[str]]=cast(Dict[str,List[str]],block_specification.get("properties",{}))
         keys=list(properties.keys())
@@ -114,7 +125,12 @@ def iter_block_schema(platform_name:str,version:Tuple[int,...]):
     version_data=translations.get_version(platform_name,version)
     block_translator=version_data.block
     for block_name in block_translator.base_names("minecraft",force_blockstate=True):
-        spec=block_translator.get_specification("minecraft",block_name,force_blockstate=True)
+        spec=get_specification(
+            translator=block_translator,
+            platform=platform_name,
+            version=version,
+            name=block_name,
+        )
         properties:Dict[str,List[str]]=cast(Dict[str,List[str]],spec.get("properties",{}))
         defaults:Dict[str,str]=cast(Dict[str,str],spec.get("defaults",{}))
         yield block_name,properties,defaults
@@ -130,25 +146,27 @@ def schema_line(block_name:str,properties:Dict[str,List[str]],defaults:Dict[str,
     return "\t".join([f"minecraft:{block_name}",*fields])
 
 
-def main() -> None:
+def main(*, tmp_dir: Path = TMP_DIR, java_dir: Path = JAVA_DIR) -> None:
+    tmp_dir.mkdir(parents=True, exist_ok=True)
+    java_dir.mkdir(parents=True, exist_ok=True)
     # 方块知识库：名称 → 属性域 + 默认值。presets/java/v1 据此支持 fixer 的查询。
-    with open(f"java_block_schema.list","w") as f:
+    with (java_dir / "java_block_schema.list").open("w") as f:
         for block_name,properties,defaults in iter_block_schema("java",(1,21,4)):
             f.write(f"{schema_line(block_name,properties,defaults)}\n")
 
     # Java 侧完整状态全集：每行一个字段齐全的状态，供 viewer 直读建表。
-    with open(f"fan_out_java_full.list","w") as f:
+    with (java_dir / "fan_out_java_full.list").open("w") as f:
         for java_block in iter_full_blocks("java",(1,21,4)):
             f.write(f"{block_to_blockstr(java_block)}\n")
 
     output_translator,output_iter=all_blocks("java",(1,21,4))
-    with open(f"fan_out_java_allowed.list","w") as f:
+    with (tmp_dir / "fan_out_java_allowed.list").open("w") as f:
         for java_block,_ in output_iter:
             f.write(f"{block_to_blockstr(java_block)}\n")
 
 
     input_translator,input_iter=all_blocks("bedrock",(1,21,50))
-    with open(f"fan_out_java.mapping","w") as f:
+    with (tmp_dir / "fan_out_java.mapping").open("w") as f:
         for bedrock_block,block_with_default in input_iter:
             input_str:str=block_to_blockstr(bedrock_block)
             uni_block,_,ok=input_translator.to_universal(block_with_default)

@@ -1,4 +1,6 @@
-package scripts
+//go:build resourcegen
+
+package blockconverts
 
 import (
 	"encoding/json"
@@ -56,7 +58,7 @@ func TestSchematic(t *testing.T) {
 		schematicHash := uint32(schematicID)<<16 | uint32(schematicMeta)
 		lookup.Set(schematicHash, bedrockBlock.Hash())
 	}
-	if err := os.WriteFile("../v1/6_schematic_fan_in.bin", lookup.Dump(), 0o644); err != nil {
+	if err := os.WriteFile("../../../presets/block-converts/v1/6_schematic_fan_in.bin", lookup.Dump(), 0o644); err != nil {
 		t.Fatalf("write defaults bin: %v", err)
 	}
 }

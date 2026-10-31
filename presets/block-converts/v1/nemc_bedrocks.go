@@ -12,12 +12,24 @@ import (
 	"sync"
 )
 
+// 目标 palette 的网络哈希、方块和 data value，由 third_party/gen_resource/block-converts/step0_read_blocks_test.go
+// 中的 TestStep0ReadBlocksFromPalette 生成。
+// 在模块根目录运行 sh third_party/gen_resource/block-converts/generate.sh，按依赖顺序更新资源。
+//
 //go:embed 0_bedrock_blocks.bin
 var data0BedrockBlocksBytes []uint8
 
+// Bedrock 默认属性，由 third_party/gen_resource/block-converts/step1_read_consistency_test.go
+// 中的 TestReadDefaultsReadBlocksConsistency 生成。
+// 在模块根目录运行 sh third_party/gen_resource/block-converts/generate.sh，按依赖顺序更新资源。
+//
 //go:embed 1_bedrock_default_props.bin
 var data1BedrockDefaultPropsBytes []uint8
 
+// 名称、data value 到网络哈希的索引，由 third_party/gen_resource/block-converts/step4_block_data_test.go
+// 中的 TestStep4BuildBlockDataByName 生成。
+// 在模块根目录运行 sh third_party/gen_resource/block-converts/generate.sh，按依赖顺序更新资源。
+//
 //go:embed 4_block_data.bin
 var data4BlockDataBytes []uint8
 

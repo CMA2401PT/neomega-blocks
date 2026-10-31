@@ -11,6 +11,9 @@ import (
 
 const JavaTargetVersion = "1.21.4"
 
+// Java 目标版本的完整状态全集，由 third_party/gen_resource/block-converts/gen_fan_out_mapping.py 生成。
+// 在模块根目录运行 sh third_party/gen_resource/block-converts/generate.sh，按依赖顺序更新资源。
+//
 //go:embed fan_out_java_full.list
 var dataJavaFullStates string
 

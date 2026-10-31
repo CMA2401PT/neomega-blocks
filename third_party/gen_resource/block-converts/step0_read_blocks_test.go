@@ -1,4 +1,6 @@
-package scripts
+//go:build resourcegen
+
+package blockconverts
 
 import (
 	"fmt"
@@ -10,7 +12,7 @@ import (
 	blocks_name "neomega-blocks/storage/blocks-name"
 )
 
-// 从 NEMC 的 block_palette.json 中读取所有方块的状态，并保存到 0_bedrock_blocks.json
+// 从 NEMC 的 block_palette.json 中读取所有方块的状态，并保存到 0_bedrock_blocks.bin
 func TestStep0ReadBlocksFromPalette(t *testing.T) {
 	_, cur, _, ok := runtime.Caller(0)
 	if !ok {
@@ -56,12 +58,14 @@ func TestStep0ReadBlocksFromPalette(t *testing.T) {
 		}
 	}
 	fmt.Printf("%v MiB\n", float32(len(storage.Dump()))/(1<<20))
-	os.WriteFile("../v1/0_bedrock_blocks.bin", storage.Dump(), 0644)
+	if err := os.WriteFile("../../../presets/block-converts/v1/0_bedrock_blocks.bin", storage.Dump(), 0644); err != nil {
+		t.Fatal(err)
+	}
 
 	outNames := []uint8{}
 	for _, b := range blocks {
 		outNames = append(outNames, []uint8(b.IRBlock)...)
 	}
 	fmt.Printf("%v MiB\n", float32(len(outNames))/(1<<20))
-	// os.WriteFile("dump_name.bin", outNames, 0644)
+	// 调试导出应写入 tmp/。
 }

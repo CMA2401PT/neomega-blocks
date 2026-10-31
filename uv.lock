@@ -1,0 +1,73 @@
+version = 1
+revision = 3
+requires-python = "==3.11.*"
+
+[[package]]
+name = "amulet-mutf8"
+version = "1.0.7"
+source = { registry = "https://pypi.org/simple" }
+sdist = { url = "https://files.pythonhosted.org/packages/30/0c/b49bed3ea8ccfc9956d76c422d31ba1bfaf4a0320e6ea9e02dac91f64869/amulet_mutf8-1.0.7.tar.gz", hash = "sha256:7e45b1bdfdc33e3bcd8e986956de7a5a404a631937ffb45b87c686b61614bf7f", size = 8915, upload-time = "2026-04-10T07:36:15.689Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/11/5d/64837608b628f0b6e0bf0e5748f266b7a17c2e55238d63ec8cf7f657e142/amulet_mutf8-1.0.7-cp311-cp311-macosx_10_9_universal2.whl", hash = "sha256:4ce86966d06a68e22bf2de6507dc24740fe7681967b21140ae687cc1f57ca558", size = 12747, upload-time = "2026-04-10T07:36:14.654Z" },
+    { url = "https://files.pythonhosted.org/packages/e7/f9/9defbad74907bad08ad33e7fe11a20445c504fd2924572c275c32a9da39b/amulet_mutf8-1.0.7-cp311-cp311-win_amd64.whl", hash = "sha256:0fe1d251c2cbf6d018cda90615c766d4ff7f4f746e77c3c2d29f6a8d38e08977", size = 11885, upload-time = "2026-04-10T07:36:47.936Z" },
+    { url = "https://files.pythonhosted.org/packages/35/67/2e1f627737ddb6b9f5cfd9fb714049f3a08beed57ce347263e6bf3c36f62/amulet_mutf8-1.0.7-cp311-cp311-win_arm64.whl", hash = "sha256:413cf14df73095e3c1f8bd5328868e76d4e0ca17ee980df2c2dc519c671fbcbe", size = 10751, upload-time = "2026-04-10T07:38:06.731Z" },
+]
+
+[[package]]
+name = "amulet-nbt"
+version = "2.1.8"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "amulet-mutf8" },
+    { name = "numpy" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/e7/f5/1de8c82e800c042f57e8b0c781cfec51fc771a157b339700202f6054dbe8/amulet_nbt-2.1.8.tar.gz", hash = "sha256:c1a2c7b456bf872149cc070fce5615563818df15cc5c63cb6a6daa05a526c0b3", size = 1481339, upload-time = "2026-04-10T08:22:34.317Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/41/71/1714b5f883b236a2da2364d412b32216cb5b5a041fdc86b7a7a1edc747d8/amulet_nbt-2.1.8-cp311-cp311-macosx_10_9_universal2.whl", hash = "sha256:511ed78c00c0fe0467ee09dcdabd932a0fa6a0e55c159253a5fdc4b836627436", size = 1519454, upload-time = "2026-04-10T08:22:31.977Z" },
+    { url = "https://files.pythonhosted.org/packages/ad/fc/6ae635230ee07cc029953c7597db50a052bb4c9f65998175ecf448c83cbb/amulet_nbt-2.1.8-cp311-cp311-win_amd64.whl", hash = "sha256:a8c619288c3178fbd38ecbc77764e71ace0b26d4f27dd11c318ba0a0f4027324", size = 691213, upload-time = "2026-04-10T08:23:06.745Z" },
+    { url = "https://files.pythonhosted.org/packages/34/ed/4d9cb8c58aadf4189725448a6327dc4e6e9899517f4a49ada2f71a46fada/amulet_nbt-2.1.8-cp311-cp311-win_arm64.whl", hash = "sha256:c405f10d6039b6300c0c74d50e33453e27f975c9a511649be499a9ce8689fc30", size = 570794, upload-time = "2026-04-10T08:26:26.162Z" },
+]
+
+[[package]]
+name = "neomega-blocks-resources"
+version = "0.0.0"
+source = { virtual = "." }
+dependencies = [
+    { name = "amulet-nbt" },
+    { name = "pymctranslate" },
+]
+
+[package.metadata]
+requires-dist = [
+    { name = "amulet-nbt", specifier = "==2.1.8" },
+    { name = "pymctranslate", specifier = "==1.2.30" },
+]
+
+[[package]]
+name = "numpy"
+version = "1.26.4"
+source = { registry = "https://pypi.org/simple" }
+sdist = { url = "https://files.pythonhosted.org/packages/65/6e/09db70a523a96d25e115e71cc56a6f9031e7b8cd166c1ac8438307c14058/numpy-1.26.4.tar.gz", hash = "sha256:2a02aba9ed12e4ac4eb3ea9421c420301a0c6460d9830d74a9df87efa4912010", size = 15786129, upload-time = "2024-02-06T00:26:44.495Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/11/57/baae43d14fe163fa0e4c47f307b6b2511ab8d7d30177c491960504252053/numpy-1.26.4-cp311-cp311-macosx_10_9_x86_64.whl", hash = "sha256:4c66707fabe114439db9068ee468c26bbdf909cac0fb58686a42a24de1760c71", size = 20630554, upload-time = "2024-02-05T23:51:50.149Z" },
+    { url = "https://files.pythonhosted.org/packages/1a/2e/151484f49fd03944c4a3ad9c418ed193cfd02724e138ac8a9505d056c582/numpy-1.26.4-cp311-cp311-macosx_11_0_arm64.whl", hash = "sha256:edd8b5fe47dab091176d21bb6de568acdd906d1887a4584a15a9a96a1dca06ef", size = 13997127, upload-time = "2024-02-05T23:52:15.314Z" },
+    { url = "https://files.pythonhosted.org/packages/79/ae/7e5b85136806f9dadf4878bf73cf223fe5c2636818ba3ab1c585d0403164/numpy-1.26.4-cp311-cp311-manylinux_2_17_aarch64.manylinux2014_aarch64.whl", hash = "sha256:7ab55401287bfec946ced39700c053796e7cc0e3acbef09993a9ad2adba6ca6e", size = 14222994, upload-time = "2024-02-05T23:52:47.569Z" },
+    { url = "https://files.pythonhosted.org/packages/3a/d0/edc009c27b406c4f9cbc79274d6e46d634d139075492ad055e3d68445925/numpy-1.26.4-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:666dbfb6ec68962c033a450943ded891bed2d54e6755e35e5835d63f4f6931d5", size = 18252005, upload-time = "2024-02-05T23:53:15.637Z" },
+    { url = "https://files.pythonhosted.org/packages/09/bf/2b1aaf8f525f2923ff6cfcf134ae5e750e279ac65ebf386c75a0cf6da06a/numpy-1.26.4-cp311-cp311-musllinux_1_1_aarch64.whl", hash = "sha256:96ff0b2ad353d8f990b63294c8986f1ec3cb19d749234014f4e7eb0112ceba5a", size = 13885297, upload-time = "2024-02-05T23:53:42.16Z" },
+    { url = "https://files.pythonhosted.org/packages/df/a0/4e0f14d847cfc2a633a1c8621d00724f3206cfeddeb66d35698c4e2cf3d2/numpy-1.26.4-cp311-cp311-musllinux_1_1_x86_64.whl", hash = "sha256:60dedbb91afcbfdc9bc0b1f3f402804070deed7392c23eb7a7f07fa857868e8a", size = 18093567, upload-time = "2024-02-05T23:54:11.696Z" },
+    { url = "https://files.pythonhosted.org/packages/d2/b7/a734c733286e10a7f1a8ad1ae8c90f2d33bf604a96548e0a4a3a6739b468/numpy-1.26.4-cp311-cp311-win32.whl", hash = "sha256:1af303d6b2210eb850fcf03064d364652b7120803a0b872f5211f5234b399f20", size = 5968812, upload-time = "2024-02-05T23:54:26.453Z" },
+    { url = "https://files.pythonhosted.org/packages/3f/6b/5610004206cf7f8e7ad91c5a85a8c71b2f2f8051a0c0c4d5916b76d6cbb2/numpy-1.26.4-cp311-cp311-win_amd64.whl", hash = "sha256:cd25bcecc4974d09257ffcd1f098ee778f7834c3ad767fe5db785be9a4aa9cb2", size = 15811913, upload-time = "2024-02-05T23:54:53.933Z" },
+]
+
+[[package]]
+name = "pymctranslate"
+version = "1.2.30"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "amulet-nbt" },
+    { name = "numpy" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/cc/88/821fbcb5b20170822c4b994fcd211e48796c158835ee1825719ee8a637a9/pymctranslate-1.2.30.tar.gz", hash = "sha256:a2c1a3c6e8372ae37c84390d0eb0b4a2cfc1ec4554b0bfac3faa137da1b76014", size = 12580504, upload-time = "2024-12-05T13:30:32.269Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/67/fb/2941ba12067abbf35dde282038bc8d78e757dda15dd3c78facc74f40dcff/PyMCTranslate-1.2.30-py3-none-any.whl", hash = "sha256:ea2fc9842f3efe2b8a914a5d02ef9b2ee82eca38c44437fc46edab50a1acf021", size = 1207631, upload-time = "2024-12-05T13:30:30.139Z" },
+]

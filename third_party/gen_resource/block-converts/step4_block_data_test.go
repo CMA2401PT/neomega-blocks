@@ -1,4 +1,6 @@
-package scripts
+//go:build resourcegen
+
+package blockconverts
 
 import (
 	"fmt"
@@ -33,7 +35,7 @@ func TestStep4BuildBlockDataByName(t *testing.T) {
 	}
 	fmt.Println(emptyCount, nonEmptyCount)
 
-	if err := os.WriteFile("../v1/4_block_data.bin", storage.Dump(), 0o644); err != nil {
+	if err := os.WriteFile("../../../presets/block-converts/v1/4_block_data.bin", storage.Dump(), 0o644); err != nil {
 		t.Fatalf("write 4_block_data.bin: %v", err)
 	}
 }

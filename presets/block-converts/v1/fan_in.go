@@ -11,23 +11,39 @@ import (
 	"sync"
 )
 
+// Bedrock 转入映射，由 third_party/gen_resource/block-converts/step2_gen_fan_in_test.go
+// 中的 TestStep2_1_GenBedrockFanin 生成。
+// 在模块根目录运行 sh third_party/gen_resource/block-converts/generate.sh，按依赖顺序更新资源。
+//
 //go:embed 2_bedrock_fan_in.bin
 var data2BedrockFanin []uint8
 
 var bedrockFanin num_lookup.TwoLayerNumMap[uint32, uint32]
 var bedrockFaninLoaded sync.Once
 
+// Java 默认属性，由 third_party/gen_resource/block-converts/step2_gen_fan_in_test.go
+// 中的 TestStep2_2_GenJavaDefaultPropFanin 生成。
+// 在模块根目录运行 sh third_party/gen_resource/block-converts/generate.sh，按依赖顺序更新资源。
+//
 //go:embed 2_2_java_default_props.bin
 var data2_2JavaDefaultPropsBytes []uint8
 var javaDefaultProps map[string]ir.IRStates
 var javaDefaultPropsLoaded sync.Once
 
+// Java 转入映射，由 third_party/gen_resource/block-converts/step2_gen_fan_in_test.go
+// 中的 TestStep2_3_GenJavaFanin 生成。
+// 在模块根目录运行 sh third_party/gen_resource/block-converts/generate.sh，按依赖顺序更新资源。
+//
 //go:embed 2_3_java_fan_in.bin
 var data2_3JavaFanin []uint8
 
 var javaFanin num_lookup.TwoLayerNumMap[uint32, uint32]
 var javaFaninLoaded sync.Once
 
+// 旧 Schematic ID、meta 转入映射，由 third_party/gen_resource/block-converts/step5_schematic_test.go
+// 中的 TestSchematic 生成。
+// 在模块根目录运行 sh third_party/gen_resource/block-converts/generate.sh，按依赖顺序更新资源。
+//
 //go:embed 6_schematic_fan_in.bin
 var data6SchematicFanin []uint8
 

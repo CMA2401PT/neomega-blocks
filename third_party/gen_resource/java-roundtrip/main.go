@@ -133,7 +133,7 @@ func main() {
 	fmt.Println("在仓库根目录重新生成：")
 	fmt.Println()
 	fmt.Println("```sh")
-	fmt.Println("go run ./presets/block-converts/scripts/java-roundtrip > presets/block-converts/scripts/java-roundtrip/REPORT.md")
+	fmt.Println("mkdir -p third_party/gen_resource/java-roundtrip/tmp && go run ./third_party/gen_resource/java-roundtrip > third_party/gen_resource/java-roundtrip/tmp/REPORT.md")
 	fmt.Println("```")
 	fmt.Println()
 	fmt.Println("## 总览")

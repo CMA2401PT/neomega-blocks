@@ -1,4 +1,4 @@
-package scripts
+package blockconverts
 
 import (
 	"encoding/json"

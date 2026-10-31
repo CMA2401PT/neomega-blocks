@@ -1,9 +1,12 @@
-import os
+from pathlib import Path
 from typing import Dict, Iterator, List, Set, Tuple, cast
 import PyMCTranslate
 from amulet_nbt import ByteTag,IntTag,StringTag
 from PyMCTranslate.py3.api import Block
+from pymc_specification import get_specification
 
+
+TMP_DIR = Path(__file__).resolve().parent / "tmp"
 
 translations = PyMCTranslate.new_translation_manager()
 
@@ -69,8 +72,11 @@ def all_blocks(platform_name:str,version:Tuple[int,...],allow_missing:bool=True)
     def iter_blocks()->Iterator[Tuple[Block,Block]]:
         block_names=block_translator.base_names("minecraft",force_blockstate=True)
         for block_name in block_names:
-            block_specification = block_translator.get_specification(
-                "minecraft", block_name, force_blockstate=True
+            block_specification = get_specification(
+                translator=block_translator,
+                platform=platform_name,
+                version=version,
+                name=block_name,
             )
             properties: Dict[str, List[str]] = cast(Dict[str,List[str]],block_specification.get("properties", {}))
             defaults: Dict[str, str]=cast(Dict[str,str],block_specification.get("defaults",{}))
@@ -86,7 +92,7 @@ def all_blocks(platform_name:str,version:Tuple[int,...],allow_missing:bool=True)
     return block_translator,iter_blocks()
 
 
-def gen_fan_in(output_file:str,platform:str,output_translator:PyMCTranslate.BlockTranslator,allow_missing:bool=True):
+def gen_fan_in(output_file:str | Path,platform:str,output_translator:PyMCTranslate.BlockTranslator,allow_missing:bool=True):
     exist:Set[str]=set()
     with open(output_file,"w") as f:
         for version_number in translations.version_numbers(platform)[::-1]:
@@ -104,13 +110,14 @@ def gen_fan_in(output_file:str,platform:str,output_translator:PyMCTranslate.Bloc
                 f.write(f"{blk_str}#{out_str}\n")
 
 def main() -> None:
+    TMP_DIR.mkdir(parents=True, exist_ok=True)
     platform="bedrock"
-    output_file=f"fan_in_{platform}.mapping"
+    output_file=TMP_DIR / f"fan_in_{platform}.mapping"
     output_translator: PyMCTranslate.BlockTranslator=translations.get_version("bedrock",(1,21,50)).block
     gen_fan_in(output_file,platform,output_translator,allow_missing=False)
 
     platform="java"
-    output_file=f"fan_in_{platform}.mapping"
+    output_file=TMP_DIR / f"fan_in_{platform}.mapping"
     output_translator: PyMCTranslate.BlockTranslator=translations.get_version("bedrock",(1,21,50)).block
     gen_fan_in(output_file,platform,output_translator,allow_missing=False)
 

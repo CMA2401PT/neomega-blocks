@@ -1,4 +1,6 @@
-package scripts
+//go:build resourcegen
+
+package blockconverts
 
 import (
 	"bufio"
@@ -286,9 +288,9 @@ func outputFix(in ir.IRBlock) ir.IRBlock {
 	return in
 }
 
-// 从 fan_in_bedrock.mapping 中读取所有基岩版方块映射的状态，并保存到 2_bedrock_fan_in.json
+// 从 fan_in_bedrock.mapping 中读取所有基岩版方块映射的状态，并保存到 2_bedrock_fan_in.bin
 func TestStep2_1_GenBedrockFanin(t *testing.T) {
-	pairs := LoadMappingPairs("fan_in_bedrock.mapping")
+	pairs := LoadMappingPairs("tmp/fan_in_bedrock.mapping")
 	tidyPairs := []MappingPair{}
 	ignorePairs := 0
 	nonsensePairs := 0
@@ -329,12 +331,14 @@ func TestStep2_1_GenBedrockFanin(t *testing.T) {
 	for _, p := range tidyPairs {
 		outStr += fmt.Sprintf("%v#%v\n", p.In.String(), p.Out.String())
 	}
-	os.WriteFile("fan_in_bedrock_tidy.mapping", []byte(outStr), 0644)
+	if err := os.WriteFile("tmp/fan_in_bedrock_tidy.mapping", []byte(outStr), 0644); err != nil {
+		t.Fatal(err)
+	}
 	lookup := num_lookup.NewTwoLayerNumMap[uint32, uint32]()
 	for _, p := range tidyPairs {
 		lookup.Set(uint32(p.In.Hash()), uint32(p.Out.Hash()))
 	}
-	if err := os.WriteFile("../v1/2_bedrock_fan_in.bin", lookup.Dump(), 0o644); err != nil {
+	if err := os.WriteFile("../../../presets/block-converts/v1/2_bedrock_fan_in.bin", lookup.Dump(), 0o644); err != nil {
 		t.Fatalf("write defaults bin: %v", err)
 	}
 }
@@ -347,12 +351,7 @@ func TestStep2_2_GenJavaDefaultPropFanin(t *testing.T) {
 		t.Fatal("runtime.Caller failed")
 	}
 	baseDir := filepath.Dir(cur)
-	versionsPath := filepath.Join(
-		baseDir,
-		"PyMCTranslate",
-		"json",
-		"versions",
-	)
+	versionsPath := filepath.Join(baseDir, "tmp", "defaults")
 	entries, err := os.ReadDir(versionsPath)
 	if err != nil {
 		t.Fatalf("read versions dir %q: %v", versionsPath, err)
@@ -364,10 +363,10 @@ func TestStep2_2_GenJavaDefaultPropFanin(t *testing.T) {
 	}
 	javaDirs := make([]javaVersionDir, 0, len(entries))
 	for _, e := range entries {
-		if !e.IsDir() || !strings.HasPrefix(e.Name(), "java_") {
+		if e.IsDir() || !strings.HasPrefix(e.Name(), "java_") || filepath.Ext(e.Name()) != ".json" {
 			continue
 		}
-		parts := strings.Split(strings.TrimPrefix(e.Name(), "java_"), "_")
+		parts := strings.Split(strings.TrimSuffix(strings.TrimPrefix(e.Name(), "java_"), ".json"), "_")
 		if len(parts) != 3 {
 			continue
 		}
@@ -401,21 +400,7 @@ func TestStep2_2_GenJavaDefaultPropFanin(t *testing.T) {
 
 	defaults := map[string]ir.IRStates{}
 	for _, d := range javaDirs {
-		defaultsPath := filepath.Join(
-			versionsPath,
-			d.name,
-			"block",
-			"blockstate",
-			"specification",
-			"minecraft",
-			"vanilla",
-		)
-		if _, err := os.Stat(defaultsPath); err != nil {
-			if os.IsNotExist(err) {
-				continue
-			}
-			t.Fatalf("stat defaults path %q: %v", defaultsPath, err)
-		}
+		defaultsPath := filepath.Join(versionsPath, d.name)
 		curDefaults := ReadDefaults(defaultsPath)
 		for name, states := range curDefaults {
 			// 高版本优先：若已存在则忽略低版本同名项。
@@ -432,7 +417,7 @@ func TestStep2_2_GenJavaDefaultPropFanin(t *testing.T) {
 	if err != nil {
 		t.Fatalf("marshal defaults: %v", err)
 	}
-	if err := os.WriteFile("../v1/2_2_java_default_props.bin", data, 0o644); err != nil {
+	if err := os.WriteFile("../../../presets/block-converts/v1/2_2_java_default_props.bin", data, 0o644); err != nil {
 		t.Fatalf("write defaults bin: %v", err)
 	}
 }
@@ -472,9 +457,9 @@ func javaHangingSignDirectConvert(inJava ir.IRBlock) (outBedrock ir.IRBlock, ok 
 	return "", false
 }
 
-// 从 fan_in_java.mapping 中读取所有基岩版方块映射的状态，并保存到 2_3_java_fan_in.json
+// 从 fan_in_java.mapping 中读取所有基岩版方块映射的状态，并保存到 2_3_java_fan_in.bin
 func TestStep2_3_GenJavaFanin(t *testing.T) {
-	pairs := LoadMappingPairs("fan_in_java.mapping")
+	pairs := LoadMappingPairs("tmp/fan_in_java.mapping")
 	fullPairs := map[ir.IRBlock]ir.IRBlock{}
 	tidyPairs := []MappingPair{}
 
@@ -537,12 +522,14 @@ func TestStep2_3_GenJavaFanin(t *testing.T) {
 	for _, p := range tidyPairs {
 		outStr += fmt.Sprintf("%v#%v\n", p.In.String(), p.Out.String())
 	}
-	os.WriteFile("fan_in_java_tidy.mapping", []byte(outStr), 0644)
+	if err := os.WriteFile("tmp/fan_in_java_tidy.mapping", []byte(outStr), 0644); err != nil {
+		t.Fatal(err)
+	}
 	lookup := num_lookup.NewTwoLayerNumMap[uint32, uint32]()
 	for _, p := range tidyPairs {
 		lookup.Set(uint32(p.In.Hash()), uint32(p.Out.Hash()))
 	}
-	if err := os.WriteFile("../v1/2_3_java_fan_in.bin", lookup.Dump(), 0o644); err != nil {
+	if err := os.WriteFile("../../../presets/block-converts/v1/2_3_java_fan_in.bin", lookup.Dump(), 0o644); err != nil {
 		t.Fatalf("write defaults bin: %v", err)
 	}
 }

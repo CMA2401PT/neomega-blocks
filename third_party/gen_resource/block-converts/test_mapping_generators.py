@@ -1,6 +1,5 @@
 """Small conversion fixtures; never regenerate the repository's mapping files."""
 
-from contextlib import chdir
 from pathlib import Path
 import tempfile
 import unittest
@@ -19,7 +18,7 @@ class FakeTranslator:
     def base_names(self, namespace: str, *, force_blockstate: bool):
         return ["example"]
 
-    def get_specification(self, namespace: str, name: str, *, force_blockstate: bool):
+    def get_specification(self, namespace: str, base_name: str, *, force_blockstate: bool):
         return {
             "properties": {"a": ['"default"', '"other"'], "b": ["0", "1"]},
             "defaults": {"a": '"default"', "b": "0"},
@@ -86,11 +85,14 @@ class MappingGeneratorsTest(unittest.TestCase):
 
     def test_fan_out_translates_complete_objects_and_keeps_partial_keys(self) -> None:
         translator = FakeTranslator()
-        with tempfile.TemporaryDirectory() as folder, chdir(folder):
+        with tempfile.TemporaryDirectory() as folder:
             with patch.object(fan_out, "translations", FakeManager(translator)):
-                fan_out.main()
-            rows = Path("fan_out_java.mapping").read_text().splitlines()
-            allowed = Path("fan_out_java_allowed.list").read_text().splitlines()
+                fan_out.main(
+                    tmp_dir=Path(folder) / "tmp",
+                    java_dir=Path(folder) / "java",
+                )
+            rows = (Path(folder) / "tmp" / "fan_out_java.mapping").read_text().splitlines()
+            allowed = (Path(folder) / "tmp" / "fan_out_java_allowed.list").read_text().splitlines()
         self.assertEqual(translator.converted, 9)
         self.assertEqual(len(allowed), 9)
         self.assertTrue(any(row.startswith("minecraft:example []#") for row in rows))

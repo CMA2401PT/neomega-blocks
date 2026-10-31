@@ -2,7 +2,7 @@
 
 `neomega-blocks` 用来描述、查找和转换 Minecraft 方块。不同版本可能使用不同的方块名、属性名和属性值；旧格式还可能只给出数字 ID 与附加值。这个库把这些输入转换到一套确定的 NEMC/Bedrock 方块集合，并提供向 Java 方块的输出转换。
 
-项目分为两个相互配合的部分：**运行时读取已经准备好的转换表；离线工具负责生成、修正和验证这些表。** 使用现成 preset 时，只需调用 Go 接口。维护目标版本或新增方块支持时，才需要运行 `presets/block-converts/scripts` 下的准备流程。
+项目分为两个相互配合的部分：**运行时读取已经准备好的转换表；离线工具负责生成、修正和验证这些表。** `ir`、`storage` 和 `encode-decode` 提供通用逻辑；`presets` 提供选定版本的数据与规则；`third_party` 保存离线生成工具和来源声明。使用现成 preset 时只需调用 Go 接口。各包能力和 IRBlock 的 Tidy 约定见 [presets/README.md](presets/README.md)。
 
 ## 为什么要有一个转换中心
 
@@ -140,125 +140,17 @@ true true
 
 ## 转换表从哪里来
 
-要更新目标版本，必须知道每张表的依据。`scripts` 是数据准备工具：Python 借助 PyMCTranslate 生成候选映射，Go 再把候选结果修正为 NEMC 目标集合里的方块，并压缩为运行时表。
+离线生成工具保存在 [`third_party/gen_resource`](third_party/gen_resource/README.md)。Python 借助 uv 安装的 PyMCTranslate 生成候选映射，Go 再将它们修正到 NEMC palette 的目标集合，并压缩为运行时表。固定输入跟随脚本保存，中间文件写入各脚本目录下被 Git 忽略的 `tmp/`，最终资源直接写入 `presets` 中消费它们的 Go 包。
 
-准备阶段使用三类输入：
-
-- `block_palette.json`：目标 NEMC 的实际方块集合，包括名称、属性类型、网络哈希和 data value。`ReadBlocks` 会核对计算哈希与 palette 记录是否一致。
-- 本地 `PyMCTranslate/`：转换代码及 `json/versions` 数据库，提供默认属性与经 universal 表示中转的跨版本映射。生成脚本从高版本向低版本遍历，重复输入优先保留高版本结果。
-- `schematic.json`：旧 `id:meta` 到 Java 方块文本的映射，再经 Java 转入逻辑连接到目标集合。
-
-这些数据有独立的许可来源。本地 PyMCTranslate 记录 build 317，对应上游 1.2.30；其 Amulet Team License 1.0.0 包含非商业、教育和非竞争等使用条款。它不是 MIT 许可，生成运行时表也不应被视为消除了来源条款。原文、Required Notice 和版本依据见 [third_party/pymctranslate-notices/NOTICE.md](third_party/pymctranslate-notices/NOTICE.md)。更新上游版本前，应核对该版本的许可。
-
-这些输入产生的运行时文件如下。扩展名为 `.bin` 的默认属性表实际保存 JSON；其余文件使用各自的紧凑存储格式。
-
-| 产物，均位于 `presets/block-converts/v1` | 作用 | 生成入口 |
-| --- | --- | --- |
-| `0_bedrock_blocks.bin` | 目标网络哈希 → 方块文本，并附带 data value | `TestStep0ReadBlocksFromPalette` |
-| `1_bedrock_default_props.bin` | Bedrock 名称 → 默认属性 | `TestReadDefaultsReadBlocksConsistency` |
-| `2_bedrock_fan_in.bin` | 其他 Bedrock 状态哈希 → 目标哈希 | `TestStep2_1_GenBedrockFanin` |
-| `2_2_java_default_props.bin` | Java 名称 → 默认属性 | `TestStep2_2_GenJavaDefaultPropFanin` |
-| `2_3_java_fan_in.bin` | Java 状态哈希 → 目标哈希 | `TestStep2_3_GenJavaFanin` |
-| `3_to_java.bin` | 目标哈希 → Java 方块文本 | `TestStep3GenJavaFanout` |
-| `4_block_data.bin` | 名称、data value → 目标哈希 | `TestStep4BuildBlockDataByName` |
-| `6_schematic_fan_in.bin` | Schematic ID、meta → 目标哈希 | `TestSchematic` |
-
-Go 准备步骤并不是单纯打包候选数据。`outputFix` 修正旧名称、拆分后的方块和属性差异；墙、悬挂告示牌等交给专用规则；能够通过 Canon 复用的映射会被裁减。最终结果还会与目标集合核对。
-
-## 如何更新方块表
-
-更新表意味着重新确认“目标集合是什么”和“源输入怎样归入它”。下面按依赖顺序执行，所有命令均在标出的目录运行。已有 `.bin` 也是生成工具编译时的输入，应从带有这些产物的仓库开始。
-
-### 1. 准备目标数据与版本
-
-先替换 `scripts/block_palette.json`，并准备匹配的 PyMCTranslate 代码及数据库。palette 的 JSON 结构见 `scripts/read_blocks.go`：顶层 `blocks`，每个方块含 `name`、`network_id`、`data` 和带 `name/type/value` 的 `states`。属性类型为 `byte`、`int`、`string`。
-
-更换参考版本时，需要一起核对：
-
-- `gen_fan_in_mapping.py` 末尾的 Bedrock 输出版本。
-- `gen_fan_out_mapping.py` 的 Bedrock 输入版本与 Java 输出版本。
-- `presets/block-converts/v1/target.go` 中公开给消费者的版本常量。
-- `step1_read_consistency_test.go`、`read_defaults_test.go` 中的 Bedrock specification 目录。
-- 与版本相关的默认值测试、`outputFix` 和 `specific-converts` 规则。
-
-`schematic.json` 只在旧格式输入范围发生变化时更新。PyMCTranslate 目录被 Git 忽略，palette 和部分中间文件也可能没有纳入版本控制；更换环境时需要另行准备这些输入。
-
-### 2. 生成 Python 候选映射
-
-此步骤使用 Python 3.11、`amulet-nbt` 及其依赖。下面的命令通过 uv 的独立环境运行，并固定 `amulet-nbt 2.1.8`；本地 `PyMCTranslate/` 从脚本目录导入。
-
-先进入脚本目录，验证“缺参键与完整转换对象”的约定。这个测试使用小型内存样例，不生成真实映射：
+更新时，在模块根目录执行：
 
 ```sh
-# 从 neomega-blocks 根目录进入。
-cd presets/block-converts/scripts
-uv run --no-project --python 3.11 --with 'amulet-nbt==2.1.8' python -m unittest test_mapping_generators.py
+sh third_party/gen_resource/block-converts/generate.sh
 ```
 
-然后生成候选映射：
+该入口根据根目录的 `pyproject.toml` 和 `uv.lock` 在 `.venv/` 初始化 Python 3.11 环境，并依次生成默认属性、候选映射、运行时转换表和 Java 状态定义。源码树不再保存 PyMCTranslate；NEMC 的 `custom_appearance` 扩展由生成端的 `pymc_specification.py` 显式补充。
 
-```sh
-uv run --no-project --python 3.11 --with 'amulet-nbt==2.1.8' python gen_fan_in_mapping.py
-uv run --no-project --python 3.11 --with 'amulet-nbt==2.1.8' python gen_fan_out_mapping.py
-```
-
-第一条生成 `fan_in_bedrock.mapping`、`fan_in_java.mapping`。第二条生成 `fan_out_java.mapping` 和用于检查输出的 `fan_out_java_allowed.list`。缺参形式可以作为候选输入键，但转换调用必须继续使用补齐后的对象；不要让 `allow_missing` 改变这条原则。
-
-### 3. 建立目标集合与默认属性
-
-后续步骤要判断候选转换是否落在真实目标集合内，所以先建立目标表。以下命令仍在 `scripts` 目录运行：
-
-```sh
-go test -v -count=1 -run '^TestStep0ReadBlocksFromPalette$' .
-go test -v -count=1 -run '^TestReadDefaultsReadBlocksConsistency$' .
-```
-
-第一步核对 palette 哈希并生成方块表；第二步比较 palette 与参考默认属性的 key 集合，再生成默认属性表。出现不匹配时，应检查数据版本或修正规则后重新执行，不能把失败产生的文件作为成功产物继续发布。
-
-### 4. 依次生成转入、转出和旧格式索引
-
-这些步骤使用前面的目标表来验证转换结果：
-
-```sh
-go test -v -count=1 -run '^TestStep2_1_GenBedrockFanin$' .
-go test -v -count=1 -run '^TestStep2_2_GenJavaDefaultPropFanin$' .
-go test -v -count=1 -run '^TestStep2_3_GenJavaFanin$' .
-go test -v -count=1 -run '^TestStep3GenJavaFanout$' .
-go test -v -count=1 -run '^TestStep4BuildBlockDataByName$' .
-go test -v -count=1 -run '^TestSchematic$' .
-```
-
-每一条通过后再执行下一条。`go:embed` 在编译时读取文件，因此这些步骤必须分别启动 `go test`，让后一步重新编译并读取前一步的新产物；不要合并成一次运行整个脚本包。`-count=1` 则保证生成步骤实际执行。
-
-生成过程中还会写出 `*_tidy.mapping`，便于检查裁减后的映射。Java 输出检查会覆盖 palette 中的方块；特殊转换也会与 Java 允许的状态集合核对。
-
-### 5. 验证产物并检查差异
-
-先在 `scripts` 中运行只读的数据检查：
-
-```sh
-go test -v -count=1 -run '^(TestReadDefaultsAllJSON|TestStep4StorageDumpLoad)$' .
-```
-
-再回到 `neomega-blocks` 根目录验证运行时：
-
-```sh
-cd ../../..
-go test ./ir/... ./storage/... ./encode-decode/... ./presets/block-converts/v1 ./presets/block-converts/specific-converts
-git diff --stat
-git status --short
-```
-
-需要接入 `neomega-assets` 的渲染资源时，还应验证真实 palette 的转换结果能选择到资源里的模型。在 `neomega-blocks` 根目录执行：
-
-```sh
-NEOMEGA_ASSETS_DIR="$(cd ../neomega-assets/dist/final && pwd)" \
-  go test -v -count=1 -run '^TestJavaTargetAssets$' ./presets/block-converts/scripts
-```
-
-该检查核对目标版本、方块名称和 variant 选择。PyMCTranslate 将水表示为附加方块，单层方块预览以 `waterlogged=false` 补全这项显示条件；区块应用需要结合独立水层决定含水状态。
-
-检查目标版本、生成日志和实际方块样例，再将相应代码与 `.bin` 一起交付。失败步骤可能已经写入部分文件，所以更新应在可检查、可恢复的工作目录中进行。
+PyMCTranslate 的来源声明与 Required Notice 见 [third_party/pymctranslate-notices/NOTICE.md](third_party/pymctranslate-notices/NOTICE.md)。输入来源、每张表的生成步骤、更新版本和单步验证方式见[生成工具说明](third_party/gen_resource/README.md)。
 
 ## 怎样扩展
 
@@ -268,17 +160,16 @@ NEOMEGA_ASSETS_DIR="$(cd ../neomega-assets/dist/final && pwd)" \
 
 **修正某类方块的语义转换**时，参考 `specific-converts` 中的墙和悬挂告示牌规则。接入运行时入口的同时，也要让生成端识别同一规则，避免把同类转换再次写入表中。测试应覆盖显式属性、缺参补默认值，以及确实可逆的状态往返。
 
-**增加表驱动映射或更新目标版本**时，沿上述准备流程修改数据来源、默认属性和 `outputFix`，重新生成受影响的产物。扩展旧 Schematic 输入则从 `schematic.json` 开始，并使用已有 Java 转入逻辑生成最终索引。
+**增加表驱动映射或更新目标版本**时，沿生成工具说明中的准备流程修改数据来源、默认属性和 `outputFix`，重新生成受影响的产物。扩展旧 Schematic 输入则从 `third_party/gen_resource/block-converts/schematic.json` 开始，并使用已有 Java 转入逻辑生成最终索引。
 
-若只需要自定义查询表，可以单独使用 `storage/blocks-name` 或 `storage/num_lookup`；preset 的全局表没有提供运行时注册接口。`ir/ir-go` 中的整块 Go 对象实现目前被注释，实际运行时中间表示是 `ir.IRBlock`。
+若只需要自定义查询表，可以单独使用 `storage/blocks-name` 或 `storage/num_lookup`；preset 的全局表没有提供运行时注册接口。
 
 ## 日常测试
 
-日常代码修改不需要重新生成转换表。在仓库根目录运行：
+日常代码修改无需安装 Python 或重新生成资源。在工作区根目录运行：
 
 ```sh
-go test ./ir/... ./storage/... ./encode-decode/... ./presets/block-converts/v1 ./presets/block-converts/specific-converts
-go vet ./...
+./check.sh neomega-blocks
 ```
 
-`go vet` 不执行生成入口。`go test ./...` 会包括 `scripts` 中写文件的准备步骤，不适合作为只读的日常验证命令。基础用法也保存在 `presets/block-converts/v1/example_test.go` 中，作为可执行的示例测试。
+检查会执行 `go vet`、`go test`，并验证模块脱离工作区仍可编译。写资源的准备步骤使用 `resourcegen` 构建标签，普通 `go test ./...` 不会执行它们。基础用法保存在 `presets/block-converts/v1/example_test.go`，作为可执行的示例测试。

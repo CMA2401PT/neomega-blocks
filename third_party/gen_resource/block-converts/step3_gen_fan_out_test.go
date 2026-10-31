@@ -1,4 +1,6 @@
-package scripts
+//go:build resourcegen
+
+package blockconverts
 
 import (
 	"bufio"
@@ -53,7 +55,7 @@ func bedrockHangingSignDirectConvert(inBedrock ir.IRBlock) (outJava ir.IRBlock, 
 }
 
 func TestStep3GenJavaFanout(t *testing.T) {
-	allowsList := LoadBlockList("fan_out_java_allowed.list")
+	allowsList := LoadBlockList("tmp/fan_out_java_allowed.list")
 	allows := map[ir.IRBlock]struct{}{}
 	for _, b := range allowsList {
 		allows[b] = struct{}{}
@@ -62,7 +64,7 @@ func TestStep3GenJavaFanout(t *testing.T) {
 		_, ok := allows[b]
 		return ok
 	}
-	pairs := LoadMappingPairs("fan_out_java.mapping")
+	pairs := LoadMappingPairs("tmp/fan_out_java.mapping")
 
 	fullPairs := map[ir.IRBlock]ir.IRBlock{}
 	tidyPairs := []MappingPair{}
@@ -128,7 +130,9 @@ func TestStep3GenJavaFanout(t *testing.T) {
 	for _, p := range tidyPairs {
 		outStr += fmt.Sprintf("%v#%v\n", p.In.String(), p.Out.String())
 	}
-	os.WriteFile("fan_out_java_tidy.mapping", []byte(outStr), 0644)
+	if err := os.WriteFile("tmp/fan_out_java_tidy.mapping", []byte(outStr), 0644); err != nil {
+		t.Fatal(err)
+	}
 
 	storage := blocks_name.NewBlockNameStorage[uint16]()
 	for _, p := range tidyPairs {
@@ -157,6 +161,8 @@ func TestStep3GenJavaFanout(t *testing.T) {
 		}
 	}
 	fmt.Printf("%v MiB\n", float32(len(storage.Dump()))/(1<<20))
-	os.WriteFile("../v1/3_to_java.bin", storage.Dump(), 0644)
+	if err := os.WriteFile("../../../presets/block-converts/v1/3_to_java.bin", storage.Dump(), 0644); err != nil {
+		t.Fatal(err)
+	}
 
 }

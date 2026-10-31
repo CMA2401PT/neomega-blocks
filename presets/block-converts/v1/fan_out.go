@@ -9,6 +9,10 @@ import (
 	"sync"
 )
 
+// 目标 Bedrock 到 Java 的映射，由 third_party/gen_resource/block-converts/step3_gen_fan_out_test.go
+// 中的 TestStep3GenJavaFanout 生成。
+// 在模块根目录运行 sh third_party/gen_resource/block-converts/generate.sh，按依赖顺序更新资源。
+//
 //go:embed 3_to_java.bin
 var data3ToJavaBytes []uint8
 

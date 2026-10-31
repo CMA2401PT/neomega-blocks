@@ -12,6 +12,9 @@ type Property struct {
 	Values  []string
 }
 
+// Java 目标版本的属性域和默认值，由 third_party/gen_resource/block-converts/gen_fan_out_mapping.py 生成。
+// 在模块根目录运行 sh third_party/gen_resource/block-converts/generate.sh，按依赖顺序更新资源。
+//
 //go:embed java_block_schema.list
 var dataBlockSchema string
 

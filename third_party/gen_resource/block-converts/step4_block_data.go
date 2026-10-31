@@ -1,4 +1,4 @@
-package scripts
+package blockconverts
 
 import (
 	"encoding/binary"
@@ -50,7 +50,7 @@ func (s Step4Storage) Dump() []byte {
 	total := 4 + 4 // magic + count
 	for _, k := range keys {
 		arr := s[k]
-		total += 4 + len(k)      // key len + key bytes
+		total += 4 + len(k)     // key len + key bytes
 		total += 4 + len(arr)*4 // array len + array values
 	}
 
@@ -122,4 +122,3 @@ func LoadStep4Storage(data []byte) (Step4Storage, error) {
 	}
 	return out, nil
 }
-
