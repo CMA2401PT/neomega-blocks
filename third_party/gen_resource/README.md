@@ -2,7 +2,7 @@
 
 这里的工具把上游方块定义和本地 NEMC palette 转换为 Go 运行时使用的预置资源。Python 使用 PyMCTranslate 枚举状态并生成候选映射；Go 依据 NEMC 目标集合和专用规则修正映射，再压缩成查询表。运行时包及其使用约定见 [`presets`](../../presets/README.md)。
 
-脚本按目的分成两个目录：`block-converts` 生成方块转换表及它依赖的 Java 状态定义；`java-roundtrip` 分析已有预置转换的往返差异。脚本所需的固定输入跟随脚本保存，中间文件只写入各自的 `tmp/`。`tmp/` 被 Git 忽略，可删除后重新生成。最终嵌入资源直接写入 `presets` 的对应 Go 包。
+脚本按目的组织：`block-converts` 生成方块转换表及它依赖的 Java 状态定义；`geometry/solid_block_table` 生成静态几何、Java 元数据和六方向实心表；`java-roundtrip` 分析已有预置转换的往返差异。脚本所需的固定输入跟随脚本保存，中间文件只写入各自的 `tmp/`。`tmp/` 被 Git 忽略，可删除后重新生成。最终嵌入资源直接写入 `presets` 的对应 Go 包。
 
 ## 准备 Python 环境
 
@@ -96,6 +96,18 @@ go test -tags resourcegen -v -count=1 -run '^TestReadDefaultsReadBlocksConsisten
 每个步骤都必须单独启动 `go test`，使后一步重新编译并读取前一步更新的 embed。`-count=1` 保证实际执行生成。写资源的入口使用 `resourcegen` 构建标签，普通 `go test ./...` 和工作区 `check.sh` 不会执行它们。
 
 更换目标版本时，需要一起核对 Python 脚本中的参考版本、`pymc_specification.py` 的 NEMC 规则、Go 生成步骤中的默认属性版本，以及两个预置包公开的版本常量。palette 与专用转换规则也必须匹配新的目标集合。
+
+## geometry/solid_block_table：生成静态几何与实心表
+
+viewer 和 fixer 需要共享同一套模型解释。这个目录使用 `geometry/java_block_model` 的模型定义、读取与烘焙，以及 `geometry` 的覆盖计算，统一生成 Java 几何表、Java 元数据和实心表。三份产物直接写入 `presets/java/v1/geometry` 与 `presets/java/v1/solidtable`。
+
+先从一套匹配的 assets 手动复制六份输入到生成目录，再在模块根目录运行：
+
+```sh
+go generate ./presets/java/v1/geometry
+```
+
+输入列表、内部代码职责和真实资源验证命令见[几何生成说明](geometry/solid_block_table/README.md)。这条流程使用 Go；Python 环境用于前面的方块转换资源。
 
 ## java-roundtrip：生成转换差异报告
 
