@@ -42,6 +42,9 @@ func BlockToHash(block ir.IRBlock) uint32 {
 func HashToBlock(hash uint32) (ir.IRBlock, bool) {
 	_, byHash := loadStates()
 	block, ok := byHash[hash]
+	if !ok {
+		block, ok = compatibilityByHash()[hash]
+	}
 	return block, ok
 }
 

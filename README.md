@@ -6,6 +6,8 @@
 
 静态几何的定义、模型解析、覆盖计算和查询表见 [geometry/README.md](geometry/README.md)。Java 几何表、Java 元数据和 fixer 的实心表作为独立 preset 分发。`geometry/java_block_model` 定义 Java 模型与图集的读取契约，assets 依赖它生产资源；blocks 的生成器只读取手动准备的资源文件。具体方块始终用 IR 表示。
 
+直接浏览 Java 存档时，`presets/java/v1` 另提供旧 Java 状态到 1.21.4 的兼容映射。它由 PyMCTranslate 的 Universal 表示连接源状态与目标状态，高版本解释优先，运行时不带源版本。几何生成器让兼容输入共享目标状态的形状；含水仍由 viewer 单独拆层。使用方式见 [Java preset 说明](presets/README.md)。
+
 ## 为什么要有一个转换中心
 
 如果让每个版本都直接转换到其他所有版本，转换关系会越来越多。这里选择以 NEMC palette 中的方块集合作为中心：先把输入归入这个集合，再根据需要输出。

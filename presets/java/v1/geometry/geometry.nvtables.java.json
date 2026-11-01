@@ -177,6 +177,10 @@
     "minecraft:beacon": {
       "kind": "model"
     },
+    "minecraft:bed": {
+      "kind": "special",
+      "family": "bed"
+    },
     "minecraft:bedrock": {
       "kind": "model"
     },
@@ -387,6 +391,9 @@
     "minecraft:brewing_stand": {
       "kind": "model"
     },
+    "minecraft:brick_block": {
+      "kind": "model"
+    },
     "minecraft:brick_slab": {
       "kind": "model"
     },
@@ -489,6 +496,9 @@
       "kind": "model"
     },
     "minecraft:candle_cake": {
+      "kind": "model"
+    },
+    "minecraft:carpet": {
       "kind": "model"
     },
     "minecraft:carrots": {
@@ -674,6 +684,12 @@
       "kind": "model"
     },
     "minecraft:composter": {
+      "kind": "model"
+    },
+    "minecraft:concrete": {
+      "kind": "model"
+    },
+    "minecraft:concrete_powder": {
       "kind": "model"
     },
     "minecraft:conduit": {
@@ -934,6 +950,9 @@
     "minecraft:daylight_detector": {
       "kind": "model"
     },
+    "minecraft:daylight_detector_inverted": {
+      "kind": "model"
+    },
     "minecraft:dead_brain_coral": {
       "kind": "model"
     },
@@ -995,6 +1014,9 @@
       "kind": "model"
     },
     "minecraft:dead_tube_coral_wall_fan": {
+      "kind": "model"
+    },
+    "minecraft:deadbush": {
       "kind": "model"
     },
     "minecraft:decorated_pot": {
@@ -1082,6 +1104,18 @@
     "minecraft:dispenser": {
       "kind": "model"
     },
+    "minecraft:double_plant": {
+      "kind": "model"
+    },
+    "minecraft:double_stone_slab": {
+      "kind": "model"
+    },
+    "minecraft:double_stone_slab2": {
+      "kind": "model"
+    },
+    "minecraft:double_wooden_slab": {
+      "kind": "model"
+    },
     "minecraft:dragon_egg": {
       "kind": "model"
     },
@@ -1109,6 +1143,9 @@
       "kind": "model"
     },
     "minecraft:enchanting_table": {
+      "kind": "model"
+    },
+    "minecraft:end_bricks": {
       "kind": "model"
     },
     "minecraft:end_gateway": {
@@ -1177,6 +1214,12 @@
     "minecraft:farmland": {
       "kind": "model"
     },
+    "minecraft:fence": {
+      "kind": "model"
+    },
+    "minecraft:fence_gate": {
+      "kind": "model"
+    },
     "minecraft:fern": {
       "kind": "model"
     },
@@ -1206,6 +1249,14 @@
     },
     "minecraft:flowering_azalea_leaves": {
       "kind": "model"
+    },
+    "minecraft:flowing_lava": {
+      "kind": "fluid",
+      "family": "lava"
+    },
+    "minecraft:flowing_water": {
+      "kind": "fluid",
+      "family": "water"
     },
     "minecraft:frogspawn": {
       "kind": "model"
@@ -1240,6 +1291,9 @@
     "minecraft:gold_ore": {
       "kind": "model"
     },
+    "minecraft:golden_rail": {
+      "kind": "model"
+    },
     "minecraft:granite": {
       "kind": "model"
     },
@@ -1252,7 +1306,13 @@
     "minecraft:granite_wall": {
       "kind": "model"
     },
+    "minecraft:grass": {
+      "kind": "model"
+    },
     "minecraft:grass_block": {
+      "kind": "model"
+    },
+    "minecraft:grass_path": {
       "kind": "model"
     },
     "minecraft:gravel": {
@@ -1354,6 +1414,9 @@
       "kind": "model"
     },
     "minecraft:hanging_roots": {
+      "kind": "model"
+    },
+    "minecraft:hardened_clay": {
       "kind": "model"
     },
     "minecraft:hay_block": {
@@ -1523,6 +1586,12 @@
     "minecraft:lava_cauldron": {
       "kind": "model"
     },
+    "minecraft:leaves": {
+      "kind": "model"
+    },
+    "minecraft:leaves2": {
+      "kind": "model"
+    },
     "minecraft:lectern": {
       "kind": "model"
     },
@@ -1685,7 +1754,25 @@
     "minecraft:lime_wool": {
       "kind": "model"
     },
+    "minecraft:lit_furnace": {
+      "kind": "model"
+    },
+    "minecraft:lit_pumpkin": {
+      "kind": "model"
+    },
+    "minecraft:lit_redstone_lamp": {
+      "kind": "model"
+    },
+    "minecraft:lit_redstone_ore": {
+      "kind": "model"
+    },
     "minecraft:lodestone": {
+      "kind": "model"
+    },
+    "minecraft:log": {
+      "kind": "model"
+    },
+    "minecraft:log2": {
       "kind": "model"
     },
     "minecraft:loom": {
@@ -1735,6 +1822,9 @@
       "family": "banner"
     },
     "minecraft:magenta_wool": {
+      "kind": "model"
+    },
+    "minecraft:magma": {
       "kind": "model"
     },
     "minecraft:magma_block": {
@@ -1804,7 +1894,16 @@
     "minecraft:melon": {
       "kind": "model"
     },
+    "minecraft:melon_block": {
+      "kind": "model"
+    },
     "minecraft:melon_stem": {
+      "kind": "model"
+    },
+    "minecraft:mob_spawner": {
+      "kind": "model"
+    },
+    "minecraft:monster_egg": {
       "kind": "model"
     },
     "minecraft:moss_block": {
@@ -1865,6 +1964,9 @@
     "minecraft:mycelium": {
       "kind": "model"
     },
+    "minecraft:nether_brick": {
+      "kind": "model"
+    },
     "minecraft:nether_brick_fence": {
       "kind": "model"
     },
@@ -1905,6 +2007,9 @@
       "kind": "model"
     },
     "minecraft:note_block": {
+      "kind": "model"
+    },
+    "minecraft:noteblock": {
       "kind": "model"
     },
     "minecraft:oak_button": {
@@ -2195,6 +2300,9 @@
     "minecraft:piston": {
       "kind": "model"
     },
+    "minecraft:piston_extension": {
+      "kind": "model"
+    },
     "minecraft:piston_head": {
       "kind": "model"
     },
@@ -2202,6 +2310,9 @@
       "kind": "model"
     },
     "minecraft:pitcher_plant": {
+      "kind": "model"
+    },
+    "minecraft:planks": {
       "kind": "model"
     },
     "minecraft:player_head": {
@@ -2303,6 +2414,9 @@
       "kind": "model"
     },
     "minecraft:poppy": {
+      "kind": "model"
+    },
+    "minecraft:portal": {
       "kind": "model"
     },
     "minecraft:potatoes": {
@@ -2425,7 +2539,13 @@
     "minecraft:powder_snow_cauldron": {
       "kind": "model"
     },
+    "minecraft:powered_comparator": {
+      "kind": "model"
+    },
     "minecraft:powered_rail": {
+      "kind": "model"
+    },
+    "minecraft:powered_repeater": {
       "kind": "model"
     },
     "minecraft:prismarine": {
@@ -2504,6 +2624,9 @@
     "minecraft:purpur_block": {
       "kind": "model"
     },
+    "minecraft:purpur_double_slab": {
+      "kind": "model"
+    },
     "minecraft:purpur_pillar": {
       "kind": "model"
     },
@@ -2517,6 +2640,9 @@
       "kind": "model"
     },
     "minecraft:quartz_bricks": {
+      "kind": "model"
+    },
+    "minecraft:quartz_ore": {
       "kind": "model"
     },
     "minecraft:quartz_pillar": {
@@ -2563,6 +2689,9 @@
     "minecraft:red_concrete_powder": {
       "kind": "model"
     },
+    "minecraft:red_flower": {
+      "kind": "model"
+    },
     "minecraft:red_glazed_terracotta": {
       "kind": "model"
     },
@@ -2570,6 +2699,9 @@
       "kind": "model"
     },
     "minecraft:red_mushroom_block": {
+      "kind": "model"
+    },
+    "minecraft:red_nether_brick": {
       "kind": "model"
     },
     "minecraft:red_nether_brick_slab": {
@@ -2640,6 +2772,9 @@
     "minecraft:redstone_wire": {
       "kind": "model"
     },
+    "minecraft:reeds": {
+      "kind": "model"
+    },
     "minecraft:reinforced_deepslate": {
       "kind": "model"
     },
@@ -2691,6 +2826,9 @@
     "minecraft:sandstone_wall": {
       "kind": "model"
     },
+    "minecraft:sapling": {
+      "kind": "model"
+    },
     "minecraft:scaffolding": {
       "kind": "model"
     },
@@ -2728,6 +2866,17 @@
       "kind": "special",
       "family": "shulker_box"
     },
+    "minecraft:sign": {
+      "kind": "special",
+      "family": "sign"
+    },
+    "minecraft:silver_glazed_terracotta": {
+      "kind": "model"
+    },
+    "minecraft:silver_shulker_box": {
+      "kind": "special",
+      "family": "shulker_box"
+    },
     "minecraft:skeleton_skull": {
       "kind": "special",
       "family": "head"
@@ -2735,6 +2884,13 @@
     "minecraft:skeleton_wall_skull": {
       "kind": "special",
       "family": "head"
+    },
+    "minecraft:skull": {
+      "kind": "special",
+      "family": "head"
+    },
+    "minecraft:slime": {
+      "kind": "model"
     },
     "minecraft:slime_block": {
       "kind": "model"
@@ -2794,6 +2950,9 @@
       "kind": "model"
     },
     "minecraft:snow_block": {
+      "kind": "model"
+    },
+    "minecraft:snow_layer": {
       "kind": "model"
     },
     "minecraft:soul_campfire": {
@@ -2881,6 +3040,23 @@
     "minecraft:spruce_wood": {
       "kind": "model"
     },
+    "minecraft:stained_glass": {
+      "kind": "model"
+    },
+    "minecraft:stained_glass_pane": {
+      "kind": "model"
+    },
+    "minecraft:stained_hardened_clay": {
+      "kind": "model"
+    },
+    "minecraft:standing_banner": {
+      "kind": "special",
+      "family": "banner"
+    },
+    "minecraft:standing_sign": {
+      "kind": "special",
+      "family": "sign"
+    },
     "minecraft:sticky_piston": {
       "kind": "model"
     },
@@ -2908,7 +3084,13 @@
     "minecraft:stone_slab": {
       "kind": "model"
     },
+    "minecraft:stone_slab2": {
+      "kind": "model"
+    },
     "minecraft:stone_stairs": {
+      "kind": "model"
+    },
+    "minecraft:stonebrick": {
       "kind": "model"
     },
     "minecraft:stonecutter": {
@@ -3010,6 +3192,9 @@
     "minecraft:tall_seagrass": {
       "kind": "model"
     },
+    "minecraft:tallgrass": {
+      "kind": "model"
+    },
     "minecraft:target": {
       "kind": "model"
     },
@@ -3029,6 +3214,9 @@
       "kind": "model"
     },
     "minecraft:torchflower_crop": {
+      "kind": "model"
+    },
+    "minecraft:trapdoor": {
       "kind": "model"
     },
     "minecraft:trapped_chest": {
@@ -3092,6 +3280,15 @@
     "minecraft:unknown": {
       "kind": "model"
     },
+    "minecraft:unlit_redstone_torch": {
+      "kind": "model"
+    },
+    "minecraft:unpowered_comparator": {
+      "kind": "model"
+    },
+    "minecraft:unpowered_repeater": {
+      "kind": "model"
+    },
     "minecraft:vault": {
       "kind": "model"
     },
@@ -3103,6 +3300,14 @@
     },
     "minecraft:void_air": {
       "kind": "invisible"
+    },
+    "minecraft:wall_banner": {
+      "kind": "special",
+      "family": "banner"
+    },
+    "minecraft:wall_sign": {
+      "kind": "special",
+      "family": "sign"
     },
     "minecraft:wall_torch": {
       "kind": "model"
@@ -3173,6 +3378,9 @@
       "family": "water"
     },
     "minecraft:water_cauldron": {
+      "kind": "model"
+    },
+    "minecraft:waterlily": {
       "kind": "model"
     },
     "minecraft:waxed_chiseled_copper": {
@@ -3310,6 +3518,9 @@
     "minecraft:weathered_cut_copper_stairs": {
       "kind": "model"
     },
+    "minecraft:web": {
+      "kind": "model"
+    },
     "minecraft:weeping_vines": {
       "kind": "model"
     },
@@ -3382,6 +3593,21 @@
       "kind": "special",
       "family": "head"
     },
+    "minecraft:wooden_button": {
+      "kind": "model"
+    },
+    "minecraft:wooden_door": {
+      "kind": "model"
+    },
+    "minecraft:wooden_pressure_plate": {
+      "kind": "model"
+    },
+    "minecraft:wooden_slab": {
+      "kind": "model"
+    },
+    "minecraft:wool": {
+      "kind": "model"
+    },
     "minecraft:yellow_banner": {
       "kind": "special",
       "family": "banner"
@@ -3403,6 +3629,9 @@
       "kind": "model"
     },
     "minecraft:yellow_concrete_powder": {
+      "kind": "model"
+    },
+    "minecraft:yellow_flower": {
       "kind": "model"
     },
     "minecraft:yellow_glazed_terracotta": {

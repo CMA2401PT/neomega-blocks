@@ -129,20 +129,42 @@ func TestTablesWithJavaResources(t *testing.T) {
 	lookup("water", map[string]any{"level": "0"}, 1)
 	lookup("lava", map[string]any{"level": "8"}, 1)
 
-	if len(tables.Index)+len(engine.Metadata.Skipped) != len(states) {
+	compatible := slices.Collect(java.JavaCompatibleStates())
+	if len(tables.Index)+len(engine.Metadata.Skipped) != len(compatible) {
 		t.Fatal("some Java states were neither indexed nor reported")
 	}
-	if len(engine.Metadata.Skipped) != 12 {
+	native := map[uint32]bool{}
+	for _, state := range states {
+		native[state.Hash()] = true
+	}
+	nativeSkipped := 0
+	for _, skipped := range engine.Metadata.Skipped {
+		if native[skipped.Block.Hash()] {
+			nativeSkipped++
+		}
+	}
+	if nativeSkipped != 12 {
 		t.Fatalf("unexpected skipped states: %+v", engine.Metadata.Skipped)
 	}
 	for _, skipped := range engine.Metadata.Skipped {
-		if skipped.Block.NameWithNameSpace() != "minecraft:moving_piston" || skipped.Reason == "" {
+		if (native[skipped.Block.Hash()] && skipped.Block.NameWithNameSpace() != "minecraft:moving_piston") || skipped.Reason == "" {
 			t.Fatalf("unexpected skipped state: %+v", skipped)
 		}
 		if _, err := tables.ModelIDs(skipped.Block.Hash()); err == nil {
 			t.Fatal("skipped state has an index entry")
 		}
 	}
+	for mapping := range java.JavaCompatibility() {
+		want, ok := tables.Index[mapping.Target.Hash()]
+		if !ok {
+			continue
+		}
+		got, ok := tables.Index[mapping.Source.Hash()]
+		if !ok || !slices.Equal(got, want) {
+			t.Fatalf("compatibility shape mismatch: %+v", mapping)
+		}
+	}
+
 	references := 0
 	used := map[blockgeometry.ModelID]bool{}
 	for _, ids := range tables.Index {

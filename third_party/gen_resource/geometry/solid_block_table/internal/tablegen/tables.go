@@ -108,6 +108,20 @@ func (engine *Builder) Build() (*Result, error) {
 			tables.FullHeight[ids[0]] = intern(tables.Tables, full[0], group, buckets)
 		}
 	}
+	// Legacy indexes reuse target shapes, preserving tint, cull groups and fluids.
+	for mapping := range java.JavaCompatibility() {
+		source, target := mapping.Source.Hash(), mapping.Target.Hash()
+		ids, ok := tables.Index[target]
+		if !ok {
+			tables.Skipped = append(tables.Skipped, preset.SkippedState{Block: mapping.Source, Reason: "compatibility target has no static geometry: " + string(mapping.Target)})
+			continue
+		}
+		tables.Index[source] = ids
+		tables.Solid[source] = tables.Solid[target]
+		if _, exists := tables.Renderers[mapping.Source.NameWithNameSpace()]; !exists {
+			tables.Renderers[mapping.Source.NameWithNameSpace()] = tables.Renderers[mapping.Target.NameWithNameSpace()]
+		}
+	}
 	return tables, nil
 }
 

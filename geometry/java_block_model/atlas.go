@@ -20,7 +20,8 @@ type Atlas struct {
 	Width    int                         `json:"width"`
 	Height   int                         `json:"height"`
 	TileSize int                         `json:"tileSize"`
-	SUSV     float64                     `json:"suSv"`
+	// SUSV is read only for legacy square atlases. New outputs use per-texture SU/SV.
+	SUSV float64 `json:"suSv,omitempty"`
 }
 
 // PixelRect converts a texture's normalized atlas region into pixels. Animated

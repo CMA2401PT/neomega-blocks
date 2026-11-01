@@ -10,6 +10,7 @@ python="$module_root/.venv/bin/python"
 "$python" export_defaults.py
 "$python" gen_fan_in_mapping.py
 "$python" gen_fan_out_mapping.py
+"$python" gen_java_compat.py
 
 for step in \
     TestStep0ReadBlocksFromPalette \

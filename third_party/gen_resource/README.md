@@ -37,6 +37,7 @@ NEMC 的工作台、熔炉和点燃熔炉多一个 `custom_appearance` byte 属�
 | `export_defaults.py` | 通过库接口导出各版本默认属性，写入 `tmp/defaults/{platform}_{version}.json`，供 Go 读取。 |
 | `gen_fan_in_mapping.py` | 将各版本 Bedrock、Java 状态转入 Bedrock 参考版本，生成 `tmp/fan_in_bedrock.mapping` 和 `tmp/fan_in_java.mapping`。 |
 | `gen_fan_out_mapping.py` | 生成 `tmp/fan_out_java.mapping`、允许的 Java 状态清单，以及直接写入 `presets/java/v1` 的完整状态全集和属性定义。 |
+| `gen_java_compat.py` | 枚举各版本的完整单层 Java 状态，生成高版本优先的 Java → 1.21.4 兼容映射及诊断报告。 |
 | `step0_read_blocks_test.go`、`step1_read_consistency_test.go` | 建立目标方块集合，并核对 palette 与默认属性的 key 集合。 |
 | `step2_gen_fan_in_test.go` | 修正旧名称和属性差异，裁减可由 Canon 复用的映射，建立 Bedrock 与 Java 转入表。 |
 | `step3_gen_fan_out_test.go` | 建立目标 Bedrock 到 Java 的映射，检查 palette 中的方块均能转出。 |
@@ -62,6 +63,7 @@ Python 可以保留缺参形式作为映射键，但传给 `to_universal` 的对
 | 同上 | `4_block_data.bin` | `TestStep4BuildBlockDataByName` |
 | 同上 | `6_schematic_fan_in.bin` | `TestSchematic` |
 | `presets/java/v1` | `fan_out_java_full.list`、`java_block_schema.list` | `gen_fan_out_mapping.py` |
+| 同上 | `java_compatibility.list` | `gen_java_compat.py` |
 
 `*_tidy.mapping` 是 Go 筛选后的诊断映射，仍属于中间文件，保存在 `block-converts/tmp/`。
 
@@ -84,6 +86,7 @@ sh third_party/gen_resource/block-converts/generate.sh
 .venv/bin/python third_party/gen_resource/block-converts/export_defaults.py
 .venv/bin/python third_party/gen_resource/block-converts/gen_fan_in_mapping.py
 .venv/bin/python third_party/gen_resource/block-converts/gen_fan_out_mapping.py
+.venv/bin/python third_party/gen_resource/block-converts/gen_java_compat.py
 ```
 
 然后进入 `third_party/gen_resource/block-converts`，按最终产物表中从上到下的 Go 步骤逐个执行，例如：
@@ -96,6 +99,23 @@ go test -tags resourcegen -v -count=1 -run '^TestReadDefaultsReadBlocksConsisten
 每个步骤都必须单独启动 `go test`，使后一步重新编译并读取前一步更新的 embed。`-count=1` 保证实际执行生成。写资源的入口使用 `resourcegen` 构建标签，普通 `go test ./...` 和工作区 `check.sh` 不会执行它们。
 
 更换目标版本时，需要一起核对 Python 脚本中的参考版本、`pymc_specification.py` 的 NEMC 规则、Go 生成步骤中的默认属性版本，以及两个预置包公开的版本常量。palette 与专用转换规则也必须匹配新的目标集合。
+
+## Java 存档的兼容状态
+
+浏览旧存档时，需要让旧名称和旧属性也能查询目标版本几何。`gen_java_compat.py` 从锁定的 PyMCTranslate 数据库枚举 Java 完整状态，去掉 `waterlogged` 并按属性名排序，再通过源版本 → Universal → Java 1.21.4 得到目标状态。完整源状态按版本从高到低去重，首次出现的解释生效。映射不保存源版本，目标是无冲突时尽力兼容旧输入。
+
+1.21.4 原生状态直接保留身份映射，沿用 `fan_out_java_full.list`。额外映射写入 `presets/java/v1/java_compatibility.list`，每行为 `源 IR#目标 IR`。几何生成器只烘焙目标全集，随后让兼容输入共享目标模型。Go 端再为兼容状态统一展开含水变体，viewer 按现有规则拆层。
+
+只更新这部分时，从 blocks 根目录执行：
+
+```sh
+.venv/bin/python third_party/gen_resource/block-converts/gen_java_compat.py
+go generate ./presets/java/v1/geometry
+```
+
+第二条命令需要先准备下节说明的 assets 输入。第一条命令还写出 `block-converts/tmp/java_compatibility_report.json`，记录源版本范围、状态数量、拒绝原因和需要上下文的转换。需要邻居或方块实体信息的候选，在能够形成合法目标状态时接受默认结果，并列入 `contextDependent`；这部分属于近似预览。无法形成合法目标状态的候选不写入映射，较低版本也不会覆盖同一输入的高版本解释。
+
+使用锁定依赖执行第一条命令，得到 18,254 个原生状态、2,062 个额外映射，以及其中 666 个需要上下文的候选；没有被拒绝的候选。状态兼容不等于存档格式兼容，读取旧 MCA/NBT 布局仍由存档读取器负责。
 
 ## geometry/solid_block_table：生成静态几何与实心表
 

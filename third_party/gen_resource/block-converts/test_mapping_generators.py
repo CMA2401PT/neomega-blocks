@@ -98,5 +98,71 @@ class MappingGeneratorsTest(unittest.TestCase):
         self.assertTrue(any(row.startswith("minecraft:example []#") for row in rows))
 
 
+class JavaCompatibilityTest(unittest.TestCase):
+    def test_newest_interpretation_wins_after_removing_waterlogged(self) -> None:
+        import gen_java_compat as compat
+
+        class Translator:
+            def __init__(self, result: str):
+                self.result = result
+                self.calls = 0
+
+            def to_universal(self, block, **kwargs):
+                self.calls += 1
+                self.assert_dry = "waterlogged" not in block.properties
+                return Block("minecraft", self.result), None, False
+
+            def from_universal(self, block, *args, **kwargs):
+                return block, None, False
+
+            def get_specification(self, **kwargs):
+                return {"defaults": {}}
+
+        high, low = Translator("stone"), Translator("dirt")
+        target = Translator("stone")
+
+        class Manager:
+            def version_numbers(self, platform):
+                return [(1, 12, 2), compat.TARGET_VERSION, (1, 20, 1)]
+
+            def get_version(self, platform, version):
+                class Version: pass
+                result = Version()
+                result.block = target if version == compat.TARGET_VERSION else high if version == (1, 20, 1) else low
+                return result
+
+        def states(platform, version):
+            if version == compat.TARGET_VERSION:
+                yield Block("minecraft", "stone")
+                yield Block("minecraft", "dirt")
+            else:
+                yield Block("minecraft", "legacy", {"waterlogged": StringTag("true")})
+                yield Block("minecraft", "legacy", {"waterlogged": StringTag("false")})
+
+        with tempfile.TemporaryDirectory() as folder:
+            output = Path(folder) / "mapping.list"
+            with patch.object(compat, "translations", Manager()), patch.object(compat, "iter_full_blocks", states):
+                compat.generate(output=output, report_path=Path(folder) / "report.json")
+            self.assertEqual(output.read_text(), "minecraft:legacy []#minecraft:stone []\n")
+        self.assertEqual(high.calls, 1)
+        self.assertTrue(high.assert_dry)
+        self.assertEqual(low.calls, 0)
+
+    def test_real_grass_and_wall_translate_to_target_java(self) -> None:
+        import gen_java_compat as compat
+        target = compat.translations.get_version("java", compat.TARGET_VERSION).block
+        samples = [
+            ((1, 20, 1), Block("minecraft", "grass"), "minecraft:short_grass []"),
+            ((1, 15, 2), Block("minecraft", "cobblestone_wall", {
+                "north": StringTag("true"), "east": StringTag("false"),
+                "south": StringTag("false"), "west": StringTag("false"), "up": StringTag("true"),
+            }), 'minecraft:cobblestone_wall ["east"="none","north"="low","south"="none","up"="true","west"="none"]'),
+        ]
+        for version, block, expected in samples:
+            source = compat.translations.get_version("java", version).block
+            actual, _ = compat.translate_state(source=source, target=target, block=block, native={expected})
+            self.assertEqual(actual, expected)
+
+
 if __name__ == "__main__":
     unittest.main()

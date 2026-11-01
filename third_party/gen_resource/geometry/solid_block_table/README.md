@@ -8,6 +8,8 @@
 
 Java 状态来自 `presets/java/v1`，资源版本由 `build-info.json` 提供。生成前会检查两个版本相同。图集、坐标和模型必须来自同一次资源构建。资源定义和读取代码属于 blocks，assets 只作为文件生产者；生成器没有对 assets Go 模块的依赖。`blocksAtlases.json` 的纹理键必须使用完整资源 ID，例如 `minecraft:block/stone`。
 
+旧版输入通过 `JavaCompatibility` 连接到目标状态。例如 `minecraft:grass []` 直接共享 `minecraft:short_grass []` 的形状、染色和实心判定。兼容状态不需要另配旧版本资源。更新兼容输入时，先按[转换资源生成说明](../../README.md)重新生成映射，再运行这里的建表命令。
+
 本目录需要以下六个文件：
 
 | 输入 | 用途 |
@@ -61,7 +63,7 @@ NEOMEGA_ASSETS_DIR="$PWD/third_party/gen_resource/geometry/solid_block_table" \
 
 ## 生成策略放在哪里
 
-`main.go` 负责读取路径并写出三份资源。`internal/tablegen` 直接枚举 `java/v1.JavaFullStates` 的 tidy IR 方块，组合模型解析和烘焙步骤、共享相同形状并建立索引。`internal/resources` 保存具体 Minecraft 预览规则：固定染色、玻璃与流体透明度、干燥默认属性和静态流体模型。
+`main.go` 负责读取路径并写出三份资源。`internal/tablegen` 直接枚举 `java/v1.JavaFullStates` 的 tidy IR 方块，组合模型解析和烘焙步骤、共享相同形状并建立索引，然后为 `JavaCompatibility` 的输入增加指向目标形状的索引及实心位。`internal/resources` 保存具体 Minecraft 预览规则：固定染色、玻璃与流体透明度、干燥默认属性和静态流体模型。
 
 通用 `Select` 保留候选及权重，建表策略固定选择每组首项，所有命中的 multipart 部件都会保留。计算实心位之前先合并同一状态的全部部件，保证多部件共同覆盖整面时能够识别。动态的 `moving_piston` 状态会记录跳过原因。
 
