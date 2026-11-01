@@ -56,6 +56,11 @@ PyMCTranslate 对缺参输入的处理并不可靠，可能 fallback 到错误�
 
 Python 脚本保留的 `allow_missing` 参数没有行为作用，不应重新启用“把缺参对象直接交给 PyMCTranslate”的分支。脚本枚举过程中即使保留缺参形式作为输入键，实际交给 `to_universal` 的也是补齐后的 `block_with_default`。运行时通过 Canon 尽量复用完整状态的映射。
 
+Canon 只适合处理缺参。它也会删掉目标版本没有的键，而旧版本的键往往带着含义。
+例如 `stone ["stone_type"="granite"]` 删掉 `stone_type` 后成了 `stone`，旧的 `top_slot_bit=true` 删掉后成了下半砖。
+因此生成转入表时，Canon 删掉了输入的键、且结果与映射不同的那一对会写进转入表；只补了默认值的输入不写，继续交给 Canon。
+运行时也要先查转入表，再用 Canon，否则这些条目永远轮不到。
+
 ## 完成第一次转换
 
 上述处理已经组合在 `presets/block-converts/v1` 中。普通使用者无需自己读取映射文件，也无需安装 Python 或 PyMCTranslate。
@@ -132,8 +137,8 @@ true true
 
 跨版本转换的复杂工作可以提前做完。运行时按需加载内嵌数据，使用 `sync.Once` 保证每张表只加载一次：
 
-- Bedrock 输入先尝试目标表直接命中，再尝试 Canon，最后查询转入表。
-- Java 输入优先处理墙、悬挂告示牌等特殊规则，再用 Canon 后的状态查表，必要时尝试原输入。
+- Bedrock 输入先尝试目标表直接命中，再用原输入查转入表，最后尝试 Canon 后命中目标表。
+- Java 输入优先处理墙、悬挂告示牌等特殊规则，再用原输入查转入表，最后用 Canon 后的状态查表。
 - 向 Java 输出时，使用特殊规则或目标 Bedrock 哈希到 Java IR 的映射。
 
 为了减少大量状态文本的重复，`storage/blocks-name` 把方块名称和 states 分开保存。states 使用共享字符串片段的紧凑前缀树，哈希映射到重建索引。`storage/num_lookup` 用有序数组保存静态数字映射，并允许通过动态层覆盖或追加数据；`Frozen` 将动态层并入静态层，`Dump` 导出合并后的快照。

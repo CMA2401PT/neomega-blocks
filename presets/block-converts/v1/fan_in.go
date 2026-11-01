@@ -75,12 +75,19 @@ func loadSchematicFanin() {
 func ConvertFromBedrock(bedrock ir.IRBlock) (ir.IRBlock, bool) {
 	loadBedrockFanin()
 	inHash := bedrock.Hash()
-	// 尝试直接匹配
 	outBlock, ok := BedrockHashToBlockStrict(inHash)
 	if ok {
 		return outBlock, true
 	}
-	// 尝试标准化
+	// 旧属性可能被 Canon 删除，先使用保留了原输入语义的转入映射。
+	outHash, ok := bedrockFanin.Get(inHash)
+	if ok {
+		outBlock, ok = BedrockHashToBlockStrict(outHash)
+		if ok {
+			return outBlock, true
+		}
+		panic(fmt.Errorf("ConvertFromBedrock: %v->%v(hash)-> block fail, should not happen as outHash exist", bedrock, outHash))
+	}
 	cannonBlock, ok := BedrockCanon(bedrock)
 	if ok {
 		outBlock, ok := BedrockHashToBlockStrict(cannonBlock.Hash())
@@ -88,16 +95,7 @@ func ConvertFromBedrock(bedrock ir.IRBlock) (ir.IRBlock, bool) {
 			return outBlock, true
 		}
 	}
-	// 尝试从Fanin中读取
-	outHash, ok := bedrockFanin.Get(inHash)
-	if !ok {
-		return "minecraft:unknown []", false
-	}
-	outBlock, ok = BedrockHashToBlockStrict(outHash)
-	if ok {
-		return outBlock, true
-	}
-	panic(fmt.Errorf("ConvertFromBedrock: %v->%v(hash)-> block fail, should not happen as outHash exist", bedrock, outHash))
+	return "minecraft:unknown []", false
 }
 
 func loadjavaDefaultProps() {
@@ -158,7 +156,6 @@ func javaHangingSignDirectConvert(inJava ir.IRBlock) (outBedrock ir.IRBlock, ok 
 
 // 尝试将一个 Java 方块转到 当前版本的方块
 func ConvertFromJava(javaBlock ir.IRBlock) (ir.IRBlock, bool) {
-	// 特殊情况直接硬编码转换方式
 	if outBedrock, ok := javaWallDirectConvert(javaBlock); ok {
 		return outBedrock, true
 	}
@@ -166,7 +163,15 @@ func ConvertFromJava(javaBlock ir.IRBlock) (ir.IRBlock, bool) {
 		return outBedrock, true
 	}
 	loadJavaFanin()
-	// 尝试标准化
+	// 原输入的映射保留旧属性语义，避免 Canon 删键后提前落到默认状态。
+	outHash, ok := javaFanin.Get(javaBlock.Hash())
+	if ok {
+		outBlock, ok := BedrockHashToBlockStrict(outHash)
+		if ok {
+			return outBlock, true
+		}
+		panic(fmt.Errorf("%v->%v(hash)-> block fail, should not happen as outHash exist", javaBlock, outHash))
+	}
 	cannonBlock, ok := JavaCanon(javaBlock)
 	if ok {
 		outHash, ok := javaFanin.Get(cannonBlock.Hash())
@@ -177,15 +182,6 @@ func ConvertFromJava(javaBlock ir.IRBlock) (ir.IRBlock, bool) {
 			}
 			panic(fmt.Errorf("ConvertFromJava: %v->%v(hash)-> block fail, should not happen as outHash exist", javaBlock, outHash))
 		}
-	}
-	// 尝试从Fanin中读取
-	outHash, ok := javaFanin.Get(javaBlock.Hash())
-	if ok {
-		outBlock, ok := BedrockHashToBlockStrict(outHash)
-		if ok {
-			return outBlock, true
-		}
-		panic(fmt.Errorf("%v->%v(hash)-> block fail, should not happen as outHash exist", javaBlock, outHash))
 	}
 	return "minecraft:unknown []", false
 }

@@ -312,7 +312,9 @@ func TestStep2_1_GenBedrockFanin(t *testing.T) {
 		}
 		cannonIn, _ := presets.BedrockCanon(p.In)
 		_, ok = presets.BedrockHashToBlockStrict(cannonIn.Hash())
-		if !ok {
+		// 仅补默认值时继续复用 Canon；删掉旧属性后语义改变的输入必须保留映射。
+		removedKeys := p.In.States().FuzzyCompare(cannonIn.States()).Extra > 0
+		if !ok || (removedKeys && cannonIn != p.Out) {
 			if p.In.NameWithNameSpace() == p.Out.NameWithNameSpace() {
 				ret := p.In.States().FuzzyCompare(p.Out.States())
 				if ret.Extra == 0 && ret.Missing == 0 {
@@ -507,8 +509,10 @@ func TestStep2_3_GenJavaFanin(t *testing.T) {
 		if !ok {
 			t.FailNow()
 		}
-		_, found := fullPairs[cannonIn]
-		if found {
+		cannonOut, found := fullPairs[cannonIn]
+		// Canon 删掉旧属性且转换结果不同时，原输入需要独立映射。
+		removedKeys := p.In.States().FuzzyCompare(cannonIn.States()).Extra > 0
+		if found && (!removedKeys || cannonOut == p.Out) {
 			ignorePairs += 1
 		} else {
 			nonCannonPairs += 1

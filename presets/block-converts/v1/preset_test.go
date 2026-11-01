@@ -113,6 +113,61 @@ func TestConvertBedrockToNEMCBedrock(t *testing.T) {
 	if out != `minecraft:unknown []` {
 		t.Fatalf("output= %v", out)
 	}
+
+	// 旧属性需要查表保留语义，缺参输入仍应由 Canon 补齐默认值。
+	for _, tc := range []struct {
+		name  string
+		input ir.IRBlock
+		want  ir.IRBlock
+	}{
+		{
+			name:  "stone_granite",
+			input: `minecraft:stone ["stone_type"="granite"]`,
+			want:  `minecraft:granite []`,
+		},
+		{
+			name:  "red_sand",
+			input: `minecraft:sand ["sand_type"="red"]`,
+			want:  `minecraft:red_sand []`,
+		},
+		{
+			name:  "furnace_east",
+			input: `minecraft:furnace ["facing_direction"=5]`,
+			want:  `minecraft:furnace ["custom_appearance"=false,"minecraft:cardinal_direction"="east"]`,
+		},
+		{
+			name:  "bamboo_slab_top",
+			input: `minecraft:bamboo_slab ["top_slot_bit"=true]`,
+			want:  `minecraft:bamboo_slab ["minecraft:vertical_half"="top"]`,
+		},
+		{
+			name:  "red_nether_brick_wall",
+			input: `minecraft:cobblestone_wall ["wall_block_type"="red_nether_brick"]`,
+			want:  `minecraft:red_nether_brick_wall ["wall_connection_type_east"="none","wall_connection_type_north"="none","wall_connection_type_south"="none","wall_connection_type_west"="none","wall_post_bit"=false]`,
+		},
+		{
+			name:  "acacia_door_defaults",
+			input: `minecraft:acacia_door ["upper_block_bit"=true]`,
+			want:  `minecraft:acacia_door ["direction"=0,"door_hinge_bit"=false,"open_bit"=false,"upper_block_bit"=true]`,
+		},
+	} {
+		t.Run(tc.name, func(t *testing.T) {
+			got, ok := ConvertFromBedrock(tc.input)
+			if !ok || got != tc.want {
+				t.Fatalf("ConvertFromBedrock(%v) = (%v, %v), want (%v, true)", tc.input, got, ok, tc.want)
+			}
+		})
+	}
+}
+
+func TestConvertFromBedrockTargetStates(t *testing.T) {
+	// 目标状态必须优先直接命中，不能被兼容旧输入的映射覆盖。
+	for _, block := range BedrockBlocks() {
+		got, ok := ConvertFromBedrock(block)
+		if !ok || got != block {
+			t.Fatalf("ConvertFromBedrock(%v) = (%v, %v), want (%v, true)", block, got, ok, block)
+		}
+	}
 }
 
 func TestJavaCanon(t *testing.T) {
@@ -193,6 +248,12 @@ func TestConvertFromJava(t *testing.T) {
 	out, _ = ConvertFromJava(blk)
 	if out != `minecraft:grass_block []` {
 		t.Fatalf("output= %v", out)
+	}
+
+	blk = ir.IRBlock(`minecraft:cauldron ["level"="3"]`)
+	out, ok := ConvertFromJava(blk)
+	if !ok || out != `minecraft:cauldron ["cauldron_liquid"="water","fill_level"=6]` {
+		t.Fatalf("output= %v, ok= %v", out, ok)
 	}
 }
 
