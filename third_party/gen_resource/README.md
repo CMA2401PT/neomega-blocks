@@ -2,7 +2,7 @@
 
 这里的工具把上游方块定义和本地 NEMC palette 转换为 Go 运行时使用的预置资源。Python 使用 PyMCTranslate 枚举状态并生成候选映射；Go 依据 NEMC 目标集合和专用规则修正映射，再压缩成查询表。运行时包及其使用约定见 [`presets`](../../presets/README.md)。
 
-脚本按目的组织：`block-converts` 生成方块转换表及它依赖的 Java 状态定义；`geometry/solid_block_table` 生成静态几何、Java 元数据和六方向实心表；`java-roundtrip` 分析已有预置转换的往返差异。脚本所需的固定输入跟随脚本保存，中间文件只写入各自的 `tmp/`。`tmp/` 被 Git 忽略，可删除后重新生成。最终嵌入资源直接写入 `presets` 的对应 Go 包。
+脚本按目的组织：`block-converts` 生成方块转换表及它依赖的 Java 状态定义；`java-roundtrip` 分析已有预置转换的往返差异。脚本所需的固定输入跟随脚本保存，中间文件只写入各自的 `tmp/`。`tmp/` 被 Git 忽略，可删除后重新生成。最终嵌入资源直接写入 `presets` 的对应 Go 包。
 
 ## 准备 Python 环境
 
@@ -110,24 +110,12 @@ go test -tags resourcegen -v -count=1 -run '^TestReadDefaultsReadBlocksConsisten
 
 ```sh
 .venv/bin/python third_party/gen_resource/block-converts/gen_java_compat.py
-go generate ./presets/java/v1/geometry
+(cd ../neomega-viewer-core && go generate ./viewer/resources)
 ```
 
-第二条命令需要先准备下节说明的 assets 输入。第一条命令还写出 `block-converts/tmp/java_compatibility_report.json`，记录源版本范围、状态数量、拒绝原因和需要上下文的转换。需要邻居或方块实体信息的候选，在能够形成合法目标状态时接受默认结果，并列入 `contextDependent`；这部分属于近似预览。无法形成合法目标状态的候选不写入映射，较低版本也不会覆盖同一输入的高版本解释。
+第二条命令使用 viewer-core 的 `viewer-assets/dist/final` 输入。第一条命令还写出 `block-converts/tmp/java_compatibility_report.json`，记录源版本范围、状态数量、拒绝原因和需要上下文的转换。需要邻居或方块实体信息的候选，在能够形成合法目标状态时接受默认结果，并列入 `contextDependent`；这部分属于近似预览。无法形成合法目标状态的候选不写入映射，较低版本也不会覆盖同一输入的高版本解释。
 
 使用锁定依赖执行第一条命令，得到 18,254 个原生状态、2,062 个额外映射，以及其中 666 个需要上下文的候选；没有被拒绝的候选。状态兼容不等于存档格式兼容，读取旧 MCA/NBT 布局仍由存档读取器负责。
-
-## geometry/solid_block_table：生成静态几何与实心表
-
-viewer 和 fixer 需要共享同一套模型解释。这个目录使用 `geometry/java_block_model` 的模型定义、读取与烘焙，以及 `geometry` 的覆盖计算，统一生成 Java 几何表、Java 元数据和实心表。三份产物直接写入 `presets/java/v1/geometry` 与 `presets/java/v1/solidtable`。
-
-先从一套匹配的 assets 手动复制六份输入到生成目录，再在模块根目录运行：
-
-```sh
-go generate ./presets/java/v1/geometry
-```
-
-输入列表、内部代码职责和真实资源验证命令见[几何生成说明](geometry/solid_block_table/README.md)。这条流程使用 Go；Python 环境用于前面的方块转换资源。
 
 ## java-roundtrip：生成转换差异报告
 
@@ -151,7 +139,7 @@ go run ./third_party/gen_resource/java-roundtrip > third_party/gen_resource/java
 如需核对 Java 输出与渲染资源，在模块根目录执行：
 
 ```sh
-NEOMEGA_ASSETS_DIR="$(cd ../neomega-assets/dist/final && pwd)" \
+NEOMEGA_ASSETS_DIR="$(cd ../neomega-viewer-core/viewer-assets/dist/final && pwd)" \
   go test -v -count=1 -run '^TestJavaTargetAssets$' ./third_party/gen_resource/block-converts
 ```
 

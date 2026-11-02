@@ -3,11 +3,3 @@
 __pycache__/
 .venv/
 /third_party/gen_resource/**/tmp/
-
-# Manually supplied inputs for the geometry generator.
-/third_party/gen_resource/geometry/solid_block_table/blockstates.json
-/third_party/gen_resource/geometry/solid_block_table/models.json
-/third_party/gen_resource/geometry/solid_block_table/blocksAtlases.json
-/third_party/gen_resource/geometry/solid_block_table/blocksAtlasLatest.png
-/third_party/gen_resource/geometry/solid_block_table/blockRenderers.json
-/third_party/gen_resource/geometry/solid_block_table/build-info.json

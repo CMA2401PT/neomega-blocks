@@ -1,10 +1,10 @@
 # neomega-blocks
 
-`neomega-blocks` 用来描述、查找和转换 Minecraft 方块，并提供它们的静态几何。不同版本可能使用不同的方块名、属性名和属性值；旧格式还可能只给出数字 ID 与附加值。这个库把这些输入转换到一套确定的 NEMC/Bedrock 方块集合，并提供向 Java 方块的输出转换。
+`neomega-blocks` 用来描述、查找和转换 Minecraft 方块。不同版本可能使用不同的方块名、属性名和属性值；旧格式还可能只给出数字 ID 与附加值。这个库把这些输入转换到一套确定的 NEMC/Bedrock 方块集合，并提供向 Java 方块的输出转换。
 
-项目分为两个相互配合的部分：**运行时读取已经准备好的转换表；离线工具负责生成、修正和验证这些表。** `ir`、`storage`、`encode-decode` 和 `geometry` 提供通用逻辑；`presets` 提供选定版本的数据与规则；`third_party` 保存离线生成工具和来源声明。模型解析与烘焙生成单个方块的局部形状，viewer 再根据位置和邻居拼装场景。使用现成 preset 时只需调用 Go 接口。各包能力和 IRBlock 的 Tidy 约定见 [presets/README.md](presets/README.md)。
+项目分为两个相互配合的部分：**运行时读取已经准备好的转换表；离线工具负责生成、修正和验证这些表。** `ir`、`storage` 和 `encode-decode` 提供通用逻辑；`presets` 提供选定版本的数据与规则；`third_party` 保存离线生成工具和来源声明。使用现成 preset 时只需调用 Go 接口。各包能力和 IRBlock 的 Tidy 约定见 [presets/README.md](presets/README.md)。
 
-静态几何的定义、模型解析、覆盖计算和查询表见 [geometry/README.md](geometry/README.md)。Java 几何表、Java 元数据和 fixer 的实心表作为独立 preset 分发。`geometry/java_block_model` 定义 Java 模型与图集的读取契约，assets 依赖它生产资源；blocks 的生成器只读取手动准备的资源文件。具体方块始终用 IR 表示。
+模型、几何和渲染资源由 [neomega-viewer-core](../neomega-viewer-core/README.md) 管理。
 
 直接浏览 Java 存档时，`presets/java/v1` 另提供旧 Java 状态到 1.21.4 的兼容映射。它由 PyMCTranslate 的 Universal 表示连接源状态与目标状态，高版本解释优先，运行时不带源版本。几何生成器让兼容输入共享目标状态的形状；含水仍由 viewer 单独拆层。使用方式见 [Java preset 说明](presets/README.md)。
 

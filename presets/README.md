@@ -11,8 +11,6 @@
 | [`block-converts/v1`](block-converts/v1) | 以 NEMC palette 为目标集合，将多版本 Bedrock、Java 和旧 Schematic ID/meta 转入；将目标方块转出为 Java 1.21.4。另提供网络哈希、方块文本和 legacy data value 的查询。Bedrock 转换参考版本为 1.21.50。 |
 | [`block-converts/specific-converts`](block-converts/specific-converts) | 墙与悬挂告示牌的 Java/Bedrock 专用转换规则。`v1` 与生成端共用这些规则。墙的函数用于 `IRStates.Update`；悬挂告示牌函数处理整个方块。旁边的 JSON 是说明状态差异的样例。 |
 | [`java/v1`](java/v1) | Java 1.21.4 状态枚举、旧状态到目标版本的兼容映射、方块状态与哈希互查，以及目标版本的属性默认值和取值域查询。哈希反查还收录附带 `waterlogged="true"/"false"` 的状态，供转换器和状态修复使用。 |
-| [`java/v1/geometry`](java/v1/geometry) | 已嵌入的 Java 1.21.4 几何表和元数据；`Open` 加载几何与版本、渲染类别、跳过原因，也可加载外部表和同名 `.java.json`。 |
-| [`java/v1/solidtable`](java/v1/solidtable) | 已嵌入的六方向实心表，供 converter/fixer 使用，与完整几何表分包加载。 |
 
 `java/v1.JavaFullStates` 枚举的是 PyMCTranslate specification 中的完整属性组合。PyMCTranslate 将含水作为附加方块层处理，因此枚举结果本身没有 `waterlogged`；哈希反查中的含水变体由 Go 加入。
 
@@ -32,7 +30,7 @@
 
 `java/v1.BlockToHash` 内部会 Tidy，调用方无需重复整理。`HashToBlock` 和 `JavaFullStates` 返回的方块已经 tidy。`BlockProperties` 返回的是共享的只读属性表，默认值保留 SNBT 引号，便于直接构造 `IRStates`；构造完仍应 Tidy 后再直接调用 `IRBlock.Hash()`。
 
-几何表的 hash 来自 `java/v1.JavaCompatibleStates` 返回的 tidy IR 方块。身份反查直接使用 `java/v1.HashToBlock`。几何和实心查询直接接收这些数值 hash，返回静态形状或六方向位域。几何元数据中的 `SkippedState.Block` 也是 tidy IR 方块。原始模型和图集来自 neomega-assets，来源见 [资源声明](../../neomega-assets/NOTICE.md)。
+几何表的 hash 来自 `java/v1.JavaCompatibleStates` 返回的 tidy IR 方块。身份反查直接使用 `java/v1.HashToBlock`。几何和实心查询直接接收这些数值 hash，返回静态形状或六方向位域。几何元数据中的 `SkippedState.Block` 也是 tidy IR 方块。原始模型和图集来自 viewer-core 的 viewer-assets，来源见 [资源声明](../../neomega-viewer-core/viewer-assets/NOTICE.md)。
 
 ## 更新嵌入资源
 
@@ -44,10 +42,4 @@ sh third_party/gen_resource/block-converts/generate.sh
 
 这个入口按依赖顺序更新两个 `v1` 包的资源。每处 `go:embed` 的注释标明了对应的生成步骤。具体输入、产物关系、单步命令和验证方式见[生成工具说明](../third_party/gen_resource/README.md)。
 
-几何、Java 元数据和实心表使用另一套资源输入。在生成目录手动准备六份匹配的 assets 后，从模块根目录运行：
-
-```sh
-go generate ./presets/java/v1/geometry
-```
-
-这会直接更新对应 preset 的三个文件。输入文件、生成规则和验证方式见[几何生成说明](../third_party/gen_resource/geometry/solid_block_table/README.md)。
+渲染几何与实心表由 [viewer-core 的建表器](../../neomega-viewer-core/viewer-assets/cmd/build-tables/README.md) 生成与分发。
