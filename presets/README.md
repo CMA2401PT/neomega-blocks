@@ -18,6 +18,8 @@
 
 需要取得兼容状态的目标解释时，调用 `NormalizeSingleLayer`。它忽略 `waterlogged`，查询完整单层状态，返回目标状态与是否命中。几何表已经为兼容输入建立共享形状索引，因此 viewer 拆层后可直接用原始状态的 hash 查几何。`HashToBlock` 反查仍保留原始输入身份及其含水属性，便于诊断与拆层。
 
+旧 schematic 转 Java 存档时，使用 `block-converts/v1.SchematicToJava(id, meta)`。它直接查询生成的 Java 1.21.4 映射，保留 Java 独有属性；`ConvertFromSchematic` 则面向 Bedrock。两者共用 `schematic.json` 来源，未知组合通过 bool 返回失败。旧绊线已经废弃的 suspended 位不改变现代 Java 状态，其余位仍按原值映射。
+
 ## IRBlock 的整理约定
 
 `IRBlock` 是“方块名 + 属性”的文本表示。`Tidy` 会补默认命名空间并整理空白、属性顺序；`Canon` 进一步依据预置默认属性补缺项、去掉多余项。完成 Tidy 不等于属性齐全，也不等于方块属于目标集合。

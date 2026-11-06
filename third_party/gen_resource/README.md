@@ -42,7 +42,7 @@ NEMC 的工作台、熔炉和点燃熔炉多一个 `custom_appearance` byte 属�
 | `step2_gen_fan_in_test.go` | 修正旧名称和属性差异，裁减可由 Canon 复用的映射，建立 Bedrock 与 Java 转入表。 |
 | `step3_gen_fan_out_test.go` | 建立目标 Bedrock 到 Java 的映射，检查 palette 中的方块均能转出。 |
 | `step4_block_data.go`、`step4_block_data_test.go` | 建立名称、legacy data value 到网络哈希的索引。 |
-| `step5_schematic_test.go` | 将旧 Schematic ID/meta 经 Java 转入逻辑连接到目标集合。 |
+| `step5_schematic_test.go` | 经 Java 默认属性与兼容映射对齐历史名称，同时生成旧 Schematic ID/meta 的直接 Java 1.21.4 表和经 Java 转入逻辑连接的 Bedrock 表。 |
 | `test_mapping_generators.py` | 用内存样例检查缺参输入键对应的转换对象始终补齐默认属性。 |
 | `java_assets_test.go` | 可选地核对 palette 的 Java 转出结果能选择到匹配版本的模型资源。 |
 
@@ -61,7 +61,7 @@ Python 可以保留缺参形式作为映射键，但传给 `to_universal` 的对
 | 同上 | `2_3_java_fan_in.bin` | `TestStep2_3_GenJavaFanin` |
 | 同上 | `3_to_java.bin` | `TestStep3GenJavaFanout` |
 | 同上 | `4_block_data.bin` | `TestStep4BuildBlockDataByName` |
-| 同上 | `6_schematic_fan_in.bin` | `TestSchematic` |
+| 同上 | `6_schematic_fan_in.bin`、`7_schematic_to_java.json.gz` | `TestSchematic` |
 | `presets/java/v1` | `fan_out_java_full.list`、`java_block_schema.list` | `gen_fan_out_mapping.py` |
 | 同上 | `java_compatibility.list` | `gen_java_compat.py` |
 

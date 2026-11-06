@@ -3,9 +3,11 @@
 package blockconverts
 
 import (
+	"compress/gzip"
 	"encoding/json"
 	"neomega-blocks/ir"
 	v1 "neomega-blocks/presets/block-converts/v1"
+	java "neomega-blocks/presets/java/v1"
 	"neomega-blocks/storage/num_lookup"
 	"os"
 	"path/filepath"
@@ -31,6 +33,7 @@ func TestSchematic(t *testing.T) {
 		panic(err)
 	}
 
+	javaMapping := make(map[string]string, len(schematicData))
 	lookup := num_lookup.NewTwoLayerNumMap[uint32, uint32]()
 	for schematicIDStr, javaStr := range schematicData {
 		blk := ir.IRBlock(javaStr)
@@ -38,6 +41,16 @@ func TestSchematic(t *testing.T) {
 			t.Fatalf("%v %v", schematicIDStr, javaStr)
 		}
 		blk = blk.Tidy()
+		// 源表包含 grass、sign 等历史名称，直接对齐 Java 目标版本，避免经过 Bedrock。
+		canonical, ok := v1.JavaCanon(blk)
+		if !ok {
+			t.Fatalf("Java defaults missing: %s", blk)
+		}
+		target, ok := java.NormalizeSingleLayer(canonical)
+		if !ok {
+			t.Fatalf("Java target missing: %s", canonical)
+		}
+		javaMapping[schematicIDStr] = string(target)
 		bedrockBlock, ok := v1.ConvertFromJava(blk)
 		if !ok {
 			t.Fatalf("%v %v", schematicIDStr, javaStr)
@@ -61,4 +74,20 @@ func TestSchematic(t *testing.T) {
 	if err := os.WriteFile("../../../presets/block-converts/v1/6_schematic_fan_in.bin", lookup.Dump(), 0o644); err != nil {
 		t.Fatalf("write defaults bin: %v", err)
 	}
+	// Java 原理图使用对齐目标版本后的直接映射，避免经过 Bedrock 状态集丢掉 Java 属性。
+	file, err := os.Create("../../../presets/block-converts/v1/7_schematic_to_java.json.gz")
+	if err != nil {
+		t.Fatal(err)
+	}
+	zipped := gzip.NewWriter(file)
+	if err = json.NewEncoder(zipped).Encode(javaMapping); err != nil {
+		t.Fatal(err)
+	}
+	if err = zipped.Close(); err != nil {
+		t.Fatal(err)
+	}
+	if err = file.Close(); err != nil {
+		t.Fatal(err)
+	}
+
 }

@@ -74,7 +74,8 @@ minecraft:brown_concrete_powder []
 | --- | --- |
 | Bedrock 方块名与状态 | `ConvertFromBedrock(IRBlock)` |
 | Java 方块名与状态 | `ConvertFromJava(IRBlock)` |
-| 旧 Schematic 数字 ID、meta | `ConvertFromSchematic(id, meta)` |
+| 旧 Schematic 数字 ID、meta → Bedrock | `ConvertFromSchematic(id, meta)` |
+| 旧 Schematic 数字 ID、meta → Java | `SchematicToJava(id, meta)`，直接使用 Java 表，避免经过 Bedrock 损失状态 |
 | 目标 Bedrock 方块转 Java | `ConvertToJava(IRBlock)` |
 | 已知网络哈希，取目标方块 | `BedrockHashToBlockStrict(hash)` |
 | 遍历目标集合中的网络哈希与方块 | `BedrockBlocks()`，返回只读迭代器，顺序不固定 |

@@ -322,3 +322,28 @@ func TestConvertFromSchematic(t *testing.T) {
 		t.Fatalf("output= %v", out)
 	}
 }
+
+func TestSchematicJavaRetainsLegacyFlags(t *testing.T) {
+	for meta := uint16(0); meta < 16; meta++ {
+		direct, ok := SchematicToJava(132, meta)
+		base, baseOK := SchematicToJava(132, meta&^2)
+		if !ok || !baseOK || direct != base || direct.NameWithNameSpace() != "minecraft:tripwire" {
+			t.Fatal(meta, direct, base)
+		}
+	}
+	if _, ok := SchematicToJava(4095, 15); ok {
+		t.Fatal("unknown block accepted")
+	}
+}
+
+func TestSchematicJavaUpdatesHistoricalNames(t *testing.T) {
+	for _, item := range []struct {
+		id, meta uint16
+		want     string
+	}{{31, 1, "minecraft:short_grass"}, {63, 0, "minecraft:oak_sign"}} {
+		block, ok := SchematicToJava(item.id, item.meta)
+		if !ok || block.NameWithNameSpace() != item.want {
+			t.Fatal(item, block)
+		}
+	}
+}
