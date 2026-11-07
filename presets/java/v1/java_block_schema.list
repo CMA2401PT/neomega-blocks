@@ -1,1095 +1,1286 @@
-minecraft:dropper	facing="north"|"north","east","south","west","up","down"	triggered="false"|"true","false"
-minecraft:jungle_fence_gate	facing="north"|"north","south","west","east"	in_wall="false"|"true","false"	open="false"|"true","false"	powered="false"|"true","false"
-minecraft:stone_pressure_plate	powered="false"|"true","false"
-minecraft:bamboo_block	axis="y"|"x","y","z"
-minecraft:potted_fern
-minecraft:acacia_door	facing="north"|"north","south","west","east"	half="lower"|"upper","lower"	hinge="left"|"left","right"	open="false"|"true","false"	powered="false"|"true","false"
-minecraft:gray_concrete
-minecraft:spruce_slab	type="bottom"|"top","bottom","double"
-minecraft:cracked_deepslate_bricks
-minecraft:command_block	conditional="false"|"true","false"	facing="north"|"north","east","south","west","up","down"
-minecraft:gray_terracotta
-minecraft:torchflower_crop	age="0"|"0","1"
-minecraft:red_glazed_terracotta	facing="north"|"north","south","west","east"
-minecraft:brown_concrete_powder
-minecraft:dandelion
-minecraft:potted_crimson_fungus
-minecraft:pink_terracotta
-minecraft:smooth_basalt
-minecraft:stripped_birch_log	axis="y"|"x","y","z"
-minecraft:dead_tube_coral_fan
-minecraft:dark_oak_planks
-minecraft:cobweb
-minecraft:blue_stained_glass_pane	east="false"|"true","false"	north="false"|"true","false"	south="false"|"true","false"	west="false"|"true","false"
-minecraft:candle_cake	lit="false"|"true","false"
-minecraft:beehive	facing="north"|"north","south","west","east"	honey_level="0"|"0","1","2","3","4","5"
-minecraft:stripped_crimson_stem	axis="y"|"x","y","z"
-minecraft:campfire	facing="north"|"north","south","west","east"	lit="true"|"true","false"	signal_fire="false"|"true","false"
-minecraft:red_candle_cake	lit="false"|"true","false"
-minecraft:white_terracotta
-minecraft:chiseled_red_sandstone
-minecraft:cherry_leaves	distance="7"|"1","2","3","4","5","6","7"	persistent="false"|"true","false"
-minecraft:white_banner	rotation="0"|"0","1","2","3","4","5","6","7","8","9","10","11","12","13","14","15"
-minecraft:potted_open_eyeblossom
-minecraft:powered_rail	powered="false"|"true","false"	shape="north_south"|"north_south","east_west","ascending_east","ascending_west","ascending_north","ascending_south"
-minecraft:twisting_vines	age="0"|"0","1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18","19","20","21","22","23","24","25"
-minecraft:oak_wood	axis="y"|"x","y","z"
-minecraft:bamboo_wall_sign	facing="north"|"north","south","west","east"
-minecraft:warped_wall_sign	facing="north"|"north","south","west","east"
-minecraft:red_terracotta
-minecraft:lapis_block
-minecraft:blackstone_stairs	facing="north"|"north","south","west","east"	half="bottom"|"top","bottom"	shape="straight"|"straight","inner_left","inner_right","outer_left","outer_right"
-minecraft:emerald_ore
-minecraft:azalea_leaves	distance="7"|"1","2","3","4","5","6","7"	persistent="false"|"true","false"
-minecraft:brown_terracotta
-minecraft:potted_pale_oak_sapling
-minecraft:reinforced_deepslate
-minecraft:cobblestone_wall	east="none"|"none","low","tall"	north="none"|"none","low","tall"	south="none"|"none","low","tall"	up="true"|"true","false"	west="none"|"none","low","tall"
-minecraft:potted_azure_bluet
-minecraft:black_wall_banner	facing="north"|"north","south","west","east"
-minecraft:cauldron
-minecraft:brown_candle_cake	lit="false"|"true","false"
-minecraft:player_head	powered="false"|"true","false"	rotation="0"|"0","1","2","3","4","5","6","7","8","9","10","11","12","13","14","15"
-minecraft:oak_fence_gate	facing="north"|"north","south","west","east"	in_wall="false"|"true","false"	open="false"|"true","false"	powered="false"|"true","false"
-minecraft:blue_terracotta
-minecraft:red_sandstone_wall	east="none"|"none","low","tall"	north="none"|"none","low","tall"	south="none"|"none","low","tall"	up="true"|"true","false"	west="none"|"none","low","tall"
-minecraft:packed_mud
-minecraft:spawner
-minecraft:pale_oak_slab	type="bottom"|"top","bottom","double"
-minecraft:jungle_stairs	facing="north"|"north","south","west","east"	half="bottom"|"top","bottom"	shape="straight"|"straight","inner_left","inner_right","outer_left","outer_right"
-minecraft:spruce_stairs	facing="north"|"north","south","west","east"	half="bottom"|"top","bottom"	shape="straight"|"straight","inner_left","inner_right","outer_left","outer_right"
-minecraft:frogspawn
-minecraft:spruce_fence_gate	facing="north"|"north","south","west","east"	in_wall="false"|"true","false"	open="false"|"true","false"	powered="false"|"true","false"
-minecraft:polished_blackstone_stairs	facing="north"|"north","south","west","east"	half="bottom"|"top","bottom"	shape="straight"|"straight","inner_left","inner_right","outer_left","outer_right"
-minecraft:fire_coral_wall_fan	facing="north"|"north","south","west","east"
-minecraft:purple_bed	facing="north"|"north","south","west","east"	occupied="false"|"true","false"	part="foot"|"head","foot"
-minecraft:smooth_quartz_slab	type="bottom"|"top","bottom","double"
-minecraft:oxidized_cut_copper_slab	type="bottom"|"top","bottom","double"
-minecraft:magenta_glazed_terracotta	facing="north"|"north","south","west","east"
-minecraft:deepslate_brick_wall	east="none"|"none","low","tall"	north="none"|"none","low","tall"	south="none"|"none","low","tall"	up="true"|"true","false"	west="none"|"none","low","tall"
-minecraft:fletching_table
-minecraft:nether_wart	age="0"|"0","1","2","3"
-minecraft:stripped_dark_oak_wood	axis="y"|"x","y","z"
-minecraft:white_shulker_box	facing="up"|"north","east","south","west","up","down"
-minecraft:decorated_pot	cracked="false"|"true","false"	facing="north"|"north","south","west","east"
-minecraft:brick_wall	east="none"|"none","low","tall"	north="none"|"none","low","tall"	south="none"|"none","low","tall"	up="true"|"true","false"	west="none"|"none","low","tall"
-minecraft:cherry_sapling	stage="0"|"0","1"
-minecraft:redstone_lamp	lit="false"|"true","false"
-minecraft:brown_banner	rotation="0"|"0","1","2","3","4","5","6","7","8","9","10","11","12","13","14","15"
-minecraft:light_gray_stained_glass
-minecraft:sniffer_egg	hatch="0"|"0","1","2"
-minecraft:cave_vines	age="0"|"0","1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18","19","20","21","22","23","24","25"	berries="false"|"true","false"
-minecraft:blue_banner	rotation="0"|"0","1","2","3","4","5","6","7","8","9","10","11","12","13","14","15"
-minecraft:crimson_door	facing="north"|"north","south","west","east"	half="lower"|"upper","lower"	hinge="left"|"left","right"	open="false"|"true","false"	powered="false"|"true","false"
-minecraft:player_wall_head	facing="north"|"north","south","west","east"	powered="false"|"true","false"
-minecraft:horn_coral_wall_fan	facing="north"|"north","south","west","east"
-minecraft:lilac	half="lower"|"upper","lower"
-minecraft:podzol	snowy="false"|"true","false"
-minecraft:light_blue_banner	rotation="0"|"0","1","2","3","4","5","6","7","8","9","10","11","12","13","14","15"
-minecraft:purpur_block
-minecraft:birch_wall_hanging_sign	facing="north"|"north","south","west","east"
-minecraft:sandstone_wall	east="none"|"none","low","tall"	north="none"|"none","low","tall"	south="none"|"none","low","tall"	up="true"|"true","false"	west="none"|"none","low","tall"
-minecraft:warped_hyphae	axis="y"|"x","y","z"
-minecraft:big_dripleaf_stem	facing="north"|"north","south","west","east"
-minecraft:acacia_wall_sign	facing="north"|"north","south","west","east"
-minecraft:structure_block	mode="save"|"save","load","corner","data"
-minecraft:mangrove_hanging_sign	attached="false"|"true","false"	rotation="0"|"0","1","2","3","4","5","6","7","8","9","10","11","12","13","14","15"
-minecraft:azure_bluet
-minecraft:waxed_exposed_cut_copper_slab	type="bottom"|"top","bottom","double"
-minecraft:infested_deepslate	axis="y"|"x","y","z"
-minecraft:sand
-minecraft:waxed_copper_grate
-minecraft:oak_wall_sign	facing="north"|"north","south","west","east"
-minecraft:observer	facing="south"|"north","east","south","west","up","down"	powered="false"|"true","false"
-minecraft:pink_banner	rotation="0"|"0","1","2","3","4","5","6","7","8","9","10","11","12","13","14","15"
-minecraft:frosted_ice	age="0"|"0","1","2","3"
-minecraft:dragon_head	powered="false"|"true","false"	rotation="0"|"0","1","2","3","4","5","6","7","8","9","10","11","12","13","14","15"
-minecraft:smooth_sandstone
-minecraft:pale_oak_planks
-minecraft:grass_block	snowy="false"|"true","false"
-minecraft:dark_oak_trapdoor	facing="north"|"north","south","west","east"	half="bottom"|"top","bottom"	open="false"|"true","false"	powered="false"|"true","false"
-minecraft:potted_spruce_sapling
-minecraft:polished_blackstone
-minecraft:candle	candles="1"|"1","2","3","4"	lit="false"|"true","false"
-minecraft:lantern	hanging="false"|"true","false"
-minecraft:polished_granite_stairs	facing="north"|"north","south","west","east"	half="bottom"|"top","bottom"	shape="straight"|"straight","inner_left","inner_right","outer_left","outer_right"
-minecraft:fire_coral_block
-minecraft:pink_petals	facing="north"|"north","south","west","east"	flower_amount="1"|"1","2","3","4"
-minecraft:waxed_weathered_cut_copper_stairs	facing="north"|"north","south","west","east"	half="bottom"|"top","bottom"	shape="straight"|"straight","inner_left","inner_right","outer_left","outer_right"
-minecraft:basalt	axis="y"|"x","y","z"
-minecraft:light_weighted_pressure_plate	power="0"|"0","1","2","3","4","5","6","7","8","9","10","11","12","13","14","15"
-minecraft:green_terracotta
-minecraft:cracked_nether_bricks
-minecraft:horn_coral_block
-minecraft:mangrove_log	axis="y"|"x","y","z"
-minecraft:cherry_fence	east="false"|"true","false"	north="false"|"true","false"	south="false"|"true","false"	west="false"|"true","false"
-minecraft:sweet_berry_bush	age="0"|"0","1","2","3"
-minecraft:sunflower	half="lower"|"upper","lower"
-minecraft:tuff_brick_wall	east="none"|"none","low","tall"	north="none"|"none","low","tall"	south="none"|"none","low","tall"	up="true"|"true","false"	west="none"|"none","low","tall"
-minecraft:lily_of_the_valley
-minecraft:tuff_slab	type="bottom"|"top","bottom","double"
-minecraft:birch_pressure_plate	powered="false"|"true","false"
-minecraft:copper_block
-minecraft:soul_fire
-minecraft:nether_brick_slab	type="bottom"|"top","bottom","double"
-minecraft:blue_wall_banner	facing="north"|"north","south","west","east"
-minecraft:weathered_cut_copper
-minecraft:oak_sign	rotation="0"|"0","1","2","3","4","5","6","7","8","9","10","11","12","13","14","15"
-minecraft:tall_grass	half="lower"|"upper","lower"
-minecraft:horn_coral_fan
-minecraft:waxed_copper_door	facing="north"|"north","south","west","east"	half="lower"|"upper","lower"	hinge="left"|"left","right"	open="false"|"true","false"	powered="false"|"true","false"
-minecraft:yellow_concrete_powder
-minecraft:coarse_dirt
-minecraft:warped_fence	east="false"|"true","false"	north="false"|"true","false"	south="false"|"true","false"	west="false"|"true","false"
-minecraft:dark_oak_log	axis="y"|"x","y","z"
-minecraft:bamboo_pressure_plate	powered="false"|"true","false"
-minecraft:chiseled_stone_bricks
-minecraft:andesite
-minecraft:end_stone
-minecraft:rooted_dirt
-minecraft:vault	facing="north"|"north","south","west","east"	ominous="false"|"true","false"	vault_state="inactive"|"inactive","active","unlocking","ejecting"
-minecraft:brown_stained_glass
-minecraft:cyan_concrete_powder
-minecraft:waxed_cut_copper
-minecraft:brown_shulker_box	facing="up"|"north","east","south","west","up","down"
-minecraft:birch_door	facing="north"|"north","south","west","east"	half="lower"|"upper","lower"	hinge="left"|"left","right"	open="false"|"true","false"	powered="false"|"true","false"
-minecraft:oxidized_copper_bulb	lit="false"|"true","false"	powered="false"|"true","false"
-minecraft:creeper_head	powered="false"|"true","false"	rotation="0"|"0","1","2","3","4","5","6","7","8","9","10","11","12","13","14","15"
-minecraft:redstone_block
-minecraft:infested_cracked_stone_bricks
-minecraft:attached_melon_stem	facing="north"|"north","south","west","east"
-minecraft:comparator	facing="north"|"north","south","west","east"	mode="compare"|"compare","subtract"	powered="false"|"true","false"
-minecraft:mangrove_door	facing="north"|"north","south","west","east"	half="lower"|"upper","lower"	hinge="left"|"left","right"	open="false"|"true","false"	powered="false"|"true","false"
-minecraft:crimson_pressure_plate	powered="false"|"true","false"
-minecraft:target	power="0"|"0","1","2","3","4","5","6","7","8","9","10","11","12","13","14","15"
-minecraft:stripped_warped_hyphae	axis="y"|"x","y","z"
-minecraft:light_gray_wall_banner	facing="north"|"north","south","west","east"
-minecraft:purple_candle	candles="1"|"1","2","3","4"	lit="false"|"true","false"
-minecraft:magenta_bed	facing="north"|"north","south","west","east"	occupied="false"|"true","false"	part="foot"|"head","foot"
-minecraft:potted_crimson_roots
-minecraft:bell	attachment="floor"|"floor","ceiling","single_wall","double_wall"	facing="north"|"north","south","west","east"	powered="false"|"true","false"
-minecraft:orange_wall_banner	facing="north"|"north","south","west","east"
-minecraft:dark_oak_wood	axis="y"|"x","y","z"
-minecraft:brown_glazed_terracotta	facing="north"|"north","south","west","east"
-minecraft:short_grass
-minecraft:warped_sign	rotation="0"|"0","1","2","3","4","5","6","7","8","9","10","11","12","13","14","15"
-minecraft:tuff_stairs	facing="north"|"north","south","west","east"	half="bottom"|"top","bottom"	shape="straight"|"straight","inner_left","inner_right","outer_left","outer_right"
-minecraft:bubble_coral_block
-minecraft:lime_wool
-minecraft:dark_oak_hanging_sign	attached="false"|"true","false"	rotation="0"|"0","1","2","3","4","5","6","7","8","9","10","11","12","13","14","15"
-minecraft:small_dripleaf	facing="north"|"north","south","west","east"	half="lower"|"upper","lower"
-minecraft:cobblestone_slab	type="bottom"|"top","bottom","double"
-minecraft:soul_torch
-minecraft:red_sandstone_slab	type="bottom"|"top","bottom","double"
-minecraft:soul_lantern	hanging="false"|"true","false"
-minecraft:sculk_sensor	power="0"|"0","1","2","3","4","5","6","7","8","9","10","11","12","13","14","15"	sculk_sensor_phase="inactive"|"inactive","active","cooldown"
-minecraft:potted_wither_rose
-minecraft:end_gateway
-minecraft:pale_hanging_moss	tip="true"|"true","false"
-minecraft:orange_wool
-minecraft:pearlescent_froglight	axis="y"|"x","y","z"
-minecraft:potted_dead_bush
-minecraft:light_gray_bed	facing="north"|"north","south","west","east"	occupied="false"|"true","false"	part="foot"|"head","foot"
-minecraft:waxed_oxidized_copper_door	facing="north"|"north","south","west","east"	half="lower"|"upper","lower"	hinge="left"|"left","right"	open="false"|"true","false"	powered="false"|"true","false"
-minecraft:spruce_fence	east="false"|"true","false"	north="false"|"true","false"	south="false"|"true","false"	west="false"|"true","false"
-minecraft:waxed_weathered_copper_door	facing="north"|"north","south","west","east"	half="lower"|"upper","lower"	hinge="left"|"left","right"	open="false"|"true","false"	powered="false"|"true","false"
-minecraft:deepslate_brick_slab	type="bottom"|"top","bottom","double"
-minecraft:bamboo_mosaic
-minecraft:warped_fungus
-minecraft:orange_carpet
-minecraft:warped_button	face="wall"|"floor","wall","ceiling"	facing="north"|"north","south","west","east"	powered="false"|"true","false"
-minecraft:piglin_wall_head	facing="north"|"north","south","west","east"	powered="false"|"true","false"
-minecraft:bamboo_sapling
-minecraft:chiseled_tuff
-minecraft:oak_leaves	distance="7"|"1","2","3","4","5","6","7"	persistent="false"|"true","false"
-minecraft:light_gray_glazed_terracotta	facing="north"|"north","south","west","east"
-minecraft:red_shulker_box	facing="up"|"north","east","south","west","up","down"
-minecraft:shulker_box	facing="up"|"north","east","south","west","up","down"
-minecraft:big_dripleaf	facing="north"|"north","south","west","east"	tilt="none"|"none","unstable","partial","full"
-minecraft:melon
-minecraft:dark_oak_sign	rotation="0"|"0","1","2","3","4","5","6","7","8","9","10","11","12","13","14","15"
-minecraft:sticky_piston	extended="false"|"true","false"	facing="north"|"north","east","south","west","up","down"
-minecraft:trapped_chest	facing="north"|"north","south","west","east"	type="single"|"single","left","right"
-minecraft:dark_oak_fence_gate	facing="north"|"north","south","west","east"	in_wall="false"|"true","false"	open="false"|"true","false"	powered="false"|"true","false"
-minecraft:damaged_anvil	facing="north"|"north","south","west","east"
-minecraft:sandstone_slab	type="bottom"|"top","bottom","double"
-minecraft:polished_tuff
-minecraft:ender_chest	facing="north"|"north","south","west","east"
-minecraft:magenta_concrete
-minecraft:dark_oak_wall_sign	facing="north"|"north","south","west","east"
-minecraft:smooth_red_sandstone
-minecraft:warped_stem	axis="y"|"x","y","z"
-minecraft:acacia_pressure_plate	powered="false"|"true","false"
-minecraft:shroomlight
-minecraft:pale_oak_trapdoor	facing="north"|"north","south","west","east"	half="bottom"|"top","bottom"	open="false"|"true","false"	powered="false"|"true","false"
-minecraft:brick_slab	type="bottom"|"top","bottom","double"
-minecraft:bamboo_mosaic_stairs	facing="north"|"north","south","west","east"	half="bottom"|"top","bottom"	shape="straight"|"straight","inner_left","inner_right","outer_left","outer_right"
-minecraft:pink_stained_glass
-minecraft:cut_copper_stairs	facing="north"|"north","south","west","east"	half="bottom"|"top","bottom"	shape="straight"|"straight","inner_left","inner_right","outer_left","outer_right"
-minecraft:purpur_slab	type="bottom"|"top","bottom","double"
-minecraft:mangrove_button	face="wall"|"floor","wall","ceiling"	facing="north"|"north","south","west","east"	powered="false"|"true","false"
-minecraft:stripped_pale_oak_log	axis="y"|"x","y","z"
-minecraft:polished_granite_slab	type="bottom"|"top","bottom","double"
-minecraft:crying_obsidian
-minecraft:wither_rose
 minecraft:acacia_button	face="wall"|"floor","wall","ceiling"	facing="north"|"north","south","west","east"	powered="false"|"true","false"
-minecraft:amethyst_block
-minecraft:fire	age="0"|"0","1","2","3","4","5","6","7","8","9","10","11","12","13","14","15"	east="false"|"true","false"	north="false"|"true","false"	south="false"|"true","false"	up="false"|"true","false"	west="false"|"true","false"
-minecraft:orange_candle	candles="1"|"1","2","3","4"	lit="false"|"true","false"
-minecraft:stripped_acacia_wood	axis="y"|"x","y","z"
-minecraft:ancient_debris
-minecraft:infested_chiseled_stone_bricks
-minecraft:infested_cobblestone
-minecraft:heavy_core
-minecraft:dried_kelp_block
-minecraft:andesite_stairs	facing="north"|"north","south","west","east"	half="bottom"|"top","bottom"	shape="straight"|"straight","inner_left","inner_right","outer_left","outer_right"
-minecraft:orange_glazed_terracotta	facing="north"|"north","south","west","east"
-minecraft:jack_o_lantern	facing="north"|"north","south","west","east"
-minecraft:pink_bed	facing="north"|"north","south","west","east"	occupied="false"|"true","false"	part="foot"|"head","foot"
-minecraft:white_candle_cake	lit="false"|"true","false"
-minecraft:cave_vines_plant	berries="false"|"true","false"
-minecraft:potted_jungle_sapling
-minecraft:chiseled_quartz_block
-minecraft:potted_lily_of_the_valley
-minecraft:polished_deepslate
-minecraft:birch_planks
-minecraft:potted_cornflower
-minecraft:prismarine_stairs	facing="north"|"north","south","west","east"	half="bottom"|"top","bottom"	shape="straight"|"straight","inner_left","inner_right","outer_left","outer_right"
-minecraft:waxed_exposed_copper_bulb	lit="false"|"true","false"	powered="false"|"true","false"
-minecraft:gravel
-minecraft:waxed_exposed_copper
-minecraft:dispenser	facing="north"|"north","east","south","west","up","down"	triggered="false"|"true","false"
-minecraft:deepslate_diamond_ore
-minecraft:purple_carpet
-minecraft:bamboo_sign	rotation="0"|"0","1","2","3","4","5","6","7","8","9","10","11","12","13","14","15"
-minecraft:chiseled_polished_blackstone
-minecraft:pink_wall_banner	facing="north"|"north","south","west","east"
-minecraft:tuff_brick_slab	type="bottom"|"top","bottom","double"
-minecraft:nether_bricks
-minecraft:tuff_wall	east="none"|"none","low","tall"	north="none"|"none","low","tall"	south="none"|"none","low","tall"	up="true"|"true","false"	west="none"|"none","low","tall"
-minecraft:acacia_sapling	stage="0"|"0","1"
-minecraft:diorite
-minecraft:quartz_stairs	facing="north"|"north","south","west","east"	half="bottom"|"top","bottom"	shape="straight"|"straight","inner_left","inner_right","outer_left","outer_right"
-minecraft:soul_sand
-minecraft:nether_brick_wall	east="none"|"none","low","tall"	north="none"|"none","low","tall"	south="none"|"none","low","tall"	up="true"|"true","false"	west="none"|"none","low","tall"
-minecraft:red_wool
-minecraft:acacia_sign	rotation="0"|"0","1","2","3","4","5","6","7","8","9","10","11","12","13","14","15"
-minecraft:warped_pressure_plate	powered="false"|"true","false"
-minecraft:pale_moss_block
-minecraft:stripped_bamboo_block	axis="y"|"x","y","z"
-minecraft:bubble_coral_fan
-minecraft:deepslate_brick_stairs	facing="north"|"north","south","west","east"	half="bottom"|"top","bottom"	shape="straight"|"straight","inner_left","inner_right","outer_left","outer_right"
-minecraft:sandstone_stairs	facing="north"|"north","south","west","east"	half="bottom"|"top","bottom"	shape="straight"|"straight","inner_left","inner_right","outer_left","outer_right"
-minecraft:deepslate_gold_ore
-minecraft:light_blue_carpet
-minecraft:clay
-minecraft:cactus	age="0"|"0","1","2","3","4","5","6","7","8","9","10","11","12","13","14","15"
-minecraft:infested_mossy_stone_bricks
-minecraft:blue_carpet
-minecraft:stone
-minecraft:crimson_button	face="wall"|"floor","wall","ceiling"	facing="north"|"north","south","west","east"	powered="false"|"true","false"
-minecraft:crimson_fungus
-minecraft:waxed_weathered_copper_grate
-minecraft:spruce_wall_sign	facing="north"|"north","south","west","east"
-minecraft:brown_carpet
-minecraft:potted_cactus
-minecraft:mangrove_propagule	age="0"|"0","1","2","3","4"	hanging="false"|"true","false"	stage="0"|"0","1"
-minecraft:pink_carpet
-minecraft:calibrated_sculk_sensor	facing="north"|"north","south","west","east"	power="0"|"0","1","2","3","4","5","6","7","8","9","10","11","12","13","14","15"	sculk_sensor_phase="inactive"|"inactive","active","cooldown"
-minecraft:cave_air
-minecraft:skeleton_wall_skull	facing="north"|"north","south","west","east"	powered="false"|"true","false"
-minecraft:jungle_planks
-minecraft:chest	facing="north"|"north","south","west","east"	type="single"|"single","left","right"
-minecraft:chiseled_sandstone
-minecraft:purple_glazed_terracotta	facing="north"|"north","south","west","east"
-minecraft:stripped_mangrove_wood	axis="y"|"x","y","z"
-minecraft:purple_concrete_powder
-minecraft:orange_terracotta
-minecraft:lime_bed	facing="north"|"north","south","west","east"	occupied="false"|"true","false"	part="foot"|"head","foot"
-minecraft:spruce_planks
-minecraft:crimson_stem	axis="y"|"x","y","z"
-minecraft:cyan_stained_glass
-minecraft:yellow_terracotta
-minecraft:weathered_copper_trapdoor	facing="north"|"north","south","west","east"	half="bottom"|"top","bottom"	open="false"|"true","false"	powered="false"|"true","false"
-minecraft:deepslate_redstone_ore	lit="false"|"true","false"
-minecraft:warped_wart_block
-minecraft:warped_wall_hanging_sign	facing="north"|"north","south","west","east"
-minecraft:honeycomb_block
-minecraft:crimson_fence	east="false"|"true","false"	north="false"|"true","false"	south="false"|"true","false"	west="false"|"true","false"
-minecraft:light_blue_candle_cake	lit="false"|"true","false"
-minecraft:torchflower
-minecraft:yellow_glazed_terracotta	facing="north"|"north","south","west","east"
-minecraft:smoker	facing="north"|"north","south","west","east"	lit="false"|"true","false"
-minecraft:bamboo_trapdoor	facing="north"|"north","south","west","east"	half="bottom"|"top","bottom"	open="false"|"true","false"	powered="false"|"true","false"
-minecraft:repeating_command_block	conditional="false"|"true","false"	facing="north"|"north","east","south","west","up","down"
-minecraft:oxidized_copper_grate
-minecraft:potted_azalea_bush
-minecraft:cherry_fence_gate	facing="north"|"north","south","west","east"	in_wall="false"|"true","false"	open="false"|"true","false"	powered="false"|"true","false"
-minecraft:polished_blackstone_slab	type="bottom"|"top","bottom","double"
-minecraft:chiseled_nether_bricks
-minecraft:potted_dark_oak_sapling
-minecraft:heavy_weighted_pressure_plate	power="0"|"0","1","2","3","4","5","6","7","8","9","10","11","12","13","14","15"
-minecraft:lime_wall_banner	facing="north"|"north","south","west","east"
-minecraft:red_mushroom_block	down="true"|"true","false"	east="true"|"true","false"	north="true"|"true","false"	south="true"|"true","false"	up="true"|"true","false"	west="true"|"true","false"
-minecraft:white_candle	candles="1"|"1","2","3","4"	lit="false"|"true","false"
-minecraft:fern
-minecraft:dark_oak_stairs	facing="north"|"north","south","west","east"	half="bottom"|"top","bottom"	shape="straight"|"straight","inner_left","inner_right","outer_left","outer_right"
-minecraft:cherry_button	face="wall"|"floor","wall","ceiling"	facing="north"|"north","south","west","east"	powered="false"|"true","false"
-minecraft:spruce_trapdoor	facing="north"|"north","south","west","east"	half="bottom"|"top","bottom"	open="false"|"true","false"	powered="false"|"true","false"
-minecraft:waxed_exposed_copper_door	facing="north"|"north","south","west","east"	half="lower"|"upper","lower"	hinge="left"|"left","right"	open="false"|"true","false"	powered="false"|"true","false"
-minecraft:black_bed	facing="north"|"north","south","west","east"	occupied="false"|"true","false"	part="foot"|"head","foot"
-minecraft:mossy_stone_bricks
-minecraft:cyan_wall_banner	facing="north"|"north","south","west","east"
-minecraft:lapis_ore
-minecraft:gold_ore
-minecraft:waxed_oxidized_copper
-minecraft:pale_oak_stairs	facing="north"|"north","south","west","east"	half="bottom"|"top","bottom"	shape="straight"|"straight","inner_left","inner_right","outer_left","outer_right"
-minecraft:oak_trapdoor	facing="north"|"north","south","west","east"	half="bottom"|"top","bottom"	open="false"|"true","false"	powered="false"|"true","false"
-minecraft:purple_stained_glass_pane	east="false"|"true","false"	north="false"|"true","false"	south="false"|"true","false"	west="false"|"true","false"
-minecraft:crimson_sign	rotation="0"|"0","1","2","3","4","5","6","7","8","9","10","11","12","13","14","15"
-minecraft:stripped_warped_stem	axis="y"|"x","y","z"
-minecraft:barrel	facing="north"|"north","east","south","west","up","down"	open="false"|"true","false"
-minecraft:red_stained_glass
-minecraft:oxidized_copper_door	facing="north"|"north","south","west","east"	half="lower"|"upper","lower"	hinge="left"|"left","right"	open="false"|"true","false"	powered="false"|"true","false"
-minecraft:light_gray_wool
-minecraft:mossy_stone_brick_stairs	facing="north"|"north","south","west","east"	half="bottom"|"top","bottom"	shape="straight"|"straight","inner_left","inner_right","outer_left","outer_right"
-minecraft:closed_eyeblossom
-minecraft:oak_pressure_plate	powered="false"|"true","false"
-minecraft:gray_stained_glass
-minecraft:warped_trapdoor	facing="north"|"north","south","west","east"	half="bottom"|"top","bottom"	open="false"|"true","false"	powered="false"|"true","false"
-minecraft:blue_concrete
-minecraft:glow_lichen	down="false"|"true","false"	east="false"|"true","false"	north="false"|"true","false"	south="false"|"true","false"	up="false"|"true","false"	west="false"|"true","false"
-minecraft:cut_sandstone
-minecraft:gray_glazed_terracotta	facing="north"|"north","south","west","east"
-minecraft:red_bed	facing="north"|"north","south","west","east"	occupied="false"|"true","false"	part="foot"|"head","foot"
-minecraft:honey_block
-minecraft:white_carpet
-minecraft:granite_slab	type="bottom"|"top","bottom","double"
-minecraft:black_glazed_terracotta	facing="north"|"north","south","west","east"
-minecraft:gilded_blackstone
-minecraft:potted_cherry_sapling
-minecraft:yellow_shulker_box	facing="up"|"north","east","south","west","up","down"
-minecraft:blue_ice
-minecraft:acacia_wood	axis="y"|"x","y","z"
-minecraft:tnt	unstable="false"|"true","false"
-minecraft:cut_sandstone_slab	type="bottom"|"top","bottom","double"
-minecraft:mossy_cobblestone_slab	type="bottom"|"top","bottom","double"
-minecraft:kelp_plant
-minecraft:potted_torchflower
-minecraft:diamond_block
-minecraft:chiseled_resin_bricks
-minecraft:stripped_oak_wood	axis="y"|"x","y","z"
-minecraft:gray_shulker_box	facing="up"|"north","east","south","west","up","down"
-minecraft:end_rod	facing="up"|"north","east","south","west","up","down"
-minecraft:light_blue_candle	candles="1"|"1","2","3","4"	lit="false"|"true","false"
-minecraft:pumpkin
-minecraft:purpur_pillar	axis="y"|"x","y","z"
-minecraft:weathered_chiseled_copper
-minecraft:purple_candle_cake	lit="false"|"true","false"
-minecraft:hanging_roots
-minecraft:tall_seagrass	half="lower"|"upper","lower"
-minecraft:blue_candle	candles="1"|"1","2","3","4"	lit="false"|"true","false"
-minecraft:crimson_hanging_sign	attached="false"|"true","false"	rotation="0"|"0","1","2","3","4","5","6","7","8","9","10","11","12","13","14","15"
-minecraft:stripped_mangrove_log	axis="y"|"x","y","z"
-minecraft:bamboo	age="0"|"0","1"	leaves="none"|"none","small","large"	stage="0"|"0","1"
-minecraft:bamboo_button	face="wall"|"floor","wall","ceiling"	facing="north"|"north","south","west","east"	powered="false"|"true","false"
-minecraft:brown_candle	candles="1"|"1","2","3","4"	lit="false"|"true","false"
-minecraft:medium_amethyst_bud	facing="up"|"north","east","south","west","up","down"
-minecraft:pink_candle	candles="1"|"1","2","3","4"	lit="false"|"true","false"
-minecraft:bamboo_hanging_sign	attached="false"|"true","false"	rotation="0"|"0","1","2","3","4","5","6","7","8","9","10","11","12","13","14","15"
-minecraft:potted_bamboo
-minecraft:weathered_copper
-minecraft:green_shulker_box	facing="up"|"north","east","south","west","up","down"
-minecraft:waxed_oxidized_cut_copper
-minecraft:cherry_hanging_sign	attached="false"|"true","false"	rotation="0"|"0","1","2","3","4","5","6","7","8","9","10","11","12","13","14","15"
-minecraft:fire_coral_fan
-minecraft:pitcher_crop	age="0"|"0","1","2","3","4"	half="lower"|"upper","lower"
-minecraft:red_nether_brick_stairs	facing="north"|"north","south","west","east"	half="bottom"|"top","bottom"	shape="straight"|"straight","inner_left","inner_right","outer_left","outer_right"
-minecraft:waxed_weathered_copper_bulb	lit="false"|"true","false"	powered="false"|"true","false"
-minecraft:spruce_sapling	stage="0"|"0","1"
-minecraft:verdant_froglight	axis="y"|"x","y","z"
-minecraft:waxed_oxidized_copper_bulb	lit="false"|"true","false"	powered="false"|"true","false"
-minecraft:moss_carpet
-minecraft:oak_door	facing="north"|"north","south","west","east"	half="lower"|"upper","lower"	hinge="left"|"left","right"	open="false"|"true","false"	powered="false"|"true","false"
-minecraft:chipped_anvil	facing="north"|"north","south","west","east"
-minecraft:nether_wart_block
-minecraft:glass
-minecraft:cyan_wool
-minecraft:poppy
-minecraft:sculk_catalyst	bloom="false"|"true","false"
-minecraft:stripped_dark_oak_log	axis="y"|"x","y","z"
-minecraft:light_blue_shulker_box	facing="up"|"north","east","south","west","up","down"
-minecraft:respawn_anchor	charges="0"|"0","1","2","3","4"
-minecraft:sea_lantern
-minecraft:tuff_brick_stairs	facing="north"|"north","south","west","east"	half="bottom"|"top","bottom"	shape="straight"|"straight","inner_left","inner_right","outer_left","outer_right"
-minecraft:budding_amethyst
-minecraft:dead_tube_coral_block
-minecraft:oak_sapling	stage="0"|"0","1"
-minecraft:cobbled_deepslate_stairs	facing="north"|"north","south","west","east"	half="bottom"|"top","bottom"	shape="straight"|"straight","inner_left","inner_right","outer_left","outer_right"
-minecraft:weeping_vines	age="0"|"0","1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18","19","20","21","22","23","24","25"
-minecraft:end_stone_brick_stairs	facing="north"|"north","south","west","east"	half="bottom"|"top","bottom"	shape="straight"|"straight","inner_left","inner_right","outer_left","outer_right"
-minecraft:stripped_birch_wood	axis="y"|"x","y","z"
-minecraft:chiseled_copper
-minecraft:granite_stairs	facing="north"|"north","south","west","east"	half="bottom"|"top","bottom"	shape="straight"|"straight","inner_left","inner_right","outer_left","outer_right"
-minecraft:potted_mangrove_propagule
-minecraft:red_sand
-minecraft:waxed_weathered_cut_copper
-minecraft:magenta_wall_banner	facing="north"|"north","south","west","east"
-minecraft:bookshelf
-minecraft:birch_sign	rotation="0"|"0","1","2","3","4","5","6","7","8","9","10","11","12","13","14","15"
-minecraft:slime_block
-minecraft:brain_coral_fan
-minecraft:water_cauldron	level="1"|"1","2","3"
-minecraft:lodestone
-minecraft:cherry_slab	type="bottom"|"top","bottom","double"
-minecraft:oak_button	face="wall"|"floor","wall","ceiling"	facing="north"|"north","south","west","east"	powered="false"|"true","false"
-minecraft:mangrove_sign	rotation="0"|"0","1","2","3","4","5","6","7","8","9","10","11","12","13","14","15"
-minecraft:orange_stained_glass
-minecraft:gray_stained_glass_pane	east="false"|"true","false"	north="false"|"true","false"	south="false"|"true","false"	west="false"|"true","false"
-minecraft:lime_concrete
-minecraft:spruce_pressure_plate	powered="false"|"true","false"
-minecraft:warped_door	facing="north"|"north","south","west","east"	half="lower"|"upper","lower"	hinge="left"|"left","right"	open="false"|"true","false"	powered="false"|"true","false"
-minecraft:creaking_heart	active="false"|"true","false"	axis="y"|"x","y","z"	natural="false"|"true","false"
-minecraft:acacia_wall_hanging_sign	facing="north"|"north","south","west","east"
-minecraft:dark_prismarine_slab	type="bottom"|"top","bottom","double"
-minecraft:weeping_vines_plant
-minecraft:note_block	instrument="harp"|"harp","basedrum","snare","hat","bass","flute","bell","guitar","chime","xylophone","iron_xylophone","cow_bell","didgeridoo","bit","banjo","pling","zombie","skeleton","creeper","dragon","wither_skeleton","piglin","custom_head"	note="0"|"0","1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18","19","20","21","22","23","24"	powered="false"|"true","false"
-minecraft:iron_bars	east="false"|"true","false"	north="false"|"true","false"	south="false"|"true","false"	west="false"|"true","false"
-minecraft:polished_blackstone_wall	east="none"|"none","low","tall"	north="none"|"none","low","tall"	south="none"|"none","low","tall"	up="true"|"true","false"	west="none"|"none","low","tall"
-minecraft:trial_spawner	ominous="false"|"true","false"	trial_spawner_state="inactive"|"inactive","waiting_for_players","active","waiting_for_reward_ejection","ejecting_reward","cooldown"
-minecraft:cherry_wall_hanging_sign	facing="north"|"north","south","west","east"
-minecraft:polished_andesite
-minecraft:polished_blackstone_brick_stairs	facing="north"|"north","south","west","east"	half="bottom"|"top","bottom"	shape="straight"|"straight","inner_left","inner_right","outer_left","outer_right"
-minecraft:yellow_stained_glass_pane	east="false"|"true","false"	north="false"|"true","false"	south="false"|"true","false"	west="false"|"true","false"
-minecraft:pale_oak_wall_hanging_sign	facing="north"|"north","south","west","east"
-minecraft:brown_stained_glass_pane	east="false"|"true","false"	north="false"|"true","false"	south="false"|"true","false"	west="false"|"true","false"
-minecraft:coal_ore
-minecraft:scaffolding	bottom="false"|"true","false"	distance="7"|"0","1","2","3","4","5","6","7"
-minecraft:jungle_slab	type="bottom"|"top","bottom","double"
-minecraft:lever	face="wall"|"floor","wall","ceiling"	facing="north"|"north","south","west","east"	powered="false"|"true","false"
-minecraft:infested_stone_bricks
-minecraft:jungle_log	axis="y"|"x","y","z"
-minecraft:stripped_cherry_log	axis="y"|"x","y","z"
-minecraft:waxed_copper_bulb	lit="false"|"true","false"	powered="false"|"true","false"
-minecraft:cobblestone
-minecraft:purple_banner	rotation="0"|"0","1","2","3","4","5","6","7","8","9","10","11","12","13","14","15"
+minecraft:acacia_door	facing="north"|"north","south","west","east"	half="lower"|"upper","lower"	hinge="left"|"left","right"	open="false"|"true","false"	powered="false"|"true","false"
 minecraft:acacia_fence	east="false"|"true","false"	north="false"|"true","false"	south="false"|"true","false"	west="false"|"true","false"
-minecraft:nether_gold_ore
-minecraft:sugar_cane	age="0"|"0","1","2","3","4","5","6","7","8","9","10","11","12","13","14","15"
-minecraft:nether_portal	axis="x"|"x","z"
-minecraft:dead_fire_coral
-minecraft:waxed_cut_copper_slab	type="bottom"|"top","bottom","double"
-minecraft:potted_red_tulip
-minecraft:potted_pink_tulip
-minecraft:spruce_log	axis="y"|"x","y","z"
-minecraft:waxed_oxidized_cut_copper_slab	type="bottom"|"top","bottom","double"
-minecraft:mud
-minecraft:end_stone_bricks
-minecraft:blue_wool
-minecraft:blackstone
-minecraft:magenta_stained_glass
-minecraft:mangrove_roots
-minecraft:dark_oak_door	facing="north"|"north","south","west","east"	half="lower"|"upper","lower"	hinge="left"|"left","right"	open="false"|"true","false"	powered="false"|"true","false"
-minecraft:light_blue_terracotta
-minecraft:green_bed	facing="north"|"north","south","west","east"	occupied="false"|"true","false"	part="foot"|"head","foot"
-minecraft:gray_candle_cake	lit="false"|"true","false"
-minecraft:red_sandstone
-minecraft:fire_coral
-minecraft:waxed_weathered_cut_copper_slab	type="bottom"|"top","bottom","double"
-minecraft:pale_oak_log	axis="y"|"x","y","z"
-minecraft:stone_stairs	facing="north"|"north","south","west","east"	half="bottom"|"top","bottom"	shape="straight"|"straight","inner_left","inner_right","outer_left","outer_right"
-minecraft:purple_shulker_box	facing="up"|"north","east","south","west","up","down"
-minecraft:mangrove_wood	axis="y"|"x","y","z"
+minecraft:acacia_fence_gate	facing="north"|"north","south","west","east"	in_wall="false"|"true","false"	open="false"|"true","false"	powered="false"|"true","false"
+minecraft:acacia_hanging_sign	attached="false"|"true","false"	rotation="8"|"0","1","2","3","4","5","6","7","8","9","10","11","12","13","14","15"
+minecraft:acacia_leaves	distance="7"|"1","2","3","4","5","6","7"	persistent="false"|"true","false"
+minecraft:acacia_log	axis="y"|"x","y","z"
+minecraft:acacia_planks
+minecraft:acacia_pressure_plate	powered="false"|"true","false"
+minecraft:acacia_sapling	stage="0"|"0","1"
+minecraft:acacia_shelf	facing="north"|"north","south","west","east"	powered="false"|"true","false"	side_chain="unconnected"|"unconnected","right","center","left"
+minecraft:acacia_sign	rotation="8"|"0","1","2","3","4","5","6","7","8","9","10","11","12","13","14","15"
+minecraft:acacia_slab	type="bottom"|"top","bottom","double"
+minecraft:acacia_stairs	facing="north"|"north","south","west","east"	half="bottom"|"top","bottom"	shape="straight"|"straight","inner_left","inner_right","outer_left","outer_right"
+minecraft:acacia_trapdoor	facing="north"|"north","south","west","east"	half="bottom"|"top","bottom"	open="false"|"true","false"	powered="false"|"true","false"
+minecraft:acacia_wall_hanging_sign	facing="north"|"north","south","west","east"
+minecraft:acacia_wall_sign	facing="north"|"north","south","west","east"
+minecraft:acacia_wood	axis="y"|"x","y","z"
+minecraft:activator_rail	powered="false"|"true","false"	shape="north_south"|"north_south","east_west","ascending_east","ascending_west","ascending_north","ascending_south"
+minecraft:air
+minecraft:allium
+minecraft:amethyst_block
+minecraft:amethyst_cluster	facing="up"|"north","east","south","west","up","down"
+minecraft:ancient_debris
+minecraft:andesite
+minecraft:andesite_slab	type="bottom"|"top","bottom","double"
+minecraft:andesite_stairs	facing="north"|"north","south","west","east"	half="bottom"|"top","bottom"	shape="straight"|"straight","inner_left","inner_right","outer_left","outer_right"
+minecraft:andesite_wall	east="none"|"none","low","tall"	north="none"|"none","low","tall"	south="none"|"none","low","tall"	up="true"|"true","false"	west="none"|"none","low","tall"
+minecraft:anvil	facing="north"|"north","south","west","east"
+minecraft:attached_melon_stem	facing="north"|"north","south","west","east"
+minecraft:attached_pumpkin_stem	facing="north"|"north","south","west","east"
+minecraft:azalea
+minecraft:azalea_leaves	distance="7"|"1","2","3","4","5","6","7"	persistent="false"|"true","false"
+minecraft:azure_bluet
+minecraft:bamboo	age="0"|"0","1"	leaves="none"|"none","small","large"	stage="0"|"0","1"
+minecraft:bamboo_block	axis="y"|"x","y","z"
+minecraft:bamboo_button	face="wall"|"floor","wall","ceiling"	facing="north"|"north","south","west","east"	powered="false"|"true","false"
+minecraft:bamboo_door	facing="north"|"north","south","west","east"	half="lower"|"upper","lower"	hinge="left"|"left","right"	open="false"|"true","false"	powered="false"|"true","false"
+minecraft:bamboo_fence	east="false"|"true","false"	north="false"|"true","false"	south="false"|"true","false"	west="false"|"true","false"
+minecraft:bamboo_fence_gate	facing="north"|"north","south","west","east"	in_wall="false"|"true","false"	open="false"|"true","false"	powered="false"|"true","false"
+minecraft:bamboo_hanging_sign	attached="false"|"true","false"	rotation="8"|"0","1","2","3","4","5","6","7","8","9","10","11","12","13","14","15"
+minecraft:bamboo_mosaic
+minecraft:bamboo_mosaic_slab	type="bottom"|"top","bottom","double"
+minecraft:bamboo_mosaic_stairs	facing="north"|"north","south","west","east"	half="bottom"|"top","bottom"	shape="straight"|"straight","inner_left","inner_right","outer_left","outer_right"
+minecraft:bamboo_planks
+minecraft:bamboo_pressure_plate	powered="false"|"true","false"
+minecraft:bamboo_sapling
+minecraft:bamboo_shelf	facing="north"|"north","south","west","east"	powered="false"|"true","false"	side_chain="unconnected"|"unconnected","right","center","left"
+minecraft:bamboo_sign	rotation="8"|"0","1","2","3","4","5","6","7","8","9","10","11","12","13","14","15"
+minecraft:bamboo_slab	type="bottom"|"top","bottom","double"
+minecraft:bamboo_stairs	facing="north"|"north","south","west","east"	half="bottom"|"top","bottom"	shape="straight"|"straight","inner_left","inner_right","outer_left","outer_right"
+minecraft:bamboo_trapdoor	facing="north"|"north","south","west","east"	half="bottom"|"top","bottom"	open="false"|"true","false"	powered="false"|"true","false"
+minecraft:bamboo_wall_hanging_sign	facing="north"|"north","south","west","east"
+minecraft:bamboo_wall_sign	facing="north"|"north","south","west","east"
+minecraft:barrel	facing="north"|"north","east","south","west","up","down"	open="false"|"true","false"
+minecraft:barrier
+minecraft:basalt	axis="y"|"x","y","z"
+minecraft:beacon
+minecraft:bedrock
+minecraft:bee_nest	facing="north"|"north","south","west","east"	honey_level="0"|"0","1","2","3","4","5"
+minecraft:beehive	facing="north"|"north","south","west","east"	honey_level="0"|"0","1","2","3","4","5"
+minecraft:beetroots	age="0"|"0","1","2","3"
+minecraft:bell	attachment="floor"|"floor","ceiling","single_wall","double_wall"	facing="north"|"north","south","west","east"	powered="false"|"true","false"
+minecraft:big_dripleaf	facing="north"|"north","south","west","east"	tilt="none"|"none","unstable","partial","full"
+minecraft:big_dripleaf_stem	facing="north"|"north","south","west","east"
+minecraft:birch_button	face="wall"|"floor","wall","ceiling"	facing="north"|"north","south","west","east"	powered="false"|"true","false"
+minecraft:birch_door	facing="north"|"north","south","west","east"	half="lower"|"upper","lower"	hinge="left"|"left","right"	open="false"|"true","false"	powered="false"|"true","false"
+minecraft:birch_fence	east="false"|"true","false"	north="false"|"true","false"	south="false"|"true","false"	west="false"|"true","false"
+minecraft:birch_fence_gate	facing="north"|"north","south","west","east"	in_wall="false"|"true","false"	open="false"|"true","false"	powered="false"|"true","false"
+minecraft:birch_hanging_sign	attached="false"|"true","false"	rotation="8"|"0","1","2","3","4","5","6","7","8","9","10","11","12","13","14","15"
+minecraft:birch_leaves	distance="7"|"1","2","3","4","5","6","7"	persistent="false"|"true","false"
+minecraft:birch_log	axis="y"|"x","y","z"
+minecraft:birch_planks
+minecraft:birch_pressure_plate	powered="false"|"true","false"
+minecraft:birch_sapling	stage="0"|"0","1"
+minecraft:birch_shelf	facing="north"|"north","south","west","east"	powered="false"|"true","false"	side_chain="unconnected"|"unconnected","right","center","left"
+minecraft:birch_sign	rotation="8"|"0","1","2","3","4","5","6","7","8","9","10","11","12","13","14","15"
+minecraft:birch_slab	type="bottom"|"top","bottom","double"
 minecraft:birch_stairs	facing="north"|"north","south","west","east"	half="bottom"|"top","bottom"	shape="straight"|"straight","inner_left","inner_right","outer_left","outer_right"
-minecraft:polished_granite
-minecraft:wither_skeleton_skull	powered="false"|"true","false"	rotation="0"|"0","1","2","3","4","5","6","7","8","9","10","11","12","13","14","15"
-minecraft:orange_bed	facing="north"|"north","south","west","east"	occupied="false"|"true","false"	part="foot"|"head","foot"
-minecraft:gray_bed	facing="north"|"north","south","west","east"	occupied="false"|"true","false"	part="foot"|"head","foot"
-minecraft:green_candle_cake	lit="false"|"true","false"
+minecraft:birch_trapdoor	facing="north"|"north","south","west","east"	half="bottom"|"top","bottom"	open="false"|"true","false"	powered="false"|"true","false"
+minecraft:birch_wall_hanging_sign	facing="north"|"north","south","west","east"
 minecraft:birch_wall_sign	facing="north"|"north","south","west","east"
 minecraft:birch_wood	axis="y"|"x","y","z"
-minecraft:mossy_cobblestone_wall	east="none"|"none","low","tall"	north="none"|"none","low","tall"	south="none"|"none","low","tall"	up="true"|"true","false"	west="none"|"none","low","tall"
-minecraft:jigsaw	orientation="north_up"|"down_east","down_north","down_south","down_west","up_east","up_north","up_south","up_west","west_up","east_up","north_up","south_up"
-minecraft:sculk_vein	down="false"|"true","false"	east="false"|"true","false"	north="false"|"true","false"	south="false"|"true","false"	up="false"|"true","false"	west="false"|"true","false"
-minecraft:deepslate_lapis_ore
-minecraft:bubble_coral_wall_fan	facing="north"|"north","south","west","east"
-minecraft:dark_oak_wall_hanging_sign	facing="north"|"north","south","west","east"
-minecraft:granite_wall	east="none"|"none","low","tall"	north="none"|"none","low","tall"	south="none"|"none","low","tall"	up="true"|"true","false"	west="none"|"none","low","tall"
-minecraft:tube_coral_wall_fan	facing="north"|"north","south","west","east"
-minecraft:cyan_concrete
-minecraft:waxed_oxidized_cut_copper_stairs	facing="north"|"north","south","west","east"	half="bottom"|"top","bottom"	shape="straight"|"straight","inner_left","inner_right","outer_left","outer_right"
-minecraft:dark_prismarine
-minecraft:stripped_spruce_log	axis="y"|"x","y","z"
-minecraft:light_gray_terracotta
-minecraft:exposed_cut_copper_slab	type="bottom"|"top","bottom","double"
-minecraft:acacia_fence_gate	facing="north"|"north","south","west","east"	in_wall="false"|"true","false"	open="false"|"true","false"	powered="false"|"true","false"
-minecraft:mangrove_leaves	distance="7"|"1","2","3","4","5","6","7"	persistent="false"|"true","false"
-minecraft:potted_acacia_sapling
-minecraft:cherry_log	axis="y"|"x","y","z"
-minecraft:raw_iron_block
-minecraft:deepslate_coal_ore
-minecraft:waxed_exposed_cut_copper_stairs	facing="north"|"north","south","west","east"	half="bottom"|"top","bottom"	shape="straight"|"straight","inner_left","inner_right","outer_left","outer_right"
-minecraft:water	level="0"|"0","1","2","3","4","5","6","7","8","9","10","11","12","13","14","15"
-minecraft:obsidian
-minecraft:soul_wall_torch	facing="north"|"north","south","west","east"
-minecraft:bamboo_wall_hanging_sign	facing="north"|"north","south","west","east"
-minecraft:stripped_jungle_log	axis="y"|"x","y","z"
-minecraft:stone_brick_stairs	facing="north"|"north","south","west","east"	half="bottom"|"top","bottom"	shape="straight"|"straight","inner_left","inner_right","outer_left","outer_right"
-minecraft:pale_oak_pressure_plate	powered="false"|"true","false"
-minecraft:smooth_quartz_stairs	facing="north"|"north","south","west","east"	half="bottom"|"top","bottom"	shape="straight"|"straight","inner_left","inner_right","outer_left","outer_right"
-minecraft:green_stained_glass
-minecraft:brain_coral
-minecraft:crimson_hyphae	axis="y"|"x","y","z"
-minecraft:bamboo_door	facing="north"|"north","south","west","east"	half="lower"|"upper","lower"	hinge="left"|"left","right"	open="false"|"true","false"	powered="false"|"true","false"
-minecraft:jungle_sapling	stage="0"|"0","1"
-minecraft:bubble_column	drag="true"|"true","false"
-minecraft:chiseled_deepslate
-minecraft:gold_block
-minecraft:potted_birch_sapling
-minecraft:orange_banner	rotation="0"|"0","1","2","3","4","5","6","7","8","9","10","11","12","13","14","15"
-minecraft:mycelium	snowy="false"|"true","false"
-minecraft:acacia_leaves	distance="7"|"1","2","3","4","5","6","7"	persistent="false"|"true","false"
-minecraft:acacia_hanging_sign	attached="false"|"true","false"	rotation="0"|"0","1","2","3","4","5","6","7","8","9","10","11","12","13","14","15"
-minecraft:copper_trapdoor	facing="north"|"north","south","west","east"	half="bottom"|"top","bottom"	open="false"|"true","false"	powered="false"|"true","false"
-minecraft:yellow_candle_cake	lit="false"|"true","false"
-minecraft:green_glazed_terracotta	facing="north"|"north","south","west","east"
-minecraft:magenta_terracotta
-minecraft:red_nether_bricks
-minecraft:potted_oak_sapling
-minecraft:moving_piston	type="normal"|"normal","sticky"	facing="north"|"north","east","south","west","up","down"
-minecraft:peony	half="lower"|"upper","lower"
-minecraft:creeper_wall_head	facing="north"|"north","south","west","east"	powered="false"|"true","false"
-minecraft:gray_candle	candles="1"|"1","2","3","4"	lit="false"|"true","false"
-minecraft:spruce_door	facing="north"|"north","south","west","east"	half="lower"|"upper","lower"	hinge="left"|"left","right"	open="false"|"true","false"	powered="false"|"true","false"
-minecraft:red_banner	rotation="0"|"0","1","2","3","4","5","6","7","8","9","10","11","12","13","14","15"
-minecraft:smithing_table
-minecraft:acacia_slab	type="bottom"|"top","bottom","double"
-minecraft:barrier
-minecraft:blast_furnace	facing="north"|"north","south","west","east"	lit="false"|"true","false"
-minecraft:bamboo_fence	east="false"|"true","false"	north="false"|"true","false"	south="false"|"true","false"	west="false"|"true","false"
-minecraft:polished_tuff_wall	east="none"|"none","low","tall"	north="none"|"none","low","tall"	south="none"|"none","low","tall"	up="true"|"true","false"	west="none"|"none","low","tall"
-minecraft:dead_brain_coral_fan
-minecraft:stone_button	face="wall"|"floor","wall","ceiling"	facing="north"|"north","south","west","east"	powered="false"|"true","false"
-minecraft:light_gray_candle	candles="1"|"1","2","3","4"	lit="false"|"true","false"
-minecraft:birch_button	face="wall"|"floor","wall","ceiling"	facing="north"|"north","south","west","east"	powered="false"|"true","false"
-minecraft:copper_ore
-minecraft:large_amethyst_bud	facing="up"|"north","east","south","west","up","down"
-minecraft:moss_block
-minecraft:waxed_exposed_copper_grate
-minecraft:lime_stained_glass_pane	east="false"|"true","false"	north="false"|"true","false"	south="false"|"true","false"	west="false"|"true","false"
-minecraft:redstone_wall_torch	facing="north"|"north","south","west","east"	lit="true"|"true","false"
-minecraft:pale_oak_sapling	stage="0"|"0","1"
-minecraft:mangrove_fence	east="false"|"true","false"	north="false"|"true","false"	south="false"|"true","false"	west="false"|"true","false"
-minecraft:bamboo_fence_gate	facing="north"|"north","south","west","east"	in_wall="false"|"true","false"	open="false"|"true","false"	powered="false"|"true","false"
-minecraft:blue_shulker_box	facing="up"|"north","east","south","west","up","down"
-minecraft:sculk_shrieker	can_summon="false"|"true","false"	shrieking="false"|"true","false"
-minecraft:bamboo_mosaic_slab	type="bottom"|"top","bottom","double"
-minecraft:cherry_trapdoor	facing="north"|"north","south","west","east"	half="bottom"|"top","bottom"	open="false"|"true","false"	powered="false"|"true","false"
-minecraft:lightning_rod	facing="up"|"north","east","south","west","up","down"	powered="false"|"true","false"
-minecraft:crafter	crafting="false"|"true","false"	orientation="north_up"|"down_east","down_north","down_south","down_west","up_east","up_north","up_south","up_west","west_up","east_up","north_up","south_up"	triggered="false"|"true","false"
-minecraft:light	level="15"|"0","1","2","3","4","5","6","7","8","9","10","11","12","13","14","15"
-minecraft:deepslate	axis="y"|"x","y","z"
-minecraft:loom	facing="north"|"north","south","west","east"
-minecraft:blackstone_slab	type="bottom"|"top","bottom","double"
-minecraft:stone_brick_slab	type="bottom"|"top","bottom","double"
-minecraft:iron_ore
-minecraft:cherry_pressure_plate	powered="false"|"true","false"
-minecraft:skeleton_skull	powered="false"|"true","false"	rotation="0"|"0","1","2","3","4","5","6","7","8","9","10","11","12","13","14","15"
-minecraft:tuff
-minecraft:warped_nylium
-minecraft:purple_stained_glass
-minecraft:blue_bed	facing="north"|"north","south","west","east"	occupied="false"|"true","false"	part="foot"|"head","foot"
-minecraft:stone_slab	type="bottom"|"top","bottom","double"
-minecraft:tuff_bricks
-minecraft:jukebox	has_record="false"|"true","false"
-minecraft:brick_stairs	facing="north"|"north","south","west","east"	half="bottom"|"top","bottom"	shape="straight"|"straight","inner_left","inner_right","outer_left","outer_right"
-minecraft:magenta_banner	rotation="0"|"0","1","2","3","4","5","6","7","8","9","10","11","12","13","14","15"
-minecraft:magma_block
-minecraft:dirt_path
-minecraft:pitcher_plant	half="lower"|"upper","lower"
-minecraft:potted_allium
-minecraft:white_wall_banner	facing="north"|"north","south","west","east"
-minecraft:cut_red_sandstone
-minecraft:mangrove_planks
-minecraft:pointed_dripstone	thickness="tip"|"tip_merge","tip","frustum","middle","base"	vertical_direction="up"|"up","down"
-minecraft:acacia_planks
-minecraft:redstone_ore	lit="false"|"true","false"
-minecraft:oak_fence	east="false"|"true","false"	north="false"|"true","false"	south="false"|"true","false"	west="false"|"true","false"
-minecraft:jungle_trapdoor	facing="north"|"north","south","west","east"	half="bottom"|"top","bottom"	open="false"|"true","false"	powered="false"|"true","false"
-minecraft:wet_sponge
-minecraft:composter	level="0"|"0","1","2","3","4","5","6","7","8"
-minecraft:lime_candle	candles="1"|"1","2","3","4"	lit="false"|"true","false"
-minecraft:crimson_wall_hanging_sign	facing="north"|"north","south","west","east"
-minecraft:allium
-minecraft:tube_coral_fan
-minecraft:pale_oak_door	facing="north"|"north","south","west","east"	half="lower"|"upper","lower"	hinge="left"|"left","right"	open="false"|"true","false"	powered="false"|"true","false"
-minecraft:smooth_sandstone_slab	type="bottom"|"top","bottom","double"
-minecraft:dark_oak_fence	east="false"|"true","false"	north="false"|"true","false"	south="false"|"true","false"	west="false"|"true","false"
-minecraft:warped_fence_gate	facing="north"|"north","south","west","east"	in_wall="false"|"true","false"	open="false"|"true","false"	powered="false"|"true","false"
-minecraft:cornflower
-minecraft:diamond_ore
-minecraft:rose_bush	half="lower"|"upper","lower"
-minecraft:green_concrete
-minecraft:cartography_table
-minecraft:grindstone	face="wall"|"floor","wall","ceiling"	facing="north"|"north","south","west","east"
-minecraft:smooth_sandstone_stairs	facing="north"|"north","south","west","east"	half="bottom"|"top","bottom"	shape="straight"|"straight","inner_left","inner_right","outer_left","outer_right"
-minecraft:kelp	age="0"|"0","1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18","19","20","21","22","23","24","25"
-minecraft:pink_candle_cake	lit="false"|"true","false"
-minecraft:deepslate_tiles
-minecraft:exposed_cut_copper_stairs	facing="north"|"north","south","west","east"	half="bottom"|"top","bottom"	shape="straight"|"straight","inner_left","inner_right","outer_left","outer_right"
-minecraft:mud_brick_stairs	facing="north"|"north","south","west","east"	half="bottom"|"top","bottom"	shape="straight"|"straight","inner_left","inner_right","outer_left","outer_right"
-minecraft:chain	axis="y"|"x","y","z"
-minecraft:ladder	facing="north"|"north","south","west","east"
-minecraft:spore_blossom
-minecraft:black_shulker_box	facing="up"|"north","east","south","west","up","down"
-minecraft:quartz_bricks
-minecraft:yellow_wool
-minecraft:crimson_slab	type="bottom"|"top","bottom","double"
-minecraft:crimson_trapdoor	facing="north"|"north","south","west","east"	half="bottom"|"top","bottom"	open="false"|"true","false"	powered="false"|"true","false"
-minecraft:light_blue_concrete_powder
-minecraft:mossy_cobblestone
-minecraft:weathered_copper_door	facing="north"|"north","south","west","east"	half="lower"|"upper","lower"	hinge="left"|"left","right"	open="false"|"true","false"	powered="false"|"true","false"
-minecraft:prismarine_bricks
-minecraft:crimson_wall_sign	facing="north"|"north","south","west","east"
-minecraft:melon_stem	age="0"|"0","1","2","3","4","5","6","7"
-minecraft:mangrove_wall_hanging_sign	facing="north"|"north","south","west","east"
-minecraft:potted_dandelion
-minecraft:end_stone_brick_slab	type="bottom"|"top","bottom","double"
-minecraft:orange_stained_glass_pane	east="false"|"true","false"	north="false"|"true","false"	south="false"|"true","false"	west="false"|"true","false"
-minecraft:orange_candle_cake	lit="false"|"true","false"
-minecraft:ice
-minecraft:oak_stairs	facing="north"|"north","south","west","east"	half="bottom"|"top","bottom"	shape="straight"|"straight","inner_left","inner_right","outer_left","outer_right"
-minecraft:green_wool
-minecraft:lime_carpet
-minecraft:warped_planks
-minecraft:pink_glazed_terracotta	facing="north"|"north","south","west","east"
-minecraft:resin_brick_stairs	facing="north"|"north","south","west","east"	half="bottom"|"top","bottom"	shape="straight"|"straight","inner_left","inner_right","outer_left","outer_right"
-minecraft:dripstone_block
-minecraft:waxed_weathered_copper
-minecraft:pink_concrete_powder
-minecraft:beetroots	age="0"|"0","1","2","3"
-minecraft:polished_basalt	axis="y"|"x","y","z"
-minecraft:light_gray_candle_cake	lit="false"|"true","false"
-minecraft:dead_horn_coral_fan
-minecraft:crafting_table
-minecraft:jungle_fence	east="false"|"true","false"	north="false"|"true","false"	south="false"|"true","false"	west="false"|"true","false"
-minecraft:prismarine_slab	type="bottom"|"top","bottom","double"
-minecraft:spruce_hanging_sign	attached="false"|"true","false"	rotation="0"|"0","1","2","3","4","5","6","7","8","9","10","11","12","13","14","15"
-minecraft:purple_wool
-minecraft:weathered_cut_copper_slab	type="bottom"|"top","bottom","double"
-minecraft:black_banner	rotation="0"|"0","1","2","3","4","5","6","7","8","9","10","11","12","13","14","15"
-minecraft:gray_carpet
-minecraft:deepslate_iron_ore
-minecraft:chiseled_bookshelf	facing="north"|"north","south","west","east"	slot_0_occupied="false"|"true","false"	slot_1_occupied="false"|"true","false"	slot_2_occupied="false"|"true","false"	slot_3_occupied="false"|"true","false"	slot_4_occupied="false"|"true","false"	slot_5_occupied="false"|"true","false"
-minecraft:polished_deepslate_slab	type="bottom"|"top","bottom","double"
-minecraft:dark_oak_pressure_plate	powered="false"|"true","false"
-minecraft:birch_fence_gate	facing="north"|"north","south","west","east"	in_wall="false"|"true","false"	open="false"|"true","false"	powered="false"|"true","false"
-minecraft:carrots	age="0"|"0","1","2","3","4","5","6","7"
-minecraft:polished_diorite
-minecraft:pink_concrete
-minecraft:deepslate_copper_ore
-minecraft:light_gray_carpet
-minecraft:brown_bed	facing="north"|"north","south","west","east"	occupied="false"|"true","false"	part="foot"|"head","foot"
-minecraft:raw_copper_block
-minecraft:black_concrete
-minecraft:nether_brick_stairs	facing="north"|"north","south","west","east"	half="bottom"|"top","bottom"	shape="straight"|"straight","inner_left","inner_right","outer_left","outer_right"
-minecraft:stripped_oak_log	axis="y"|"x","y","z"
-minecraft:dead_brain_coral
-minecraft:yellow_banner	rotation="0"|"0","1","2","3","4","5","6","7","8","9","10","11","12","13","14","15"
-minecraft:diorite_wall	east="none"|"none","low","tall"	north="none"|"none","low","tall"	south="none"|"none","low","tall"	up="true"|"true","false"	west="none"|"none","low","tall"
-minecraft:enchanting_table
-minecraft:potted_red_mushroom
-minecraft:oxidized_copper
-minecraft:small_amethyst_bud	facing="up"|"north","east","south","west","up","down"
-minecraft:pale_oak_button	face="wall"|"floor","wall","ceiling"	facing="north"|"north","south","west","east"	powered="false"|"true","false"
-minecraft:orange_concrete_powder
-minecraft:waxed_copper_block
-minecraft:cut_copper_slab	type="bottom"|"top","bottom","double"
-minecraft:polished_blackstone_bricks
-minecraft:powder_snow
-minecraft:cyan_banner	rotation="0"|"0","1","2","3","4","5","6","7","8","9","10","11","12","13","14","15"
-minecraft:white_tulip
-minecraft:pink_stained_glass_pane	east="false"|"true","false"	north="false"|"true","false"	south="false"|"true","false"	west="false"|"true","false"
-minecraft:polished_tuff_slab	type="bottom"|"top","bottom","double"
-minecraft:brown_wool
-minecraft:prismarine
-minecraft:green_carpet
-minecraft:flower_pot
-minecraft:birch_slab	type="bottom"|"top","bottom","double"
-minecraft:pale_oak_wall_sign	facing="north"|"north","south","west","east"
-minecraft:dead_horn_coral_wall_fan	facing="north"|"north","south","west","east"
-minecraft:wither_skeleton_wall_skull	facing="north"|"north","south","west","east"	powered="false"|"true","false"
-minecraft:smooth_red_sandstone_slab	type="bottom"|"top","bottom","double"
-minecraft:purple_terracotta
-minecraft:zombie_wall_head	facing="north"|"north","south","west","east"	powered="false"|"true","false"
-minecraft:suspicious_sand	dusted="0"|"0","1","2","3"
-minecraft:cracked_polished_blackstone_bricks
-minecraft:acacia_log	axis="y"|"x","y","z"
-minecraft:gray_concrete_powder
-minecraft:activator_rail	powered="false"|"true","false"	shape="north_south"|"north_south","east_west","ascending_east","ascending_west","ascending_north","ascending_south"
-minecraft:mangrove_slab	type="bottom"|"top","bottom","double"
-minecraft:cherry_sign	rotation="0"|"0","1","2","3","4","5","6","7","8","9","10","11","12","13","14","15"
-minecraft:cracked_deepslate_tiles
-minecraft:azalea
-minecraft:blackstone_wall	east="none"|"none","low","tall"	north="none"|"none","low","tall"	south="none"|"none","low","tall"	up="true"|"true","false"	west="none"|"none","low","tall"
-minecraft:yellow_concrete
-minecraft:infested_stone
-minecraft:red_mushroom
-minecraft:pink_shulker_box	facing="up"|"north","east","south","west","up","down"
-minecraft:zombie_head	powered="false"|"true","false"	rotation="0"|"0","1","2","3","4","5","6","7","8","9","10","11","12","13","14","15"
-minecraft:crimson_fence_gate	facing="north"|"north","south","west","east"	in_wall="false"|"true","false"	open="false"|"true","false"	powered="false"|"true","false"
-minecraft:light_blue_concrete
-minecraft:exposed_copper_trapdoor	facing="north"|"north","south","west","east"	half="bottom"|"top","bottom"	open="false"|"true","false"	powered="false"|"true","false"
-minecraft:resin_block
-minecraft:bubble_coral
-minecraft:exposed_cut_copper
-minecraft:cyan_bed	facing="north"|"north","south","west","east"	occupied="false"|"true","false"	part="foot"|"head","foot"
-minecraft:brown_concrete
-minecraft:farmland	moisture="0"|"0","1","2","3","4","5","6","7"
-minecraft:quartz_pillar	axis="y"|"x","y","z"
-minecraft:diorite_stairs	facing="north"|"north","south","west","east"	half="bottom"|"top","bottom"	shape="straight"|"straight","inner_left","inner_right","outer_left","outer_right"
-minecraft:soul_campfire	facing="north"|"north","south","west","east"	lit="true"|"true","false"	signal_fire="false"|"true","false"
-minecraft:stone_brick_wall	east="none"|"none","low","tall"	north="none"|"none","low","tall"	south="none"|"none","low","tall"	up="true"|"true","false"	west="none"|"none","low","tall"
-minecraft:dragon_egg
-minecraft:piglin_head	powered="false"|"true","false"	rotation="0"|"0","1","2","3","4","5","6","7","8","9","10","11","12","13","14","15"
-minecraft:dead_horn_coral_block
-minecraft:resin_bricks
-minecraft:potted_brown_mushroom
-minecraft:copper_grate
-minecraft:bamboo_stairs	facing="north"|"north","south","west","east"	half="bottom"|"top","bottom"	shape="straight"|"straight","inner_left","inner_right","outer_left","outer_right"
-minecraft:dead_fire_coral_block
-minecraft:void_air
-minecraft:light_gray_stained_glass_pane	east="false"|"true","false"	north="false"|"true","false"	south="false"|"true","false"	west="false"|"true","false"
-minecraft:jungle_hanging_sign	attached="false"|"true","false"	rotation="0"|"0","1","2","3","4","5","6","7","8","9","10","11","12","13","14","15"
-minecraft:waxed_chiseled_copper
-minecraft:jungle_sign	rotation="0"|"0","1","2","3","4","5","6","7","8","9","10","11","12","13","14","15"
-minecraft:polished_andesite_slab	type="bottom"|"top","bottom","double"
-minecraft:waxed_weathered_copper_trapdoor	facing="north"|"north","south","west","east"	half="bottom"|"top","bottom"	open="false"|"true","false"	powered="false"|"true","false"
-minecraft:waxed_oxidized_chiseled_copper
-minecraft:oxidized_cut_copper
-minecraft:jungle_wall_sign	facing="north"|"north","south","west","east"
-minecraft:resin_clump	down="false"|"true","false"	east="false"|"true","false"	north="false"|"true","false"	south="false"|"true","false"	up="false"|"true","false"	west="false"|"true","false"
-minecraft:blue_candle_cake	lit="false"|"true","false"
-minecraft:waxed_copper_trapdoor	facing="north"|"north","south","west","east"	half="bottom"|"top","bottom"	open="false"|"true","false"	powered="false"|"true","false"
-minecraft:bee_nest	facing="north"|"north","south","west","east"	honey_level="0"|"0","1","2","3","4","5"
-minecraft:dark_prismarine_stairs	facing="north"|"north","south","west","east"	half="bottom"|"top","bottom"	shape="straight"|"straight","inner_left","inner_right","outer_left","outer_right"
-minecraft:waxed_weathered_chiseled_copper
-minecraft:waxed_oxidized_copper_trapdoor	facing="north"|"north","south","west","east"	half="bottom"|"top","bottom"	open="false"|"true","false"	powered="false"|"true","false"
-minecraft:end_stone_brick_wall	east="none"|"none","low","tall"	north="none"|"none","low","tall"	south="none"|"none","low","tall"	up="true"|"true","false"	west="none"|"none","low","tall"
-minecraft:hay_block	axis="y"|"x","y","z"
-minecraft:crimson_stairs	facing="north"|"north","south","west","east"	half="bottom"|"top","bottom"	shape="straight"|"straight","inner_left","inner_right","outer_left","outer_right"
-minecraft:potatoes	age="0"|"0","1","2","3","4","5","6","7"
-minecraft:weathered_cut_copper_stairs	facing="north"|"north","south","west","east"	half="bottom"|"top","bottom"	shape="straight"|"straight","inner_left","inner_right","outer_left","outer_right"
-minecraft:stripped_acacia_log	axis="y"|"x","y","z"
-minecraft:spruce_wall_hanging_sign	facing="north"|"north","south","west","east"
-minecraft:lime_concrete_powder
-minecraft:cherry_wood	axis="y"|"x","y","z"
-minecraft:cyan_stained_glass_pane	east="false"|"true","false"	north="false"|"true","false"	south="false"|"true","false"	west="false"|"true","false"
-minecraft:light_blue_stained_glass
-minecraft:red_wall_banner	facing="north"|"north","south","west","east"
-minecraft:copper_bulb	lit="false"|"true","false"	powered="false"|"true","false"
-minecraft:prismarine_wall	east="none"|"none","low","tall"	north="none"|"none","low","tall"	south="none"|"none","low","tall"	up="true"|"true","false"	west="none"|"none","low","tall"
-minecraft:stripped_spruce_wood	axis="y"|"x","y","z"
-minecraft:potted_warped_fungus
-minecraft:chiseled_tuff_bricks
-minecraft:jungle_leaves	distance="7"|"1","2","3","4","5","6","7"	persistent="false"|"true","false"
-minecraft:flowering_azalea_leaves	distance="7"|"1","2","3","4","5","6","7"	persistent="false"|"true","false"
-minecraft:pale_oak_fence	east="false"|"true","false"	north="false"|"true","false"	south="false"|"true","false"	west="false"|"true","false"
-minecraft:snow	layers="1"|"1","2","3","4","5","6","7","8"
-minecraft:spruce_leaves	distance="7"|"1","2","3","4","5","6","7"	persistent="false"|"true","false"
-minecraft:deepslate_emerald_ore
-minecraft:lava	level="0"|"0","1","2","3","4","5","6","7","8","9","10","11","12","13","14","15"
-minecraft:black_candle_cake	lit="false"|"true","false"
-minecraft:cake	bites="0"|"0","1","2","3","4","5","6"
-minecraft:turtle_egg	eggs="1"|"1","2","3","4"	hatch="0"|"0","1","2"
-minecraft:brown_wall_banner	facing="north"|"north","south","west","east"
-minecraft:yellow_bed	facing="north"|"north","south","west","east"	occupied="false"|"true","false"	part="foot"|"head","foot"
-minecraft:green_candle	candles="1"|"1","2","3","4"	lit="false"|"true","false"
-minecraft:mangrove_pressure_plate	powered="false"|"true","false"
-minecraft:pale_moss_carpet	bottom="true"|"true","false"	east="none"|"none","low","tall"	north="none"|"none","low","tall"	south="none"|"none","low","tall"	west="none"|"none","low","tall"
-minecraft:exposed_chiseled_copper
-minecraft:birch_fence	east="false"|"true","false"	north="false"|"true","false"	south="false"|"true","false"	west="false"|"true","false"
-minecraft:brain_coral_block
-minecraft:red_concrete_powder
-minecraft:dead_bush
-minecraft:jungle_wood	axis="y"|"x","y","z"
-minecraft:vine	east="false"|"true","false"	north="false"|"true","false"	south="false"|"true","false"	up="false"|"true","false"	west="false"|"true","false"
-minecraft:polished_deepslate_wall	east="none"|"none","low","tall"	north="none"|"none","low","tall"	south="none"|"none","low","tall"	up="true"|"true","false"	west="none"|"none","low","tall"
-minecraft:blue_glazed_terracotta	facing="north"|"north","south","west","east"
-minecraft:crimson_roots
-minecraft:dark_oak_button	face="wall"|"floor","wall","ceiling"	facing="north"|"north","south","west","east"	powered="false"|"true","false"
-minecraft:smooth_red_sandstone_stairs	facing="north"|"north","south","west","east"	half="bottom"|"top","bottom"	shape="straight"|"straight","inner_left","inner_right","outer_left","outer_right"
-minecraft:glass_pane	east="false"|"true","false"	north="false"|"true","false"	south="false"|"true","false"	west="false"|"true","false"
-minecraft:exposed_copper_door	facing="north"|"north","south","west","east"	half="lower"|"upper","lower"	hinge="left"|"left","right"	open="false"|"true","false"	powered="false"|"true","false"
-minecraft:cherry_stairs	facing="north"|"north","south","west","east"	half="bottom"|"top","bottom"	shape="straight"|"straight","inner_left","inner_right","outer_left","outer_right"
-minecraft:orange_shulker_box	facing="up"|"north","east","south","west","up","down"
-minecraft:dead_brain_coral_block
-minecraft:oak_wall_hanging_sign	facing="north"|"north","south","west","east"
-minecraft:dead_fire_coral_wall_fan	facing="north"|"north","south","west","east"
-minecraft:light_gray_shulker_box	facing="up"|"north","east","south","west","up","down"
-minecraft:potted_white_tulip
-minecraft:sandstone
-minecraft:diorite_slab	type="bottom"|"top","bottom","double"
-minecraft:chain_command_block	conditional="false"|"true","false"	facing="north"|"north","east","south","west","up","down"
-minecraft:spruce_sign	rotation="0"|"0","1","2","3","4","5","6","7","8","9","10","11","12","13","14","15"
-minecraft:beacon
-minecraft:brown_mushroom_block	down="true"|"true","false"	east="true"|"true","false"	north="true"|"true","false"	south="true"|"true","false"	up="true"|"true","false"	west="true"|"true","false"
-minecraft:bricks
-minecraft:brewing_stand	has_bottle_0="false"|"true","false"	has_bottle_1="false"|"true","false"	has_bottle_2="false"|"true","false"
-minecraft:magenta_candle	candles="1"|"1","2","3","4"	lit="false"|"true","false"
-minecraft:deepslate_tile_stairs	facing="north"|"north","south","west","east"	half="bottom"|"top","bottom"	shape="straight"|"straight","inner_left","inner_right","outer_left","outer_right"
-minecraft:redstone_wire	east="none"|"up","side","none"	north="none"|"up","side","none"	power="0"|"0","1","2","3","4","5","6","7","8","9","10","11","12","13","14","15"	south="none"|"up","side","none"	west="none"|"up","side","none"
-minecraft:furnace	facing="north"|"north","east","south","west"	lit="false"|"true","false"
-minecraft:dirt
-minecraft:cobbled_deepslate_wall	east="none"|"none","low","tall"	north="none"|"none","low","tall"	south="none"|"none","low","tall"	up="true"|"true","false"	west="none"|"none","low","tall"
-minecraft:mangrove_stairs	facing="north"|"north","south","west","east"	half="bottom"|"top","bottom"	shape="straight"|"straight","inner_left","inner_right","outer_left","outer_right"
-minecraft:dark_oak_sapling	stage="0"|"0","1"
-minecraft:gray_wall_banner	facing="north"|"north","south","west","east"
-minecraft:smooth_stone
-minecraft:cobbled_deepslate
-minecraft:acacia_stairs	facing="north"|"north","south","west","east"	half="bottom"|"top","bottom"	shape="straight"|"straight","inner_left","inner_right","outer_left","outer_right"
-minecraft:dead_tube_coral
-minecraft:emerald_block
-minecraft:mushroom_stem	down="true"|"true","false"	east="true"|"true","false"	north="true"|"true","false"	south="true"|"true","false"	up="true"|"true","false"	west="true"|"true","false"
-minecraft:polished_deepslate_stairs	facing="north"|"north","south","west","east"	half="bottom"|"top","bottom"	shape="straight"|"straight","inner_left","inner_right","outer_left","outer_right"
-minecraft:white_glazed_terracotta	facing="north"|"north","south","west","east"
-minecraft:lava_cauldron
-minecraft:snow_block
-minecraft:red_nether_brick_wall	east="none"|"none","low","tall"	north="none"|"none","low","tall"	south="none"|"none","low","tall"	up="true"|"true","false"	west="none"|"none","low","tall"
-minecraft:green_wall_banner	facing="north"|"north","south","west","east"
-minecraft:powder_snow_cauldron	level="1"|"1","2","3"
-minecraft:light_blue_glazed_terracotta	facing="north"|"north","south","west","east"
-minecraft:quartz_block
-minecraft:dead_tube_coral_wall_fan	facing="north"|"north","south","west","east"
-minecraft:lime_banner	rotation="0"|"0","1","2","3","4","5","6","7","8","9","10","11","12","13","14","15"
-minecraft:copper_door	facing="north"|"north","south","west","east"	half="lower"|"upper","lower"	hinge="left"|"left","right"	open="false"|"true","false"	powered="false"|"true","false"
-minecraft:potted_closed_eyeblossom
-minecraft:birch_log	axis="y"|"x","y","z"
-minecraft:light_gray_banner	rotation="0"|"0","1","2","3","4","5","6","7","8","9","10","11","12","13","14","15"
-minecraft:blue_orchid
-minecraft:oak_log	axis="y"|"x","y","z"
-minecraft:warped_hanging_sign	attached="false"|"true","false"	rotation="0"|"0","1","2","3","4","5","6","7","8","9","10","11","12","13","14","15"
-minecraft:birch_leaves	distance="7"|"1","2","3","4","5","6","7"	persistent="false"|"true","false"
-minecraft:brain_coral_wall_fan	facing="north"|"north","south","west","east"
-minecraft:suspicious_gravel	dusted="0"|"0","1","2","3"
-minecraft:waxed_exposed_copper_trapdoor	facing="north"|"north","south","west","east"	half="bottom"|"top","bottom"	open="false"|"true","false"	powered="false"|"true","false"
-minecraft:coal_block
-minecraft:open_eyeblossom
-minecraft:red_candle	candles="1"|"1","2","3","4"	lit="false"|"true","false"
-minecraft:hopper	enabled="true"|"true","false"	facing="down"|"down","north","south","west","east"
-minecraft:white_bed	facing="north"|"north","south","west","east"	occupied="false"|"true","false"	part="foot"|"head","foot"
-minecraft:yellow_stained_glass
-minecraft:calcite
-minecraft:gray_banner	rotation="0"|"0","1","2","3","4","5","6","7","8","9","10","11","12","13","14","15"
-minecraft:black_carpet
-minecraft:red_stained_glass_pane	east="false"|"true","false"	north="false"|"true","false"	south="false"|"true","false"	west="false"|"true","false"
-minecraft:attached_pumpkin_stem	facing="north"|"north","south","west","east"
-minecraft:pale_oak_sign	rotation="0"|"0","1","2","3","4","5","6","7","8","9","10","11","12","13","14","15"
-minecraft:oxidized_cut_copper_stairs	facing="north"|"north","south","west","east"	half="bottom"|"top","bottom"	shape="straight"|"straight","inner_left","inner_right","outer_left","outer_right"
-minecraft:lectern	facing="north"|"north","south","west","east"	has_book="false"|"true","false"	powered="false"|"true","false"
-minecraft:piston_head	type="normal"|"normal","sticky"	facing="north"|"north","east","south","west","up","down"	short="false"|"true","false"
-minecraft:purpur_stairs	facing="north"|"north","south","west","east"	half="bottom"|"top","bottom"	shape="straight"|"straight","inner_left","inner_right","outer_left","outer_right"
-minecraft:oxidized_chiseled_copper
-minecraft:lime_stained_glass
-minecraft:yellow_wall_banner	facing="north"|"north","south","west","east"
-minecraft:pink_wool
-minecraft:mangrove_fence_gate	facing="north"|"north","south","west","east"	in_wall="false"|"true","false"	open="false"|"true","false"	powered="false"|"true","false"
-minecraft:smooth_quartz
-minecraft:yellow_carpet
-minecraft:mossy_cobblestone_stairs	facing="north"|"north","south","west","east"	half="bottom"|"top","bottom"	shape="straight"|"straight","inner_left","inner_right","outer_left","outer_right"
-minecraft:light_blue_stained_glass_pane	east="false"|"true","false"	north="false"|"true","false"	south="false"|"true","false"	west="false"|"true","false"
-minecraft:green_stained_glass_pane	east="false"|"true","false"	north="false"|"true","false"	south="false"|"true","false"	west="false"|"true","false"
-minecraft:andesite_slab	type="bottom"|"top","bottom","double"
-minecraft:exposed_copper_bulb	lit="false"|"true","false"	powered="false"|"true","false"
-minecraft:oxidized_copper_trapdoor	facing="north"|"north","south","west","east"	half="bottom"|"top","bottom"	open="false"|"true","false"	powered="false"|"true","false"
-minecraft:polished_diorite_stairs	facing="north"|"north","south","west","east"	half="bottom"|"top","bottom"	shape="straight"|"straight","inner_left","inner_right","outer_left","outer_right"
-minecraft:tripwire	attached="false"|"true","false"	disarmed="false"|"true","false"	east="false"|"true","false"	north="false"|"true","false"	powered="false"|"true","false"	south="false"|"true","false"	west="false"|"true","false"
-minecraft:tube_coral_block
-minecraft:granite
-minecraft:blue_concrete_powder
-minecraft:twisting_vines_plant
-minecraft:magenta_candle_cake	lit="false"|"true","false"
-minecraft:pale_oak_hanging_sign	attached="false"|"true","false"	rotation="0"|"0","1","2","3","4","5","6","7","8","9","10","11","12","13","14","15"
-minecraft:tinted_glass
-minecraft:red_carpet
-minecraft:mangrove_trapdoor	facing="north"|"north","south","west","east"	half="bottom"|"top","bottom"	open="false"|"true","false"	powered="false"|"true","false"
-minecraft:torch
-minecraft:stripped_cherry_wood	axis="y"|"x","y","z"
-minecraft:potted_poppy
-minecraft:birch_hanging_sign	attached="false"|"true","false"	rotation="0"|"0","1","2","3","4","5","6","7","8","9","10","11","12","13","14","15"
+minecraft:black_banner	rotation="8"|"0","1","2","3","4","5","6","7","8","9","10","11","12","13","14","15"
+minecraft:black_bed	facing="north"|"north","south","west","east"	occupied="false"|"true","false"	part="foot"|"head","foot"
 minecraft:black_candle	candles="1"|"1","2","3","4"	lit="false"|"true","false"
-minecraft:cyan_shulker_box	facing="up"|"north","east","south","west","up","down"
-minecraft:wall_torch	facing="north"|"north","south","west","east"
-minecraft:green_concrete_powder
-minecraft:pale_oak_fence_gate	facing="north"|"north","south","west","east"	in_wall="false"|"true","false"	open="false"|"true","false"	powered="false"|"true","false"
-minecraft:dead_fire_coral_fan
-minecraft:warped_roots
-minecraft:deepslate_tile_wall	east="none"|"none","low","tall"	north="none"|"none","low","tall"	south="none"|"none","low","tall"	up="true"|"true","false"	west="none"|"none","low","tall"
-minecraft:mossy_stone_brick_wall	east="none"|"none","low","tall"	north="none"|"none","low","tall"	south="none"|"none","low","tall"	up="true"|"true","false"	west="none"|"none","low","tall"
-minecraft:polished_blackstone_brick_wall	east="none"|"none","low","tall"	north="none"|"none","low","tall"	south="none"|"none","low","tall"	up="true"|"true","false"	west="none"|"none","low","tall"
-minecraft:nether_quartz_ore
-minecraft:birch_trapdoor	facing="north"|"north","south","west","east"	half="bottom"|"top","bottom"	open="false"|"true","false"	powered="false"|"true","false"
-minecraft:red_sandstone_stairs	facing="north"|"north","south","west","east"	half="bottom"|"top","bottom"	shape="straight"|"straight","inner_left","inner_right","outer_left","outer_right"
-minecraft:white_wool
-minecraft:purple_concrete
-minecraft:spruce_wood	axis="y"|"x","y","z"
-minecraft:potted_blue_orchid
-minecraft:detector_rail	powered="false"|"true","false"	shape="north_south"|"north_south","east_west","ascending_east","ascending_west","ascending_north","ascending_south"
-minecraft:end_portal
-minecraft:yellow_candle	candles="1"|"1","2","3","4"	lit="false"|"true","false"
-minecraft:light_blue_bed	facing="north"|"north","south","west","east"	occupied="false"|"true","false"	part="foot"|"head","foot"
-minecraft:stonecutter	facing="north"|"north","south","west","east"
-minecraft:cyan_terracotta
-minecraft:dragon_wall_head	facing="north"|"north","south","west","east"	powered="false"|"true","false"
-minecraft:waxed_exposed_chiseled_copper
-minecraft:magenta_wool
-minecraft:lime_shulker_box	facing="up"|"north","east","south","west","up","down"
-minecraft:quartz_slab	type="bottom"|"top","bottom","double"
-minecraft:lime_terracotta
-minecraft:amethyst_cluster	facing="up"|"north","east","south","west","up","down"
-minecraft:iron_trapdoor	facing="north"|"north","south","west","east"	half="bottom"|"top","bottom"	open="false"|"true","false"	powered="false"|"true","false"
-minecraft:polished_diorite_slab	type="bottom"|"top","bottom","double"
-minecraft:light_blue_wool
-minecraft:white_stained_glass
-minecraft:tube_coral
-minecraft:magenta_carpet
-minecraft:daylight_detector	inverted="false"|"true","false"	power="0"|"0","1","2","3","4","5","6","7","8","9","10","11","12","13","14","15"
-minecraft:pale_oak_wood	axis="y"|"x","y","z"
-minecraft:waxed_cut_copper_stairs	facing="north"|"north","south","west","east"	half="bottom"|"top","bottom"	shape="straight"|"straight","inner_left","inner_right","outer_left","outer_right"
-minecraft:sculk
-minecraft:pink_tulip
-minecraft:cut_red_sandstone_slab	type="bottom"|"top","bottom","double"
-minecraft:rail	shape="north_south"|"north_south","east_west","ascending_east","ascending_west","ascending_north","ascending_south","south_east","south_west","north_west","north_east"
-minecraft:pumpkin_stem	age="0"|"0","1","2","3","4","5","6","7"
-minecraft:stripped_jungle_wood	axis="y"|"x","y","z"
-minecraft:oak_planks
-minecraft:resin_brick_slab	type="bottom"|"top","bottom","double"
-minecraft:warped_stairs	facing="north"|"north","south","west","east"	half="bottom"|"top","bottom"	shape="straight"|"straight","inner_left","inner_right","outer_left","outer_right"
-minecraft:cracked_stone_bricks
-minecraft:stone_bricks
-minecraft:exposed_copper
-minecraft:potted_flowering_azalea_bush
-minecraft:bedrock
-minecraft:end_portal_frame	eye="false"|"true","false"	facing="north"|"north","south","west","east"
-minecraft:orange_tulip
-minecraft:mud_brick_slab	type="bottom"|"top","bottom","double"
-minecraft:tripwire_hook	attached="false"|"true","false"	facing="north"|"north","south","west","east"	powered="false"|"true","false"
-minecraft:oak_slab	type="bottom"|"top","bottom","double"
-minecraft:redstone_torch	lit="true"|"true","false"
-minecraft:stripped_crimson_hyphae	axis="y"|"x","y","z"
-minecraft:weathered_copper_bulb	lit="false"|"true","false"	powered="false"|"true","false"
-minecraft:cherry_wall_sign	facing="north"|"north","south","west","east"
-minecraft:cobbled_deepslate_slab	type="bottom"|"top","bottom","double"
-minecraft:red_concrete
-minecraft:sea_pickle	pickles="1"|"1","2","3","4"
-minecraft:waxed_exposed_cut_copper
-minecraft:glowstone
-minecraft:weathered_copper_grate
-minecraft:lily_pad
-minecraft:cobblestone_stairs	facing="north"|"north","south","west","east"	half="bottom"|"top","bottom"	shape="straight"|"straight","inner_left","inner_right","outer_left","outer_right"
-minecraft:bamboo_planks
-minecraft:chorus_plant	down="false"|"true","false"	east="false"|"true","false"	north="false"|"true","false"	south="false"|"true","false"	up="false"|"true","false"	west="false"|"true","false"
-minecraft:red_nether_brick_slab	type="bottom"|"top","bottom","double"
-minecraft:cherry_door	facing="north"|"north","south","west","east"	half="lower"|"upper","lower"	hinge="left"|"left","right"	open="false"|"true","false"	powered="false"|"true","false"
-minecraft:horn_coral
-minecraft:netherite_block
-minecraft:structure_void
-minecraft:dead_bubble_coral
-minecraft:potted_orange_tulip
-minecraft:orange_concrete
-minecraft:air
-minecraft:chorus_flower	age="0"|"0","1","2","3","4","5"
-minecraft:crimson_nylium
-minecraft:white_concrete_powder
-minecraft:anvil	facing="north"|"north","south","west","east"
-minecraft:smooth_stone_slab	type="bottom"|"top","bottom","double"
-minecraft:warped_slab	type="bottom"|"top","bottom","double"
-minecraft:oak_hanging_sign	attached="false"|"true","false"	rotation="0"|"0","1","2","3","4","5","6","7","8","9","10","11","12","13","14","15"
-minecraft:petrified_oak_slab	type="bottom"|"top","bottom","double"
-minecraft:light_gray_concrete_powder
-minecraft:birch_sapling	stage="0"|"0","1"
-minecraft:purple_wall_banner	facing="north"|"north","south","west","east"
-minecraft:mangrove_wall_sign	facing="north"|"north","south","west","east"
-minecraft:jungle_wall_hanging_sign	facing="north"|"north","south","west","east"
-minecraft:oxeye_daisy
-minecraft:cut_copper
-minecraft:iron_block
-minecraft:pale_oak_leaves	distance="7"|"1","2","3","4","5","6","7"	persistent="false"|"true","false"
-minecraft:sponge
-minecraft:dead_brain_coral_wall_fan	facing="north"|"north","south","west","east"
-minecraft:cyan_candle	candles="1"|"1","2","3","4"	lit="false"|"true","false"
-minecraft:brown_mushroom
-minecraft:polished_tuff_stairs	facing="north"|"north","south","west","east"	half="bottom"|"top","bottom"	shape="straight"|"straight","inner_left","inner_right","outer_left","outer_right"
-minecraft:jungle_door	facing="north"|"north","south","west","east"	half="lower"|"upper","lower"	hinge="left"|"left","right"	open="false"|"true","false"	powered="false"|"true","false"
-minecraft:conduit
-minecraft:stripped_pale_oak_wood	axis="y"|"x","y","z"
-minecraft:muddy_mangrove_roots	axis="y"|"x","y","z"
-minecraft:deepslate_bricks
-minecraft:iron_door	facing="north"|"north","south","west","east"	half="lower"|"upper","lower"	hinge="left"|"left","right"	open="false"|"true","false"	powered="false"|"true","false"
-minecraft:raw_gold_block
-minecraft:andesite_wall	east="none"|"none","low","tall"	north="none"|"none","low","tall"	south="none"|"none","low","tall"	up="true"|"true","false"	west="none"|"none","low","tall"
-minecraft:potted_warped_roots
-minecraft:large_fern	half="lower"|"upper","lower"
-minecraft:magenta_concrete_powder
-minecraft:piston	extended="false"|"true","false"	facing="north"|"north","east","south","west","up","down"
-minecraft:lime_glazed_terracotta	facing="north"|"north","south","west","east"
-minecraft:dead_bubble_coral_fan
-minecraft:prismarine_brick_slab	type="bottom"|"top","bottom","double"
-minecraft:dark_oak_slab	type="bottom"|"top","bottom","double"
-minecraft:acacia_trapdoor	facing="north"|"north","south","west","east"	half="bottom"|"top","bottom"	open="false"|"true","false"	powered="false"|"true","false"
-minecraft:soul_soil
-minecraft:green_banner	rotation="0"|"0","1","2","3","4","5","6","7","8","9","10","11","12","13","14","15"
-minecraft:jungle_pressure_plate	powered="false"|"true","false"
-minecraft:nether_sprouts
-minecraft:black_stained_glass_pane	east="false"|"true","false"	north="false"|"true","false"	south="false"|"true","false"	west="false"|"true","false"
-minecraft:cyan_carpet
-minecraft:dead_bubble_coral_block
-minecraft:nether_brick_fence	east="false"|"true","false"	north="false"|"true","false"	south="false"|"true","false"	west="false"|"true","false"
-minecraft:netherrack
-minecraft:light_gray_concrete
-minecraft:waxed_oxidized_copper_grate
-minecraft:repeater	delay="1"|"1","2","3","4"	facing="north"|"north","south","west","east"	locked="false"|"true","false"	powered="false"|"true","false"
-minecraft:cherry_planks
-minecraft:deepslate_tile_slab	type="bottom"|"top","bottom","double"
-minecraft:packed_ice
-minecraft:dark_oak_leaves	distance="7"|"1","2","3","4","5","6","7"	persistent="false"|"true","false"
-minecraft:terracotta
-minecraft:polished_blackstone_brick_slab	type="bottom"|"top","bottom","double"
-minecraft:potted_oxeye_daisy
-minecraft:mossy_stone_brick_slab	type="bottom"|"top","bottom","double"
-minecraft:blue_stained_glass
-minecraft:white_concrete
-minecraft:magenta_shulker_box	facing="up"|"north","east","south","west","up","down"
-minecraft:gray_wool
-minecraft:dead_bubble_coral_wall_fan	facing="north"|"north","south","west","east"
-minecraft:mud_bricks
-minecraft:carved_pumpkin	facing="north"|"north","south","west","east"
-minecraft:exposed_copper_grate
-minecraft:wheat	age="0"|"0","1","2","3","4","5","6","7"
-minecraft:dead_horn_coral
+minecraft:black_candle_cake	lit="false"|"true","false"
+minecraft:black_carpet
+minecraft:black_concrete
 minecraft:black_concrete_powder
-minecraft:bone_block	axis="y"|"x","y","z"
-minecraft:prismarine_brick_stairs	facing="north"|"north","south","west","east"	half="bottom"|"top","bottom"	shape="straight"|"straight","inner_left","inner_right","outer_left","outer_right"
-minecraft:cyan_glazed_terracotta	facing="north"|"north","south","west","east"
-minecraft:ochre_froglight	axis="y"|"x","y","z"
-minecraft:crimson_planks
-minecraft:polished_andesite_stairs	facing="north"|"north","south","west","east"	half="bottom"|"top","bottom"	shape="straight"|"straight","inner_left","inner_right","outer_left","outer_right"
-minecraft:light_blue_wall_banner	facing="north"|"north","south","west","east"
-minecraft:polished_blackstone_pressure_plate	powered="false"|"true","false"
-minecraft:seagrass
-minecraft:bamboo_slab	type="bottom"|"top","bottom","double"
-minecraft:black_terracotta
-minecraft:mud_brick_wall	east="none"|"none","low","tall"	north="none"|"none","low","tall"	south="none"|"none","low","tall"	up="true"|"true","false"	west="none"|"none","low","tall"
-minecraft:jungle_button	face="wall"|"floor","wall","ceiling"	facing="north"|"north","south","west","east"	powered="false"|"true","false"
+minecraft:black_concrete_slab	type="bottom"|"top","bottom","double"
+minecraft:black_concrete_stairs	facing="north"|"north","south","west","east"	half="bottom"|"top","bottom"	shape="straight"|"straight","inner_left","inner_right","outer_left","outer_right"
+minecraft:black_glazed_terracotta	facing="north"|"north","south","west","east"
+minecraft:black_shulker_box	facing="up"|"north","east","south","west","up","down"
 minecraft:black_stained_glass
-minecraft:cyan_candle_cake	lit="false"|"true","false"
-minecraft:spruce_button	face="wall"|"floor","wall","ceiling"	facing="north"|"north","south","west","east"	powered="false"|"true","false"
-minecraft:cocoa	age="0"|"0","1","2"	facing="north"|"north","south","west","east"
-minecraft:lime_candle_cake	lit="false"|"true","false"
-minecraft:magenta_stained_glass_pane	east="false"|"true","false"	north="false"|"true","false"	south="false"|"true","false"	west="false"|"true","false"
-minecraft:polished_blackstone_button	face="wall"|"floor","wall","ceiling"	facing="north"|"north","south","west","east"	powered="false"|"true","false"
-minecraft:flowering_azalea
+minecraft:black_stained_glass_pane	east="false"|"true","false"	north="false"|"true","false"	south="false"|"true","false"	west="false"|"true","false"
+minecraft:black_terracotta
+minecraft:black_wall_banner	facing="north"|"north","south","west","east"
 minecraft:black_wool
-minecraft:resin_brick_wall	east="none"|"none","low","tall"	north="none"|"none","low","tall"	south="none"|"none","low","tall"	up="true"|"true","false"	west="none"|"none","low","tall"
-minecraft:white_stained_glass_pane	east="false"|"true","false"	north="false"|"true","false"	south="false"|"true","false"	west="false"|"true","false"
+minecraft:black_wool_slab	type="bottom"|"top","bottom","double"
+minecraft:black_wool_stairs	facing="north"|"north","south","west","east"	half="bottom"|"top","bottom"	shape="straight"|"straight","inner_left","inner_right","outer_left","outer_right"
+minecraft:blackstone
+minecraft:blackstone_slab	type="bottom"|"top","bottom","double"
+minecraft:blackstone_stairs	facing="north"|"north","south","west","east"	half="bottom"|"top","bottom"	shape="straight"|"straight","inner_left","inner_right","outer_left","outer_right"
+minecraft:blackstone_wall	east="none"|"none","low","tall"	north="none"|"none","low","tall"	south="none"|"none","low","tall"	up="true"|"true","false"	west="none"|"none","low","tall"
+minecraft:blast_furnace	facing="north"|"north","south","west","east"	lit="false"|"true","false"
+minecraft:blue_banner	rotation="8"|"0","1","2","3","4","5","6","7","8","9","10","11","12","13","14","15"
+minecraft:blue_bed	facing="north"|"north","south","west","east"	occupied="false"|"true","false"	part="foot"|"head","foot"
+minecraft:blue_candle	candles="1"|"1","2","3","4"	lit="false"|"true","false"
+minecraft:blue_candle_cake	lit="false"|"true","false"
+minecraft:blue_carpet
+minecraft:blue_concrete
+minecraft:blue_concrete_powder
+minecraft:blue_concrete_slab	type="bottom"|"top","bottom","double"
+minecraft:blue_concrete_stairs	facing="north"|"north","south","west","east"	half="bottom"|"top","bottom"	shape="straight"|"straight","inner_left","inner_right","outer_left","outer_right"
+minecraft:blue_glazed_terracotta	facing="north"|"north","south","west","east"
+minecraft:blue_ice
+minecraft:blue_orchid
+minecraft:blue_shulker_box	facing="up"|"north","east","south","west","up","down"
+minecraft:blue_stained_glass
+minecraft:blue_stained_glass_pane	east="false"|"true","false"	north="false"|"true","false"	south="false"|"true","false"	west="false"|"true","false"
+minecraft:blue_terracotta
+minecraft:blue_wall_banner	facing="north"|"north","south","west","east"
+minecraft:blue_wool
+minecraft:blue_wool_slab	type="bottom"|"top","bottom","double"
+minecraft:blue_wool_stairs	facing="north"|"north","south","west","east"	half="bottom"|"top","bottom"	shape="straight"|"straight","inner_left","inner_right","outer_left","outer_right"
+minecraft:bone_block	axis="y"|"x","y","z"
+minecraft:bookshelf
+minecraft:brain_coral
+minecraft:brain_coral_block
+minecraft:brain_coral_fan
+minecraft:brain_coral_wall_fan	facing="north"|"north","south","west","east"
+minecraft:brewing_stand	has_bottle_0="false"|"true","false"	has_bottle_1="false"|"true","false"	has_bottle_2="false"|"true","false"
+minecraft:brick_slab	type="bottom"|"top","bottom","double"
+minecraft:brick_stairs	facing="north"|"north","south","west","east"	half="bottom"|"top","bottom"	shape="straight"|"straight","inner_left","inner_right","outer_left","outer_right"
+minecraft:brick_wall	east="none"|"none","low","tall"	north="none"|"none","low","tall"	south="none"|"none","low","tall"	up="true"|"true","false"	west="none"|"none","low","tall"
+minecraft:bricks
+minecraft:brown_banner	rotation="8"|"0","1","2","3","4","5","6","7","8","9","10","11","12","13","14","15"
+minecraft:brown_bed	facing="north"|"north","south","west","east"	occupied="false"|"true","false"	part="foot"|"head","foot"
+minecraft:brown_candle	candles="1"|"1","2","3","4"	lit="false"|"true","false"
+minecraft:brown_candle_cake	lit="false"|"true","false"
+minecraft:brown_carpet
+minecraft:brown_concrete
+minecraft:brown_concrete_powder
+minecraft:brown_concrete_slab	type="bottom"|"top","bottom","double"
+minecraft:brown_concrete_stairs	facing="north"|"north","south","west","east"	half="bottom"|"top","bottom"	shape="straight"|"straight","inner_left","inner_right","outer_left","outer_right"
+minecraft:brown_glazed_terracotta	facing="north"|"north","south","west","east"
+minecraft:brown_mushroom
+minecraft:brown_mushroom_block	down="true"|"true","false"	east="true"|"true","false"	north="true"|"true","false"	south="true"|"true","false"	up="true"|"true","false"	west="true"|"true","false"
+minecraft:brown_shulker_box	facing="up"|"north","east","south","west","up","down"
+minecraft:brown_stained_glass
+minecraft:brown_stained_glass_pane	east="false"|"true","false"	north="false"|"true","false"	south="false"|"true","false"	west="false"|"true","false"
+minecraft:brown_terracotta
+minecraft:brown_wall_banner	facing="north"|"north","south","west","east"
+minecraft:brown_wool
+minecraft:brown_wool_slab	type="bottom"|"top","bottom","double"
+minecraft:brown_wool_stairs	facing="north"|"north","south","west","east"	half="bottom"|"top","bottom"	shape="straight"|"straight","inner_left","inner_right","outer_left","outer_right"
+minecraft:bubble_column	drag="true"|"true","false"
+minecraft:bubble_coral
+minecraft:bubble_coral_block
+minecraft:bubble_coral_fan
+minecraft:bubble_coral_wall_fan	facing="north"|"north","south","west","east"
+minecraft:budding_amethyst
+minecraft:bush
+minecraft:cactus	age="0"|"0","1","2","3","4","5","6","7","8","9","10","11","12","13","14","15"
+minecraft:cactus_flower
+minecraft:cake	bites="0"|"0","1","2","3","4","5","6"
+minecraft:calcite
+minecraft:calibrated_sculk_sensor	facing="north"|"north","south","west","east"	power="0"|"0","1","2","3","4","5","6","7","8","9","10","11","12","13","14","15"	sculk_sensor_phase="inactive"|"inactive","active","cooldown"
+minecraft:campfire	facing="north"|"north","south","west","east"	lit="true"|"true","false"	signal_fire="false"|"true","false"
+minecraft:candle	candles="1"|"1","2","3","4"	lit="false"|"true","false"
+minecraft:candle_cake	lit="false"|"true","false"
+minecraft:carrots	age="0"|"0","1","2","3","4","5","6","7"
+minecraft:cartography_table
+minecraft:carved_pumpkin	facing="north"|"north","south","west","east"
+minecraft:cauldron
+minecraft:cave_air
+minecraft:cave_vines	age="0"|"0","1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18","19","20","21","22","23","24","25"	berries="false"|"true","false"
+minecraft:cave_vines_plant	berries="false"|"true","false"
+minecraft:chain_command_block	conditional="false"|"true","false"	facing="north"|"north","east","south","west","up","down"
+minecraft:cherry_button	face="wall"|"floor","wall","ceiling"	facing="north"|"north","south","west","east"	powered="false"|"true","false"
+minecraft:cherry_door	facing="north"|"north","south","west","east"	half="lower"|"upper","lower"	hinge="left"|"left","right"	open="false"|"true","false"	powered="false"|"true","false"
+minecraft:cherry_fence	east="false"|"true","false"	north="false"|"true","false"	south="false"|"true","false"	west="false"|"true","false"
+minecraft:cherry_fence_gate	facing="north"|"north","south","west","east"	in_wall="false"|"true","false"	open="false"|"true","false"	powered="false"|"true","false"
+minecraft:cherry_hanging_sign	attached="false"|"true","false"	rotation="8"|"0","1","2","3","4","5","6","7","8","9","10","11","12","13","14","15"
+minecraft:cherry_leaves	distance="7"|"1","2","3","4","5","6","7"	persistent="false"|"true","false"
+minecraft:cherry_log	axis="y"|"x","y","z"
+minecraft:cherry_planks
+minecraft:cherry_pressure_plate	powered="false"|"true","false"
+minecraft:cherry_sapling	stage="0"|"0","1"
+minecraft:cherry_shelf	facing="north"|"north","south","west","east"	powered="false"|"true","false"	side_chain="unconnected"|"unconnected","right","center","left"
+minecraft:cherry_sign	rotation="8"|"0","1","2","3","4","5","6","7","8","9","10","11","12","13","14","15"
+minecraft:cherry_slab	type="bottom"|"top","bottom","double"
+minecraft:cherry_stairs	facing="north"|"north","south","west","east"	half="bottom"|"top","bottom"	shape="straight"|"straight","inner_left","inner_right","outer_left","outer_right"
+minecraft:cherry_trapdoor	facing="north"|"north","south","west","east"	half="bottom"|"top","bottom"	open="false"|"true","false"	powered="false"|"true","false"
+minecraft:cherry_wall_hanging_sign	facing="north"|"north","south","west","east"
+minecraft:cherry_wall_sign	facing="north"|"north","south","west","east"
+minecraft:cherry_wood	axis="y"|"x","y","z"
+minecraft:chest	facing="north"|"north","south","west","east"	type="single"|"single","left","right"
+minecraft:chipped_anvil	facing="north"|"north","south","west","east"
+minecraft:chiseled_bookshelf	facing="north"|"north","south","west","east"	slot_0_occupied="false"|"true","false"	slot_1_occupied="false"|"true","false"	slot_2_occupied="false"|"true","false"	slot_3_occupied="false"|"true","false"	slot_4_occupied="false"|"true","false"	slot_5_occupied="false"|"true","false"
+minecraft:chiseled_cinnabar
+minecraft:chiseled_copper
+minecraft:chiseled_deepslate
+minecraft:chiseled_nether_bricks
+minecraft:chiseled_polished_blackstone
+minecraft:chiseled_quartz_block
+minecraft:chiseled_red_sandstone
+minecraft:chiseled_resin_bricks
+minecraft:chiseled_sandstone
+minecraft:chiseled_stone_bricks
+minecraft:chiseled_sulfur
+minecraft:chiseled_tuff
+minecraft:chiseled_tuff_bricks
+minecraft:chorus_flower	age="0"|"0","1","2","3","4","5"
+minecraft:chorus_plant	down="false"|"true","false"	east="false"|"true","false"	north="false"|"true","false"	south="false"|"true","false"	up="false"|"true","false"	west="false"|"true","false"
+minecraft:cinnabar
+minecraft:cinnabar_brick_slab	type="bottom"|"top","bottom","double"
+minecraft:cinnabar_brick_stairs	facing="north"|"north","south","west","east"	half="bottom"|"top","bottom"	shape="straight"|"straight","inner_left","inner_right","outer_left","outer_right"
+minecraft:cinnabar_brick_wall	east="none"|"none","low","tall"	north="none"|"none","low","tall"	south="none"|"none","low","tall"	up="true"|"true","false"	west="none"|"none","low","tall"
+minecraft:cinnabar_bricks
+minecraft:cinnabar_slab	type="bottom"|"top","bottom","double"
+minecraft:cinnabar_stairs	facing="north"|"north","south","west","east"	half="bottom"|"top","bottom"	shape="straight"|"straight","inner_left","inner_right","outer_left","outer_right"
+minecraft:cinnabar_wall	east="none"|"none","low","tall"	north="none"|"none","low","tall"	south="none"|"none","low","tall"	up="true"|"true","false"	west="none"|"none","low","tall"
+minecraft:clay
+minecraft:closed_eyeblossom
+minecraft:coal_block
+minecraft:coal_ore
+minecraft:coarse_dirt
+minecraft:cobbled_deepslate
+minecraft:cobbled_deepslate_slab	type="bottom"|"top","bottom","double"
+minecraft:cobbled_deepslate_stairs	facing="north"|"north","south","west","east"	half="bottom"|"top","bottom"	shape="straight"|"straight","inner_left","inner_right","outer_left","outer_right"
+minecraft:cobbled_deepslate_wall	east="none"|"none","low","tall"	north="none"|"none","low","tall"	south="none"|"none","low","tall"	up="true"|"true","false"	west="none"|"none","low","tall"
+minecraft:cobblestone
+minecraft:cobblestone_slab	type="bottom"|"top","bottom","double"
+minecraft:cobblestone_stairs	facing="north"|"north","south","west","east"	half="bottom"|"top","bottom"	shape="straight"|"straight","inner_left","inner_right","outer_left","outer_right"
+minecraft:cobblestone_wall	east="none"|"none","low","tall"	north="none"|"none","low","tall"	south="none"|"none","low","tall"	up="true"|"true","false"	west="none"|"none","low","tall"
+minecraft:cobweb
+minecraft:cocoa	age="0"|"0","1","2"	facing="north"|"north","south","west","east"
+minecraft:command_block	conditional="false"|"true","false"	facing="north"|"north","east","south","west","up","down"
+minecraft:comparator	facing="north"|"north","south","west","east"	mode="compare"|"compare","subtract"	powered="false"|"true","false"
+minecraft:composter	level="0"|"0","1","2","3","4","5","6","7","8"
+minecraft:conduit
+minecraft:copper_bars	east="false"|"true","false"	north="false"|"true","false"	south="false"|"true","false"	west="false"|"true","false"
+minecraft:copper_block
+minecraft:copper_bulb	lit="false"|"true","false"	powered="false"|"true","false"
+minecraft:copper_chain	axis="y"|"x","y","z"
+minecraft:copper_chest	facing="north"|"north","south","west","east"	type="single"|"single","left","right"
+minecraft:copper_door	facing="north"|"north","south","west","east"	half="lower"|"upper","lower"	hinge="left"|"left","right"	open="false"|"true","false"	powered="false"|"true","false"
+minecraft:copper_golem_statue	copper_golem_pose="standing"|"standing","sitting","running","star"	facing="north"|"north","south","west","east"
+minecraft:copper_grate
+minecraft:copper_lantern	hanging="false"|"true","false"
+minecraft:copper_ore
+minecraft:copper_torch
+minecraft:copper_trapdoor	facing="north"|"north","south","west","east"	half="bottom"|"top","bottom"	open="false"|"true","false"	powered="false"|"true","false"
+minecraft:copper_wall_torch	facing="north"|"north","south","west","east"
+minecraft:cornflower
+minecraft:cracked_deepslate_bricks
+minecraft:cracked_deepslate_tiles
+minecraft:cracked_nether_bricks
+minecraft:cracked_polished_blackstone_bricks
+minecraft:cracked_stone_bricks
+minecraft:crafter	crafting="false"|"true","false"	orientation="north_up"|"down_east","down_north","down_south","down_west","up_east","up_north","up_south","up_west","west_up","east_up","north_up","south_up"	triggered="false"|"true","false"
+minecraft:crafting_table
+minecraft:creaking_heart	axis="y"|"x","y","z"	creaking_heart_state="uprooted"|"uprooted","dormant","awake"	natural="false"|"true","false"
+minecraft:creeper_head	powered="false"|"true","false"	rotation="0"|"0","1","2","3","4","5","6","7","8","9","10","11","12","13","14","15"
+minecraft:creeper_wall_head	facing="north"|"north","south","west","east"	powered="false"|"true","false"
+minecraft:crimson_button	face="wall"|"floor","wall","ceiling"	facing="north"|"north","south","west","east"	powered="false"|"true","false"
+minecraft:crimson_door	facing="north"|"north","south","west","east"	half="lower"|"upper","lower"	hinge="left"|"left","right"	open="false"|"true","false"	powered="false"|"true","false"
+minecraft:crimson_fence	east="false"|"true","false"	north="false"|"true","false"	south="false"|"true","false"	west="false"|"true","false"
+minecraft:crimson_fence_gate	facing="north"|"north","south","west","east"	in_wall="false"|"true","false"	open="false"|"true","false"	powered="false"|"true","false"
+minecraft:crimson_fungus
+minecraft:crimson_hanging_sign	attached="false"|"true","false"	rotation="8"|"0","1","2","3","4","5","6","7","8","9","10","11","12","13","14","15"
+minecraft:crimson_hyphae	axis="y"|"x","y","z"
+minecraft:crimson_nylium
+minecraft:crimson_planks
+minecraft:crimson_pressure_plate	powered="false"|"true","false"
+minecraft:crimson_roots
+minecraft:crimson_shelf	facing="north"|"north","south","west","east"	powered="false"|"true","false"	side_chain="unconnected"|"unconnected","right","center","left"
+minecraft:crimson_sign	rotation="8"|"0","1","2","3","4","5","6","7","8","9","10","11","12","13","14","15"
+minecraft:crimson_slab	type="bottom"|"top","bottom","double"
+minecraft:crimson_stairs	facing="north"|"north","south","west","east"	half="bottom"|"top","bottom"	shape="straight"|"straight","inner_left","inner_right","outer_left","outer_right"
+minecraft:crimson_stem	axis="y"|"x","y","z"
+minecraft:crimson_trapdoor	facing="north"|"north","south","west","east"	half="bottom"|"top","bottom"	open="false"|"true","false"	powered="false"|"true","false"
+minecraft:crimson_wall_hanging_sign	facing="north"|"north","south","west","east"
+minecraft:crimson_wall_sign	facing="north"|"north","south","west","east"
+minecraft:crying_obsidian
+minecraft:cut_copper
+minecraft:cut_copper_slab	type="bottom"|"top","bottom","double"
+minecraft:cut_copper_stairs	facing="north"|"north","south","west","east"	half="bottom"|"top","bottom"	shape="straight"|"straight","inner_left","inner_right","outer_left","outer_right"
+minecraft:cut_red_sandstone
+minecraft:cut_red_sandstone_slab	type="bottom"|"top","bottom","double"
+minecraft:cut_sandstone
+minecraft:cut_sandstone_slab	type="bottom"|"top","bottom","double"
+minecraft:cyan_banner	rotation="8"|"0","1","2","3","4","5","6","7","8","9","10","11","12","13","14","15"
+minecraft:cyan_bed	facing="north"|"north","south","west","east"	occupied="false"|"true","false"	part="foot"|"head","foot"
+minecraft:cyan_candle	candles="1"|"1","2","3","4"	lit="false"|"true","false"
+minecraft:cyan_candle_cake	lit="false"|"true","false"
+minecraft:cyan_carpet
+minecraft:cyan_concrete
+minecraft:cyan_concrete_powder
+minecraft:cyan_concrete_slab	type="bottom"|"top","bottom","double"
+minecraft:cyan_concrete_stairs	facing="north"|"north","south","west","east"	half="bottom"|"top","bottom"	shape="straight"|"straight","inner_left","inner_right","outer_left","outer_right"
+minecraft:cyan_glazed_terracotta	facing="north"|"north","south","west","east"
+minecraft:cyan_shulker_box	facing="up"|"north","east","south","west","up","down"
+minecraft:cyan_stained_glass
+minecraft:cyan_stained_glass_pane	east="false"|"true","false"	north="false"|"true","false"	south="false"|"true","false"	west="false"|"true","false"
+minecraft:cyan_terracotta
+minecraft:cyan_wall_banner	facing="north"|"north","south","west","east"
+minecraft:cyan_wool
+minecraft:cyan_wool_slab	type="bottom"|"top","bottom","double"
+minecraft:cyan_wool_stairs	facing="north"|"north","south","west","east"	half="bottom"|"top","bottom"	shape="straight"|"straight","inner_left","inner_right","outer_left","outer_right"
+minecraft:damaged_anvil	facing="north"|"north","south","west","east"
+minecraft:dandelion
+minecraft:dark_oak_button	face="wall"|"floor","wall","ceiling"	facing="north"|"north","south","west","east"	powered="false"|"true","false"
+minecraft:dark_oak_door	facing="north"|"north","south","west","east"	half="lower"|"upper","lower"	hinge="left"|"left","right"	open="false"|"true","false"	powered="false"|"true","false"
+minecraft:dark_oak_fence	east="false"|"true","false"	north="false"|"true","false"	south="false"|"true","false"	west="false"|"true","false"
+minecraft:dark_oak_fence_gate	facing="north"|"north","south","west","east"	in_wall="false"|"true","false"	open="false"|"true","false"	powered="false"|"true","false"
+minecraft:dark_oak_hanging_sign	attached="false"|"true","false"	rotation="8"|"0","1","2","3","4","5","6","7","8","9","10","11","12","13","14","15"
+minecraft:dark_oak_leaves	distance="7"|"1","2","3","4","5","6","7"	persistent="false"|"true","false"
+minecraft:dark_oak_log	axis="y"|"x","y","z"
+minecraft:dark_oak_planks
+minecraft:dark_oak_pressure_plate	powered="false"|"true","false"
+minecraft:dark_oak_sapling	stage="0"|"0","1"
+minecraft:dark_oak_shelf	facing="north"|"north","south","west","east"	powered="false"|"true","false"	side_chain="unconnected"|"unconnected","right","center","left"
+minecraft:dark_oak_sign	rotation="8"|"0","1","2","3","4","5","6","7","8","9","10","11","12","13","14","15"
+minecraft:dark_oak_slab	type="bottom"|"top","bottom","double"
+minecraft:dark_oak_stairs	facing="north"|"north","south","west","east"	half="bottom"|"top","bottom"	shape="straight"|"straight","inner_left","inner_right","outer_left","outer_right"
+minecraft:dark_oak_trapdoor	facing="north"|"north","south","west","east"	half="bottom"|"top","bottom"	open="false"|"true","false"	powered="false"|"true","false"
+minecraft:dark_oak_wall_hanging_sign	facing="north"|"north","south","west","east"
+minecraft:dark_oak_wall_sign	facing="north"|"north","south","west","east"
+minecraft:dark_oak_wood	axis="y"|"x","y","z"
+minecraft:dark_prismarine
+minecraft:dark_prismarine_slab	type="bottom"|"top","bottom","double"
+minecraft:dark_prismarine_stairs	facing="north"|"north","south","west","east"	half="bottom"|"top","bottom"	shape="straight"|"straight","inner_left","inner_right","outer_left","outer_right"
+minecraft:daylight_detector	inverted="false"|"true","false"	power="0"|"0","1","2","3","4","5","6","7","8","9","10","11","12","13","14","15"
+minecraft:dead_brain_coral
+minecraft:dead_brain_coral_block
+minecraft:dead_brain_coral_fan
+minecraft:dead_brain_coral_wall_fan	facing="north"|"north","south","west","east"
+minecraft:dead_bubble_coral
+minecraft:dead_bubble_coral_block
+minecraft:dead_bubble_coral_fan
+minecraft:dead_bubble_coral_wall_fan	facing="north"|"north","south","west","east"
+minecraft:dead_bush
+minecraft:dead_fire_coral
+minecraft:dead_fire_coral_block
+minecraft:dead_fire_coral_fan
+minecraft:dead_fire_coral_wall_fan	facing="north"|"north","south","west","east"
+minecraft:dead_horn_coral
+minecraft:dead_horn_coral_block
+minecraft:dead_horn_coral_fan
+minecraft:dead_horn_coral_wall_fan	facing="north"|"north","south","west","east"
+minecraft:dead_tube_coral
+minecraft:dead_tube_coral_block
+minecraft:dead_tube_coral_fan
+minecraft:dead_tube_coral_wall_fan	facing="north"|"north","south","west","east"
+minecraft:decorated_pot	cracked="false"|"true","false"	facing="north"|"north","south","west","east"
+minecraft:deepslate	axis="y"|"x","y","z"
+minecraft:deepslate_brick_slab	type="bottom"|"top","bottom","double"
+minecraft:deepslate_brick_stairs	facing="north"|"north","south","west","east"	half="bottom"|"top","bottom"	shape="straight"|"straight","inner_left","inner_right","outer_left","outer_right"
+minecraft:deepslate_brick_wall	east="none"|"none","low","tall"	north="none"|"none","low","tall"	south="none"|"none","low","tall"	up="true"|"true","false"	west="none"|"none","low","tall"
+minecraft:deepslate_bricks
+minecraft:deepslate_coal_ore
+minecraft:deepslate_copper_ore
+minecraft:deepslate_diamond_ore
+minecraft:deepslate_emerald_ore
+minecraft:deepslate_gold_ore
+minecraft:deepslate_iron_ore
+minecraft:deepslate_lapis_ore
+minecraft:deepslate_redstone_ore	lit="false"|"true","false"
+minecraft:deepslate_tile_slab	type="bottom"|"top","bottom","double"
+minecraft:deepslate_tile_stairs	facing="north"|"north","south","west","east"	half="bottom"|"top","bottom"	shape="straight"|"straight","inner_left","inner_right","outer_left","outer_right"
+minecraft:deepslate_tile_wall	east="none"|"none","low","tall"	north="none"|"none","low","tall"	south="none"|"none","low","tall"	up="true"|"true","false"	west="none"|"none","low","tall"
+minecraft:deepslate_tiles
+minecraft:detector_rail	powered="false"|"true","false"	shape="north_south"|"north_south","east_west","ascending_east","ascending_west","ascending_north","ascending_south"
+minecraft:diamond_block
+minecraft:diamond_ore
+minecraft:diorite
+minecraft:diorite_slab	type="bottom"|"top","bottom","double"
+minecraft:diorite_stairs	facing="north"|"north","south","west","east"	half="bottom"|"top","bottom"	shape="straight"|"straight","inner_left","inner_right","outer_left","outer_right"
+minecraft:diorite_wall	east="none"|"none","low","tall"	north="none"|"none","low","tall"	south="none"|"none","low","tall"	up="true"|"true","false"	west="none"|"none","low","tall"
+minecraft:dirt
+minecraft:dirt_path
+minecraft:dispenser	facing="north"|"north","east","south","west","up","down"	triggered="false"|"true","false"
+minecraft:dragon_egg
+minecraft:dragon_head	powered="false"|"true","false"	rotation="0"|"0","1","2","3","4","5","6","7","8","9","10","11","12","13","14","15"
+minecraft:dragon_wall_head	facing="north"|"north","south","west","east"	powered="false"|"true","false"
+minecraft:dried_ghast	facing="north"|"north","south","west","east"	hydration="0"|"0","1","2","3"
+minecraft:dried_kelp_block
+minecraft:dripstone_block
+minecraft:dropper	facing="north"|"north","east","south","west","up","down"	triggered="false"|"true","false"
+minecraft:emerald_block
+minecraft:emerald_ore
+minecraft:enchanting_table
+minecraft:end_gateway
+minecraft:end_portal
+minecraft:end_portal_frame	eye="false"|"true","false"	facing="north"|"north","south","west","east"
+minecraft:end_rod	facing="up"|"north","east","south","west","up","down"
+minecraft:end_stone
+minecraft:end_stone_brick_slab	type="bottom"|"top","bottom","double"
+minecraft:end_stone_brick_stairs	facing="north"|"north","south","west","east"	half="bottom"|"top","bottom"	shape="straight"|"straight","inner_left","inner_right","outer_left","outer_right"
+minecraft:end_stone_brick_wall	east="none"|"none","low","tall"	north="none"|"none","low","tall"	south="none"|"none","low","tall"	up="true"|"true","false"	west="none"|"none","low","tall"
+minecraft:end_stone_bricks
+minecraft:ender_chest	facing="north"|"north","south","west","east"
+minecraft:exposed_chiseled_copper
+minecraft:exposed_copper
+minecraft:exposed_copper_bars	east="false"|"true","false"	north="false"|"true","false"	south="false"|"true","false"	west="false"|"true","false"
+minecraft:exposed_copper_bulb	lit="false"|"true","false"	powered="false"|"true","false"
+minecraft:exposed_copper_chain	axis="y"|"x","y","z"
+minecraft:exposed_copper_chest	facing="north"|"north","south","west","east"	type="single"|"single","left","right"
+minecraft:exposed_copper_door	facing="north"|"north","south","west","east"	half="lower"|"upper","lower"	hinge="left"|"left","right"	open="false"|"true","false"	powered="false"|"true","false"
+minecraft:exposed_copper_golem_statue	copper_golem_pose="standing"|"standing","sitting","running","star"	facing="north"|"north","south","west","east"
+minecraft:exposed_copper_grate
+minecraft:exposed_copper_lantern	hanging="false"|"true","false"
+minecraft:exposed_copper_trapdoor	facing="north"|"north","south","west","east"	half="bottom"|"top","bottom"	open="false"|"true","false"	powered="false"|"true","false"
+minecraft:exposed_cut_copper
+minecraft:exposed_cut_copper_slab	type="bottom"|"top","bottom","double"
+minecraft:exposed_cut_copper_stairs	facing="north"|"north","south","west","east"	half="bottom"|"top","bottom"	shape="straight"|"straight","inner_left","inner_right","outer_left","outer_right"
+minecraft:exposed_lightning_rod	facing="up"|"north","east","south","west","up","down"	powered="false"|"true","false"
+minecraft:farmland	moisture="0"|"0","1","2","3","4","5","6","7"
+minecraft:fern
+minecraft:fire	age="0"|"0","1","2","3","4","5","6","7","8","9","10","11","12","13","14","15"	east="false"|"true","false"	north="false"|"true","false"	south="false"|"true","false"	up="false"|"true","false"	west="false"|"true","false"
+minecraft:fire_coral
+minecraft:fire_coral_block
+minecraft:fire_coral_fan
+minecraft:fire_coral_wall_fan	facing="north"|"north","south","west","east"
+minecraft:firefly_bush
+minecraft:fletching_table
+minecraft:flower_pot
+minecraft:flowering_azalea
+minecraft:flowering_azalea_leaves	distance="7"|"1","2","3","4","5","6","7"	persistent="false"|"true","false"
+minecraft:frogspawn
+minecraft:frosted_ice	age="0"|"0","1","2","3"
+minecraft:furnace	facing="north"|"north","south","west","east"	lit="false"|"true","false"
+minecraft:gilded_blackstone
+minecraft:glass
+minecraft:glass_pane	east="false"|"true","false"	north="false"|"true","false"	south="false"|"true","false"	west="false"|"true","false"
+minecraft:glow_lichen	down="false"|"true","false"	east="false"|"true","false"	north="false"|"true","false"	south="false"|"true","false"	up="false"|"true","false"	west="false"|"true","false"
+minecraft:glowstone
+minecraft:gold_block
+minecraft:gold_ore
+minecraft:golden_dandelion
+minecraft:granite
+minecraft:granite_slab	type="bottom"|"top","bottom","double"
+minecraft:granite_stairs	facing="north"|"north","south","west","east"	half="bottom"|"top","bottom"	shape="straight"|"straight","inner_left","inner_right","outer_left","outer_right"
+minecraft:granite_wall	east="none"|"none","low","tall"	north="none"|"none","low","tall"	south="none"|"none","low","tall"	up="true"|"true","false"	west="none"|"none","low","tall"
+minecraft:grass_block	snowy="false"|"true","false"
+minecraft:gravel
+minecraft:gray_banner	rotation="8"|"0","1","2","3","4","5","6","7","8","9","10","11","12","13","14","15"
+minecraft:gray_bed	facing="north"|"north","south","west","east"	occupied="false"|"true","false"	part="foot"|"head","foot"
+minecraft:gray_candle	candles="1"|"1","2","3","4"	lit="false"|"true","false"
+minecraft:gray_candle_cake	lit="false"|"true","false"
+minecraft:gray_carpet
+minecraft:gray_concrete
+minecraft:gray_concrete_powder
+minecraft:gray_concrete_slab	type="bottom"|"top","bottom","double"
+minecraft:gray_concrete_stairs	facing="north"|"north","south","west","east"	half="bottom"|"top","bottom"	shape="straight"|"straight","inner_left","inner_right","outer_left","outer_right"
+minecraft:gray_glazed_terracotta	facing="north"|"north","south","west","east"
+minecraft:gray_shulker_box	facing="up"|"north","east","south","west","up","down"
+minecraft:gray_stained_glass
+minecraft:gray_stained_glass_pane	east="false"|"true","false"	north="false"|"true","false"	south="false"|"true","false"	west="false"|"true","false"
+minecraft:gray_terracotta
+minecraft:gray_wall_banner	facing="north"|"north","south","west","east"
+minecraft:gray_wool
+minecraft:gray_wool_slab	type="bottom"|"top","bottom","double"
+minecraft:gray_wool_stairs	facing="north"|"north","south","west","east"	half="bottom"|"top","bottom"	shape="straight"|"straight","inner_left","inner_right","outer_left","outer_right"
+minecraft:green_banner	rotation="8"|"0","1","2","3","4","5","6","7","8","9","10","11","12","13","14","15"
+minecraft:green_bed	facing="north"|"north","south","west","east"	occupied="false"|"true","false"	part="foot"|"head","foot"
+minecraft:green_candle	candles="1"|"1","2","3","4"	lit="false"|"true","false"
+minecraft:green_candle_cake	lit="false"|"true","false"
+minecraft:green_carpet
+minecraft:green_concrete
+minecraft:green_concrete_powder
+minecraft:green_concrete_slab	type="bottom"|"top","bottom","double"
+minecraft:green_concrete_stairs	facing="north"|"north","south","west","east"	half="bottom"|"top","bottom"	shape="straight"|"straight","inner_left","inner_right","outer_left","outer_right"
+minecraft:green_glazed_terracotta	facing="north"|"north","south","west","east"
+minecraft:green_shulker_box	facing="up"|"north","east","south","west","up","down"
+minecraft:green_stained_glass
+minecraft:green_stained_glass_pane	east="false"|"true","false"	north="false"|"true","false"	south="false"|"true","false"	west="false"|"true","false"
+minecraft:green_terracotta
+minecraft:green_wall_banner	facing="north"|"north","south","west","east"
+minecraft:green_wool
+minecraft:green_wool_slab	type="bottom"|"top","bottom","double"
+minecraft:green_wool_stairs	facing="north"|"north","south","west","east"	half="bottom"|"top","bottom"	shape="straight"|"straight","inner_left","inner_right","outer_left","outer_right"
+minecraft:grindstone	face="wall"|"floor","wall","ceiling"	facing="north"|"north","south","west","east"
+minecraft:hanging_roots
+minecraft:hay_block	axis="y"|"x","y","z"
+minecraft:heavy_core
+minecraft:heavy_weighted_pressure_plate	power="0"|"0","1","2","3","4","5","6","7","8","9","10","11","12","13","14","15"
+minecraft:honey_block
+minecraft:honeycomb_block
+minecraft:hopper	enabled="true"|"true","false"	facing="down"|"down","north","south","west","east"
+minecraft:horn_coral
+minecraft:horn_coral_block
+minecraft:horn_coral_fan
+minecraft:horn_coral_wall_fan	facing="north"|"north","south","west","east"
+minecraft:ice
+minecraft:infested_chiseled_stone_bricks
+minecraft:infested_cobblestone
+minecraft:infested_cracked_stone_bricks
+minecraft:infested_deepslate	axis="y"|"x","y","z"
+minecraft:infested_mossy_stone_bricks
+minecraft:infested_stone
+minecraft:infested_stone_bricks
+minecraft:iron_bars	east="false"|"true","false"	north="false"|"true","false"	south="false"|"true","false"	west="false"|"true","false"
+minecraft:iron_block
+minecraft:iron_chain	axis="y"|"x","y","z"
+minecraft:iron_door	facing="north"|"north","south","west","east"	half="lower"|"upper","lower"	hinge="left"|"left","right"	open="false"|"true","false"	powered="false"|"true","false"
+minecraft:iron_ore
+minecraft:iron_trapdoor	facing="north"|"north","south","west","east"	half="bottom"|"top","bottom"	open="false"|"true","false"	powered="false"|"true","false"
+minecraft:jack_o_lantern	facing="north"|"north","south","west","east"
+minecraft:jigsaw	orientation="north_up"|"down_east","down_north","down_south","down_west","up_east","up_north","up_south","up_west","west_up","east_up","north_up","south_up"
+minecraft:jukebox	has_record="false"|"true","false"
+minecraft:jungle_button	face="wall"|"floor","wall","ceiling"	facing="north"|"north","south","west","east"	powered="false"|"true","false"
+minecraft:jungle_door	facing="north"|"north","south","west","east"	half="lower"|"upper","lower"	hinge="left"|"left","right"	open="false"|"true","false"	powered="false"|"true","false"
+minecraft:jungle_fence	east="false"|"true","false"	north="false"|"true","false"	south="false"|"true","false"	west="false"|"true","false"
+minecraft:jungle_fence_gate	facing="north"|"north","south","west","east"	in_wall="false"|"true","false"	open="false"|"true","false"	powered="false"|"true","false"
+minecraft:jungle_hanging_sign	attached="false"|"true","false"	rotation="8"|"0","1","2","3","4","5","6","7","8","9","10","11","12","13","14","15"
+minecraft:jungle_leaves	distance="7"|"1","2","3","4","5","6","7"	persistent="false"|"true","false"
+minecraft:jungle_log	axis="y"|"x","y","z"
+minecraft:jungle_planks
+minecraft:jungle_pressure_plate	powered="false"|"true","false"
+minecraft:jungle_sapling	stage="0"|"0","1"
+minecraft:jungle_shelf	facing="north"|"north","south","west","east"	powered="false"|"true","false"	side_chain="unconnected"|"unconnected","right","center","left"
+minecraft:jungle_sign	rotation="8"|"0","1","2","3","4","5","6","7","8","9","10","11","12","13","14","15"
+minecraft:jungle_slab	type="bottom"|"top","bottom","double"
+minecraft:jungle_stairs	facing="north"|"north","south","west","east"	half="bottom"|"top","bottom"	shape="straight"|"straight","inner_left","inner_right","outer_left","outer_right"
+minecraft:jungle_trapdoor	facing="north"|"north","south","west","east"	half="bottom"|"top","bottom"	open="false"|"true","false"	powered="false"|"true","false"
+minecraft:jungle_wall_hanging_sign	facing="north"|"north","south","west","east"
+minecraft:jungle_wall_sign	facing="north"|"north","south","west","east"
+minecraft:jungle_wood	axis="y"|"x","y","z"
+minecraft:kelp	age="0"|"0","1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18","19","20","21","22","23","24","25"
+minecraft:kelp_plant
+minecraft:ladder	facing="north"|"north","south","west","east"
+minecraft:lantern	hanging="false"|"true","false"
+minecraft:lapis_block
+minecraft:lapis_ore
+minecraft:large_amethyst_bud	facing="up"|"north","east","south","west","up","down"
+minecraft:large_fern	half="lower"|"upper","lower"
+minecraft:lava	level="0"|"0","1","2","3","4","5","6","7","8","9","10","11","12","13","14","15"
+minecraft:lava_cauldron
+minecraft:leaf_litter	facing="north"|"north","south","west","east"	segment_amount="1"|"1","2","3","4"
+minecraft:lectern	facing="north"|"north","south","west","east"	has_book="false"|"true","false"	powered="false"|"true","false"
+minecraft:lever	face="wall"|"floor","wall","ceiling"	facing="north"|"north","south","west","east"	powered="false"|"true","false"
+minecraft:light	level="15"|"0","1","2","3","4","5","6","7","8","9","10","11","12","13","14","15"
+minecraft:light_blue_banner	rotation="8"|"0","1","2","3","4","5","6","7","8","9","10","11","12","13","14","15"
+minecraft:light_blue_bed	facing="north"|"north","south","west","east"	occupied="false"|"true","false"	part="foot"|"head","foot"
+minecraft:light_blue_candle	candles="1"|"1","2","3","4"	lit="false"|"true","false"
+minecraft:light_blue_candle_cake	lit="false"|"true","false"
+minecraft:light_blue_carpet
+minecraft:light_blue_concrete
+minecraft:light_blue_concrete_powder
+minecraft:light_blue_concrete_slab	type="bottom"|"top","bottom","double"
+minecraft:light_blue_concrete_stairs	facing="north"|"north","south","west","east"	half="bottom"|"top","bottom"	shape="straight"|"straight","inner_left","inner_right","outer_left","outer_right"
+minecraft:light_blue_glazed_terracotta	facing="north"|"north","south","west","east"
+minecraft:light_blue_shulker_box	facing="up"|"north","east","south","west","up","down"
+minecraft:light_blue_stained_glass
+minecraft:light_blue_stained_glass_pane	east="false"|"true","false"	north="false"|"true","false"	south="false"|"true","false"	west="false"|"true","false"
+minecraft:light_blue_terracotta
+minecraft:light_blue_wall_banner	facing="north"|"north","south","west","east"
+minecraft:light_blue_wool
+minecraft:light_blue_wool_slab	type="bottom"|"top","bottom","double"
+minecraft:light_blue_wool_stairs	facing="north"|"north","south","west","east"	half="bottom"|"top","bottom"	shape="straight"|"straight","inner_left","inner_right","outer_left","outer_right"
+minecraft:light_gray_banner	rotation="8"|"0","1","2","3","4","5","6","7","8","9","10","11","12","13","14","15"
+minecraft:light_gray_bed	facing="north"|"north","south","west","east"	occupied="false"|"true","false"	part="foot"|"head","foot"
+minecraft:light_gray_candle	candles="1"|"1","2","3","4"	lit="false"|"true","false"
+minecraft:light_gray_candle_cake	lit="false"|"true","false"
+minecraft:light_gray_carpet
+minecraft:light_gray_concrete
+minecraft:light_gray_concrete_powder
+minecraft:light_gray_concrete_slab	type="bottom"|"top","bottom","double"
+minecraft:light_gray_concrete_stairs	facing="north"|"north","south","west","east"	half="bottom"|"top","bottom"	shape="straight"|"straight","inner_left","inner_right","outer_left","outer_right"
+minecraft:light_gray_glazed_terracotta	facing="north"|"north","south","west","east"
+minecraft:light_gray_shulker_box	facing="up"|"north","east","south","west","up","down"
+minecraft:light_gray_stained_glass
+minecraft:light_gray_stained_glass_pane	east="false"|"true","false"	north="false"|"true","false"	south="false"|"true","false"	west="false"|"true","false"
+minecraft:light_gray_terracotta
+minecraft:light_gray_wall_banner	facing="north"|"north","south","west","east"
+minecraft:light_gray_wool
+minecraft:light_gray_wool_slab	type="bottom"|"top","bottom","double"
+minecraft:light_gray_wool_stairs	facing="north"|"north","south","west","east"	half="bottom"|"top","bottom"	shape="straight"|"straight","inner_left","inner_right","outer_left","outer_right"
+minecraft:light_weighted_pressure_plate	power="0"|"0","1","2","3","4","5","6","7","8","9","10","11","12","13","14","15"
+minecraft:lightning_rod	facing="up"|"north","east","south","west","up","down"	powered="false"|"true","false"
+minecraft:lilac	half="lower"|"upper","lower"
+minecraft:lily_of_the_valley
+minecraft:lily_pad
+minecraft:lime_banner	rotation="8"|"0","1","2","3","4","5","6","7","8","9","10","11","12","13","14","15"
+minecraft:lime_bed	facing="north"|"north","south","west","east"	occupied="false"|"true","false"	part="foot"|"head","foot"
+minecraft:lime_candle	candles="1"|"1","2","3","4"	lit="false"|"true","false"
+minecraft:lime_candle_cake	lit="false"|"true","false"
+minecraft:lime_carpet
+minecraft:lime_concrete
+minecraft:lime_concrete_powder
+minecraft:lime_concrete_slab	type="bottom"|"top","bottom","double"
+minecraft:lime_concrete_stairs	facing="north"|"north","south","west","east"	half="bottom"|"top","bottom"	shape="straight"|"straight","inner_left","inner_right","outer_left","outer_right"
+minecraft:lime_glazed_terracotta	facing="north"|"north","south","west","east"
+minecraft:lime_shulker_box	facing="up"|"north","east","south","west","up","down"
+minecraft:lime_stained_glass
+minecraft:lime_stained_glass_pane	east="false"|"true","false"	north="false"|"true","false"	south="false"|"true","false"	west="false"|"true","false"
+minecraft:lime_terracotta
+minecraft:lime_wall_banner	facing="north"|"north","south","west","east"
+minecraft:lime_wool
+minecraft:lime_wool_slab	type="bottom"|"top","bottom","double"
+minecraft:lime_wool_stairs	facing="north"|"north","south","west","east"	half="bottom"|"top","bottom"	shape="straight"|"straight","inner_left","inner_right","outer_left","outer_right"
+minecraft:lodestone
+minecraft:loom	facing="north"|"north","south","west","east"
+minecraft:magenta_banner	rotation="8"|"0","1","2","3","4","5","6","7","8","9","10","11","12","13","14","15"
+minecraft:magenta_bed	facing="north"|"north","south","west","east"	occupied="false"|"true","false"	part="foot"|"head","foot"
+minecraft:magenta_candle	candles="1"|"1","2","3","4"	lit="false"|"true","false"
+minecraft:magenta_candle_cake	lit="false"|"true","false"
+minecraft:magenta_carpet
+minecraft:magenta_concrete
+minecraft:magenta_concrete_powder
+minecraft:magenta_concrete_slab	type="bottom"|"top","bottom","double"
+minecraft:magenta_concrete_stairs	facing="north"|"north","south","west","east"	half="bottom"|"top","bottom"	shape="straight"|"straight","inner_left","inner_right","outer_left","outer_right"
+minecraft:magenta_glazed_terracotta	facing="north"|"north","south","west","east"
+minecraft:magenta_shulker_box	facing="up"|"north","east","south","west","up","down"
+minecraft:magenta_stained_glass
+minecraft:magenta_stained_glass_pane	east="false"|"true","false"	north="false"|"true","false"	south="false"|"true","false"	west="false"|"true","false"
+minecraft:magenta_terracotta
+minecraft:magenta_wall_banner	facing="north"|"north","south","west","east"
+minecraft:magenta_wool
+minecraft:magenta_wool_slab	type="bottom"|"top","bottom","double"
+minecraft:magenta_wool_stairs	facing="north"|"north","south","west","east"	half="bottom"|"top","bottom"	shape="straight"|"straight","inner_left","inner_right","outer_left","outer_right"
+minecraft:magma_block
+minecraft:mangrove_button	face="wall"|"floor","wall","ceiling"	facing="north"|"north","south","west","east"	powered="false"|"true","false"
+minecraft:mangrove_door	facing="north"|"north","south","west","east"	half="lower"|"upper","lower"	hinge="left"|"left","right"	open="false"|"true","false"	powered="false"|"true","false"
+minecraft:mangrove_fence	east="false"|"true","false"	north="false"|"true","false"	south="false"|"true","false"	west="false"|"true","false"
+minecraft:mangrove_fence_gate	facing="north"|"north","south","west","east"	in_wall="false"|"true","false"	open="false"|"true","false"	powered="false"|"true","false"
+minecraft:mangrove_hanging_sign	attached="false"|"true","false"	rotation="8"|"0","1","2","3","4","5","6","7","8","9","10","11","12","13","14","15"
+minecraft:mangrove_leaves	distance="7"|"1","2","3","4","5","6","7"	persistent="false"|"true","false"
+minecraft:mangrove_log	axis="y"|"x","y","z"
+minecraft:mangrove_planks
+minecraft:mangrove_pressure_plate	powered="false"|"true","false"
+minecraft:mangrove_propagule	age="0"|"0","1","2","3","4"	hanging="false"|"true","false"	stage="0"|"0","1"
+minecraft:mangrove_roots
+minecraft:mangrove_shelf	facing="north"|"north","south","west","east"	powered="false"|"true","false"	side_chain="unconnected"|"unconnected","right","center","left"
+minecraft:mangrove_sign	rotation="8"|"0","1","2","3","4","5","6","7","8","9","10","11","12","13","14","15"
+minecraft:mangrove_slab	type="bottom"|"top","bottom","double"
+minecraft:mangrove_stairs	facing="north"|"north","south","west","east"	half="bottom"|"top","bottom"	shape="straight"|"straight","inner_left","inner_right","outer_left","outer_right"
+minecraft:mangrove_trapdoor	facing="north"|"north","south","west","east"	half="bottom"|"top","bottom"	open="false"|"true","false"	powered="false"|"true","false"
+minecraft:mangrove_wall_hanging_sign	facing="north"|"north","south","west","east"
+minecraft:mangrove_wall_sign	facing="north"|"north","south","west","east"
+minecraft:mangrove_wood	axis="y"|"x","y","z"
+minecraft:medium_amethyst_bud	facing="up"|"north","east","south","west","up","down"
+minecraft:melon
+minecraft:melon_stem	age="0"|"0","1","2","3","4","5","6","7"
+minecraft:moss_block
+minecraft:moss_carpet
+minecraft:mossy_cobblestone
+minecraft:mossy_cobblestone_slab	type="bottom"|"top","bottom","double"
+minecraft:mossy_cobblestone_stairs	facing="north"|"north","south","west","east"	half="bottom"|"top","bottom"	shape="straight"|"straight","inner_left","inner_right","outer_left","outer_right"
+minecraft:mossy_cobblestone_wall	east="none"|"none","low","tall"	north="none"|"none","low","tall"	south="none"|"none","low","tall"	up="true"|"true","false"	west="none"|"none","low","tall"
+minecraft:mossy_stone_brick_slab	type="bottom"|"top","bottom","double"
+minecraft:mossy_stone_brick_stairs	facing="north"|"north","south","west","east"	half="bottom"|"top","bottom"	shape="straight"|"straight","inner_left","inner_right","outer_left","outer_right"
+minecraft:mossy_stone_brick_wall	east="none"|"none","low","tall"	north="none"|"none","low","tall"	south="none"|"none","low","tall"	up="true"|"true","false"	west="none"|"none","low","tall"
+minecraft:mossy_stone_bricks
+minecraft:moving_piston	facing="north"|"north","east","south","west","up","down"	type="normal"|"normal","sticky"
+minecraft:mud
+minecraft:mud_brick_slab	type="bottom"|"top","bottom","double"
+minecraft:mud_brick_stairs	facing="north"|"north","south","west","east"	half="bottom"|"top","bottom"	shape="straight"|"straight","inner_left","inner_right","outer_left","outer_right"
+minecraft:mud_brick_wall	east="none"|"none","low","tall"	north="none"|"none","low","tall"	south="none"|"none","low","tall"	up="true"|"true","false"	west="none"|"none","low","tall"
+minecraft:mud_bricks
+minecraft:muddy_mangrove_roots	axis="y"|"x","y","z"
+minecraft:mushroom_stem	down="true"|"true","false"	east="true"|"true","false"	north="true"|"true","false"	south="true"|"true","false"	up="true"|"true","false"	west="true"|"true","false"
+minecraft:mycelium	snowy="false"|"true","false"
+minecraft:nether_brick_fence	east="false"|"true","false"	north="false"|"true","false"	south="false"|"true","false"	west="false"|"true","false"
+minecraft:nether_brick_slab	type="bottom"|"top","bottom","double"
+minecraft:nether_brick_stairs	facing="north"|"north","south","west","east"	half="bottom"|"top","bottom"	shape="straight"|"straight","inner_left","inner_right","outer_left","outer_right"
+minecraft:nether_brick_wall	east="none"|"none","low","tall"	north="none"|"none","low","tall"	south="none"|"none","low","tall"	up="true"|"true","false"	west="none"|"none","low","tall"
+minecraft:nether_bricks
+minecraft:nether_gold_ore
+minecraft:nether_portal	axis="x"|"x","z"
+minecraft:nether_quartz_ore
+minecraft:nether_sprouts
+minecraft:nether_wart	age="0"|"0","1","2","3"
+minecraft:nether_wart_block
+minecraft:netherite_block
+minecraft:netherrack
+minecraft:note_block	instrument="harp"|"harp","basedrum","snare","hat","bass","flute","bell","guitar","chime","xylophone","iron_xylophone","cow_bell","didgeridoo","bit","banjo","pling","trumpet","trumpet_exposed","trumpet_oxidized","trumpet_weathered","zombie","skeleton","creeper","dragon","wither_skeleton","piglin","custom_head"	note="0"|"0","1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18","19","20","21","22","23","24"	powered="false"|"true","false"
+minecraft:oak_button	face="wall"|"floor","wall","ceiling"	facing="north"|"north","south","west","east"	powered="false"|"true","false"
+minecraft:oak_door	facing="north"|"north","south","west","east"	half="lower"|"upper","lower"	hinge="left"|"left","right"	open="false"|"true","false"	powered="false"|"true","false"
+minecraft:oak_fence	east="false"|"true","false"	north="false"|"true","false"	south="false"|"true","false"	west="false"|"true","false"
+minecraft:oak_fence_gate	facing="north"|"north","south","west","east"	in_wall="false"|"true","false"	open="false"|"true","false"	powered="false"|"true","false"
+minecraft:oak_hanging_sign	attached="false"|"true","false"	rotation="8"|"0","1","2","3","4","5","6","7","8","9","10","11","12","13","14","15"
+minecraft:oak_leaves	distance="7"|"1","2","3","4","5","6","7"	persistent="false"|"true","false"
+minecraft:oak_log	axis="y"|"x","y","z"
+minecraft:oak_planks
+minecraft:oak_pressure_plate	powered="false"|"true","false"
+minecraft:oak_sapling	stage="0"|"0","1"
+minecraft:oak_shelf	facing="north"|"north","south","west","east"	powered="false"|"true","false"	side_chain="unconnected"|"unconnected","right","center","left"
+minecraft:oak_sign	rotation="8"|"0","1","2","3","4","5","6","7","8","9","10","11","12","13","14","15"
+minecraft:oak_slab	type="bottom"|"top","bottom","double"
+minecraft:oak_stairs	facing="north"|"north","south","west","east"	half="bottom"|"top","bottom"	shape="straight"|"straight","inner_left","inner_right","outer_left","outer_right"
+minecraft:oak_trapdoor	facing="north"|"north","south","west","east"	half="bottom"|"top","bottom"	open="false"|"true","false"	powered="false"|"true","false"
+minecraft:oak_wall_hanging_sign	facing="north"|"north","south","west","east"
+minecraft:oak_wall_sign	facing="north"|"north","south","west","east"
+minecraft:oak_wood	axis="y"|"x","y","z"
+minecraft:observer	facing="south"|"north","east","south","west","up","down"	powered="false"|"true","false"
+minecraft:obsidian
+minecraft:ochre_froglight	axis="y"|"x","y","z"
+minecraft:open_eyeblossom
+minecraft:orange_banner	rotation="8"|"0","1","2","3","4","5","6","7","8","9","10","11","12","13","14","15"
+minecraft:orange_bed	facing="north"|"north","south","west","east"	occupied="false"|"true","false"	part="foot"|"head","foot"
+minecraft:orange_candle	candles="1"|"1","2","3","4"	lit="false"|"true","false"
+minecraft:orange_candle_cake	lit="false"|"true","false"
+minecraft:orange_carpet
+minecraft:orange_concrete
+minecraft:orange_concrete_powder
+minecraft:orange_concrete_slab	type="bottom"|"top","bottom","double"
+minecraft:orange_concrete_stairs	facing="north"|"north","south","west","east"	half="bottom"|"top","bottom"	shape="straight"|"straight","inner_left","inner_right","outer_left","outer_right"
+minecraft:orange_glazed_terracotta	facing="north"|"north","south","west","east"
+minecraft:orange_poplar_leaves	distance="7"|"1","2","3","4","5","6","7"	persistent="false"|"true","false"
+minecraft:orange_shulker_box	facing="up"|"north","east","south","west","up","down"
+minecraft:orange_stained_glass
+minecraft:orange_stained_glass_pane	east="false"|"true","false"	north="false"|"true","false"	south="false"|"true","false"	west="false"|"true","false"
+minecraft:orange_terracotta
+minecraft:orange_tulip
+minecraft:orange_wall_banner	facing="north"|"north","south","west","east"
+minecraft:orange_wool
+minecraft:orange_wool_slab	type="bottom"|"top","bottom","double"
+minecraft:orange_wool_stairs	facing="north"|"north","south","west","east"	half="bottom"|"top","bottom"	shape="straight"|"straight","inner_left","inner_right","outer_left","outer_right"
+minecraft:oxeye_daisy
+minecraft:oxidized_chiseled_copper
+minecraft:oxidized_copper
+minecraft:oxidized_copper_bars	east="false"|"true","false"	north="false"|"true","false"	south="false"|"true","false"	west="false"|"true","false"
+minecraft:oxidized_copper_bulb	lit="false"|"true","false"	powered="false"|"true","false"
+minecraft:oxidized_copper_chain	axis="y"|"x","y","z"
+minecraft:oxidized_copper_chest	facing="north"|"north","south","west","east"	type="single"|"single","left","right"
+minecraft:oxidized_copper_door	facing="north"|"north","south","west","east"	half="lower"|"upper","lower"	hinge="left"|"left","right"	open="false"|"true","false"	powered="false"|"true","false"
+minecraft:oxidized_copper_golem_statue	copper_golem_pose="standing"|"standing","sitting","running","star"	facing="north"|"north","south","west","east"
+minecraft:oxidized_copper_grate
+minecraft:oxidized_copper_lantern	hanging="false"|"true","false"
+minecraft:oxidized_copper_trapdoor	facing="north"|"north","south","west","east"	half="bottom"|"top","bottom"	open="false"|"true","false"	powered="false"|"true","false"
+minecraft:oxidized_cut_copper
+minecraft:oxidized_cut_copper_slab	type="bottom"|"top","bottom","double"
+minecraft:oxidized_cut_copper_stairs	facing="north"|"north","south","west","east"	half="bottom"|"top","bottom"	shape="straight"|"straight","inner_left","inner_right","outer_left","outer_right"
+minecraft:oxidized_lightning_rod	facing="up"|"north","east","south","west","up","down"	powered="false"|"true","false"
+minecraft:packed_ice
+minecraft:packed_mud
+minecraft:pale_hanging_moss	tip="true"|"true","false"
+minecraft:pale_moss_block
+minecraft:pale_moss_carpet	bottom="true"|"true","false"	east="none"|"none","low","tall"	north="none"|"none","low","tall"	south="none"|"none","low","tall"	west="none"|"none","low","tall"
+minecraft:pale_oak_button	face="wall"|"floor","wall","ceiling"	facing="north"|"north","south","west","east"	powered="false"|"true","false"
+minecraft:pale_oak_door	facing="north"|"north","south","west","east"	half="lower"|"upper","lower"	hinge="left"|"left","right"	open="false"|"true","false"	powered="false"|"true","false"
+minecraft:pale_oak_fence	east="false"|"true","false"	north="false"|"true","false"	south="false"|"true","false"	west="false"|"true","false"
+minecraft:pale_oak_fence_gate	facing="north"|"north","south","west","east"	in_wall="false"|"true","false"	open="false"|"true","false"	powered="false"|"true","false"
+minecraft:pale_oak_hanging_sign	attached="false"|"true","false"	rotation="8"|"0","1","2","3","4","5","6","7","8","9","10","11","12","13","14","15"
+minecraft:pale_oak_leaves	distance="7"|"1","2","3","4","5","6","7"	persistent="false"|"true","false"
+minecraft:pale_oak_log	axis="y"|"x","y","z"
+minecraft:pale_oak_planks
+minecraft:pale_oak_pressure_plate	powered="false"|"true","false"
+minecraft:pale_oak_sapling	stage="0"|"0","1"
+minecraft:pale_oak_shelf	facing="north"|"north","south","west","east"	powered="false"|"true","false"	side_chain="unconnected"|"unconnected","right","center","left"
+minecraft:pale_oak_sign	rotation="8"|"0","1","2","3","4","5","6","7","8","9","10","11","12","13","14","15"
+minecraft:pale_oak_slab	type="bottom"|"top","bottom","double"
+minecraft:pale_oak_stairs	facing="north"|"north","south","west","east"	half="bottom"|"top","bottom"	shape="straight"|"straight","inner_left","inner_right","outer_left","outer_right"
+minecraft:pale_oak_trapdoor	facing="north"|"north","south","west","east"	half="bottom"|"top","bottom"	open="false"|"true","false"	powered="false"|"true","false"
+minecraft:pale_oak_wall_hanging_sign	facing="north"|"north","south","west","east"
+minecraft:pale_oak_wall_sign	facing="north"|"north","south","west","east"
+minecraft:pale_oak_wood	axis="y"|"x","y","z"
+minecraft:pearlescent_froglight	axis="y"|"x","y","z"
+minecraft:peony	half="lower"|"upper","lower"
+minecraft:petrified_oak_slab	type="bottom"|"top","bottom","double"
+minecraft:piglin_head	powered="false"|"true","false"	rotation="0"|"0","1","2","3","4","5","6","7","8","9","10","11","12","13","14","15"
+minecraft:piglin_wall_head	facing="north"|"north","south","west","east"	powered="false"|"true","false"
+minecraft:pink_banner	rotation="8"|"0","1","2","3","4","5","6","7","8","9","10","11","12","13","14","15"
+minecraft:pink_bed	facing="north"|"north","south","west","east"	occupied="false"|"true","false"	part="foot"|"head","foot"
+minecraft:pink_candle	candles="1"|"1","2","3","4"	lit="false"|"true","false"
+minecraft:pink_candle_cake	lit="false"|"true","false"
+minecraft:pink_carpet
+minecraft:pink_concrete
+minecraft:pink_concrete_powder
+minecraft:pink_concrete_slab	type="bottom"|"top","bottom","double"
+minecraft:pink_concrete_stairs	facing="north"|"north","south","west","east"	half="bottom"|"top","bottom"	shape="straight"|"straight","inner_left","inner_right","outer_left","outer_right"
+minecraft:pink_glazed_terracotta	facing="north"|"north","south","west","east"
+minecraft:pink_petals	facing="north"|"north","south","west","east"	flower_amount="1"|"1","2","3","4"
+minecraft:pink_shulker_box	facing="up"|"north","east","south","west","up","down"
+minecraft:pink_stained_glass
+minecraft:pink_stained_glass_pane	east="false"|"true","false"	north="false"|"true","false"	south="false"|"true","false"	west="false"|"true","false"
+minecraft:pink_terracotta
+minecraft:pink_tulip
+minecraft:pink_wall_banner	facing="north"|"north","south","west","east"
+minecraft:pink_wool
+minecraft:pink_wool_slab	type="bottom"|"top","bottom","double"
+minecraft:pink_wool_stairs	facing="north"|"north","south","west","east"	half="bottom"|"top","bottom"	shape="straight"|"straight","inner_left","inner_right","outer_left","outer_right"
+minecraft:piston	extended="false"|"true","false"	facing="north"|"north","east","south","west","up","down"
+minecraft:piston_head	facing="north"|"north","east","south","west","up","down"	short="false"|"true","false"	type="normal"|"normal","sticky"
+minecraft:pitcher_crop	age="0"|"0","1","2","3","4"	half="lower"|"upper","lower"
+minecraft:pitcher_plant	half="lower"|"upper","lower"
+minecraft:player_head	powered="false"|"true","false"	rotation="0"|"0","1","2","3","4","5","6","7","8","9","10","11","12","13","14","15"
+minecraft:player_wall_head	facing="north"|"north","south","west","east"	powered="false"|"true","false"
+minecraft:podzol	snowy="false"|"true","false"
+minecraft:pointed_dripstone	thickness="tip"|"tip_merge","tip","frustum","middle","base"	vertical_direction="up"|"up","down"
+minecraft:polished_andesite
+minecraft:polished_andesite_slab	type="bottom"|"top","bottom","double"
+minecraft:polished_andesite_stairs	facing="north"|"north","south","west","east"	half="bottom"|"top","bottom"	shape="straight"|"straight","inner_left","inner_right","outer_left","outer_right"
+minecraft:polished_basalt	axis="y"|"x","y","z"
+minecraft:polished_blackstone
+minecraft:polished_blackstone_brick_slab	type="bottom"|"top","bottom","double"
+minecraft:polished_blackstone_brick_stairs	facing="north"|"north","south","west","east"	half="bottom"|"top","bottom"	shape="straight"|"straight","inner_left","inner_right","outer_left","outer_right"
+minecraft:polished_blackstone_brick_wall	east="none"|"none","low","tall"	north="none"|"none","low","tall"	south="none"|"none","low","tall"	up="true"|"true","false"	west="none"|"none","low","tall"
+minecraft:polished_blackstone_bricks
+minecraft:polished_blackstone_button	face="wall"|"floor","wall","ceiling"	facing="north"|"north","south","west","east"	powered="false"|"true","false"
+minecraft:polished_blackstone_pressure_plate	powered="false"|"true","false"
+minecraft:polished_blackstone_slab	type="bottom"|"top","bottom","double"
+minecraft:polished_blackstone_stairs	facing="north"|"north","south","west","east"	half="bottom"|"top","bottom"	shape="straight"|"straight","inner_left","inner_right","outer_left","outer_right"
+minecraft:polished_blackstone_wall	east="none"|"none","low","tall"	north="none"|"none","low","tall"	south="none"|"none","low","tall"	up="true"|"true","false"	west="none"|"none","low","tall"
+minecraft:polished_cinnabar
+minecraft:polished_cinnabar_slab	type="bottom"|"top","bottom","double"
+minecraft:polished_cinnabar_stairs	facing="north"|"north","south","west","east"	half="bottom"|"top","bottom"	shape="straight"|"straight","inner_left","inner_right","outer_left","outer_right"
+minecraft:polished_cinnabar_wall	east="none"|"none","low","tall"	north="none"|"none","low","tall"	south="none"|"none","low","tall"	up="true"|"true","false"	west="none"|"none","low","tall"
+minecraft:polished_deepslate
+minecraft:polished_deepslate_slab	type="bottom"|"top","bottom","double"
+minecraft:polished_deepslate_stairs	facing="north"|"north","south","west","east"	half="bottom"|"top","bottom"	shape="straight"|"straight","inner_left","inner_right","outer_left","outer_right"
+minecraft:polished_deepslate_wall	east="none"|"none","low","tall"	north="none"|"none","low","tall"	south="none"|"none","low","tall"	up="true"|"true","false"	west="none"|"none","low","tall"
+minecraft:polished_diorite
+minecraft:polished_diorite_slab	type="bottom"|"top","bottom","double"
+minecraft:polished_diorite_stairs	facing="north"|"north","south","west","east"	half="bottom"|"top","bottom"	shape="straight"|"straight","inner_left","inner_right","outer_left","outer_right"
+minecraft:polished_granite
+minecraft:polished_granite_slab	type="bottom"|"top","bottom","double"
+minecraft:polished_granite_stairs	facing="north"|"north","south","west","east"	half="bottom"|"top","bottom"	shape="straight"|"straight","inner_left","inner_right","outer_left","outer_right"
+minecraft:polished_sulfur
+minecraft:polished_sulfur_slab	type="bottom"|"top","bottom","double"
+minecraft:polished_sulfur_stairs	facing="north"|"north","south","west","east"	half="bottom"|"top","bottom"	shape="straight"|"straight","inner_left","inner_right","outer_left","outer_right"
+minecraft:polished_sulfur_wall	east="none"|"none","low","tall"	north="none"|"none","low","tall"	south="none"|"none","low","tall"	up="true"|"true","false"	west="none"|"none","low","tall"
+minecraft:polished_tuff
+minecraft:polished_tuff_slab	type="bottom"|"top","bottom","double"
+minecraft:polished_tuff_stairs	facing="north"|"north","south","west","east"	half="bottom"|"top","bottom"	shape="straight"|"straight","inner_left","inner_right","outer_left","outer_right"
+minecraft:polished_tuff_wall	east="none"|"none","low","tall"	north="none"|"none","low","tall"	south="none"|"none","low","tall"	up="true"|"true","false"	west="none"|"none","low","tall"
+minecraft:poplar_button	face="wall"|"floor","wall","ceiling"	facing="north"|"north","south","west","east"	powered="false"|"true","false"
+minecraft:poplar_door	facing="north"|"north","south","west","east"	half="lower"|"upper","lower"	hinge="left"|"left","right"	open="false"|"true","false"	powered="false"|"true","false"
+minecraft:poplar_fence	east="false"|"true","false"	north="false"|"true","false"	south="false"|"true","false"	west="false"|"true","false"
+minecraft:poplar_fence_gate	facing="north"|"north","south","west","east"	in_wall="false"|"true","false"	open="false"|"true","false"	powered="false"|"true","false"
+minecraft:poplar_hanging_sign	attached="false"|"true","false"	rotation="8"|"0","1","2","3","4","5","6","7","8","9","10","11","12","13","14","15"
+minecraft:poplar_log	axis="y"|"x","y","z"
+minecraft:poplar_planks
+minecraft:poplar_pressure_plate	powered="false"|"true","false"
+minecraft:poplar_sapling	stage="0"|"0","1"
+minecraft:poplar_shelf	facing="north"|"north","south","west","east"	powered="false"|"true","false"	side_chain="unconnected"|"unconnected","right","center","left"
+minecraft:poplar_sign	rotation="8"|"0","1","2","3","4","5","6","7","8","9","10","11","12","13","14","15"
+minecraft:poplar_slab	type="bottom"|"top","bottom","double"
+minecraft:poplar_stairs	facing="north"|"north","south","west","east"	half="bottom"|"top","bottom"	shape="straight"|"straight","inner_left","inner_right","outer_left","outer_right"
+minecraft:poplar_trapdoor	facing="north"|"north","south","west","east"	half="bottom"|"top","bottom"	open="false"|"true","false"	powered="false"|"true","false"
+minecraft:poplar_wall_hanging_sign	facing="north"|"north","south","west","east"
+minecraft:poplar_wall_sign	facing="north"|"north","south","west","east"
+minecraft:poplar_wood	axis="y"|"x","y","z"
+minecraft:poppy
+minecraft:potatoes	age="0"|"0","1","2","3","4","5","6","7"
+minecraft:potent_sulfur	potent_sulfur_state="dry"|"dry","wet","dormant","erupting","continuous"
+minecraft:potted_acacia_sapling
+minecraft:potted_allium
+minecraft:potted_azalea_bush
+minecraft:potted_azure_bluet
+minecraft:potted_bamboo
+minecraft:potted_birch_sapling
+minecraft:potted_blue_orchid
+minecraft:potted_brown_mushroom
+minecraft:potted_cactus
+minecraft:potted_cherry_sapling
+minecraft:potted_closed_eyeblossom
+minecraft:potted_cornflower
+minecraft:potted_crimson_fungus
+minecraft:potted_crimson_roots
+minecraft:potted_dandelion
+minecraft:potted_dark_oak_sapling
+minecraft:potted_dead_bush
+minecraft:potted_fern
+minecraft:potted_flowering_azalea_bush
+minecraft:potted_golden_dandelion
+minecraft:potted_jungle_sapling
+minecraft:potted_lily_of_the_valley
+minecraft:potted_mangrove_propagule
+minecraft:potted_oak_sapling
+minecraft:potted_open_eyeblossom
+minecraft:potted_orange_tulip
+minecraft:potted_oxeye_daisy
+minecraft:potted_pale_oak_sapling
+minecraft:potted_pink_tulip
+minecraft:potted_poplar_sapling
+minecraft:potted_poppy
+minecraft:potted_red_mushroom
+minecraft:potted_red_tulip
+minecraft:potted_spruce_sapling
+minecraft:potted_torchflower
+minecraft:potted_warped_fungus
+minecraft:potted_warped_roots
+minecraft:potted_white_tulip
+minecraft:potted_wither_rose
+minecraft:powder_snow
+minecraft:powder_snow_cauldron	level="1"|"1","2","3"
+minecraft:powered_rail	powered="false"|"true","false"	shape="north_south"|"north_south","east_west","ascending_east","ascending_west","ascending_north","ascending_south"
+minecraft:prismarine
+minecraft:prismarine_brick_slab	type="bottom"|"top","bottom","double"
+minecraft:prismarine_brick_stairs	facing="north"|"north","south","west","east"	half="bottom"|"top","bottom"	shape="straight"|"straight","inner_left","inner_right","outer_left","outer_right"
+minecraft:prismarine_bricks
+minecraft:prismarine_slab	type="bottom"|"top","bottom","double"
+minecraft:prismarine_stairs	facing="north"|"north","south","west","east"	half="bottom"|"top","bottom"	shape="straight"|"straight","inner_left","inner_right","outer_left","outer_right"
+minecraft:prismarine_wall	east="none"|"none","low","tall"	north="none"|"none","low","tall"	south="none"|"none","low","tall"	up="true"|"true","false"	west="none"|"none","low","tall"
+minecraft:pumpkin
+minecraft:pumpkin_stem	age="0"|"0","1","2","3","4","5","6","7"
+minecraft:purple_banner	rotation="8"|"0","1","2","3","4","5","6","7","8","9","10","11","12","13","14","15"
+minecraft:purple_bed	facing="north"|"north","south","west","east"	occupied="false"|"true","false"	part="foot"|"head","foot"
+minecraft:purple_candle	candles="1"|"1","2","3","4"	lit="false"|"true","false"
+minecraft:purple_candle_cake	lit="false"|"true","false"
+minecraft:purple_carpet
+minecraft:purple_concrete
+minecraft:purple_concrete_powder
+minecraft:purple_concrete_slab	type="bottom"|"top","bottom","double"
+minecraft:purple_concrete_stairs	facing="north"|"north","south","west","east"	half="bottom"|"top","bottom"	shape="straight"|"straight","inner_left","inner_right","outer_left","outer_right"
+minecraft:purple_glazed_terracotta	facing="north"|"north","south","west","east"
+minecraft:purple_shulker_box	facing="up"|"north","east","south","west","up","down"
+minecraft:purple_stained_glass
+minecraft:purple_stained_glass_pane	east="false"|"true","false"	north="false"|"true","false"	south="false"|"true","false"	west="false"|"true","false"
+minecraft:purple_terracotta
+minecraft:purple_wall_banner	facing="north"|"north","south","west","east"
+minecraft:purple_wool
+minecraft:purple_wool_slab	type="bottom"|"top","bottom","double"
+minecraft:purple_wool_stairs	facing="north"|"north","south","west","east"	half="bottom"|"top","bottom"	shape="straight"|"straight","inner_left","inner_right","outer_left","outer_right"
+minecraft:purpur_block
+minecraft:purpur_pillar	axis="y"|"x","y","z"
+minecraft:purpur_slab	type="bottom"|"top","bottom","double"
+minecraft:purpur_stairs	facing="north"|"north","south","west","east"	half="bottom"|"top","bottom"	shape="straight"|"straight","inner_left","inner_right","outer_left","outer_right"
+minecraft:quartz_block
+minecraft:quartz_bricks
+minecraft:quartz_pillar	axis="y"|"x","y","z"
+minecraft:quartz_slab	type="bottom"|"top","bottom","double"
+minecraft:quartz_stairs	facing="north"|"north","south","west","east"	half="bottom"|"top","bottom"	shape="straight"|"straight","inner_left","inner_right","outer_left","outer_right"
+minecraft:rail	shape="north_south"|"north_south","east_west","ascending_east","ascending_west","ascending_north","ascending_south","south_east","south_west","north_west","north_east"
+minecraft:raw_copper_block
+minecraft:raw_gold_block
+minecraft:raw_iron_block
+minecraft:red_banner	rotation="8"|"0","1","2","3","4","5","6","7","8","9","10","11","12","13","14","15"
+minecraft:red_bed	facing="north"|"north","south","west","east"	occupied="false"|"true","false"	part="foot"|"head","foot"
+minecraft:red_candle	candles="1"|"1","2","3","4"	lit="false"|"true","false"
+minecraft:red_candle_cake	lit="false"|"true","false"
+minecraft:red_carpet
+minecraft:red_concrete
+minecraft:red_concrete_powder
+minecraft:red_concrete_slab	type="bottom"|"top","bottom","double"
+minecraft:red_concrete_stairs	facing="north"|"north","south","west","east"	half="bottom"|"top","bottom"	shape="straight"|"straight","inner_left","inner_right","outer_left","outer_right"
+minecraft:red_glazed_terracotta	facing="north"|"north","south","west","east"
+minecraft:red_mushroom
+minecraft:red_mushroom_block	down="true"|"true","false"	east="true"|"true","false"	north="true"|"true","false"	south="true"|"true","false"	up="true"|"true","false"	west="true"|"true","false"
+minecraft:red_nether_brick_slab	type="bottom"|"top","bottom","double"
+minecraft:red_nether_brick_stairs	facing="north"|"north","south","west","east"	half="bottom"|"top","bottom"	shape="straight"|"straight","inner_left","inner_right","outer_left","outer_right"
+minecraft:red_nether_brick_wall	east="none"|"none","low","tall"	north="none"|"none","low","tall"	south="none"|"none","low","tall"	up="true"|"true","false"	west="none"|"none","low","tall"
+minecraft:red_nether_bricks
+minecraft:red_poplar_leaves	distance="7"|"1","2","3","4","5","6","7"	persistent="false"|"true","false"
+minecraft:red_sand
+minecraft:red_sandstone
+minecraft:red_sandstone_slab	type="bottom"|"top","bottom","double"
+minecraft:red_sandstone_stairs	facing="north"|"north","south","west","east"	half="bottom"|"top","bottom"	shape="straight"|"straight","inner_left","inner_right","outer_left","outer_right"
+minecraft:red_sandstone_wall	east="none"|"none","low","tall"	north="none"|"none","low","tall"	south="none"|"none","low","tall"	up="true"|"true","false"	west="none"|"none","low","tall"
+minecraft:red_shrub
+minecraft:red_shulker_box	facing="up"|"north","east","south","west","up","down"
+minecraft:red_stained_glass
+minecraft:red_stained_glass_pane	east="false"|"true","false"	north="false"|"true","false"	south="false"|"true","false"	west="false"|"true","false"
+minecraft:red_terracotta
 minecraft:red_tulip
+minecraft:red_wall_banner	facing="north"|"north","south","west","east"
+minecraft:red_wool
+minecraft:red_wool_slab	type="bottom"|"top","bottom","double"
+minecraft:red_wool_stairs	facing="north"|"north","south","west","east"	half="bottom"|"top","bottom"	shape="straight"|"straight","inner_left","inner_right","outer_left","outer_right"
+minecraft:redstone_block
+minecraft:redstone_lamp	lit="false"|"true","false"
+minecraft:redstone_ore	lit="false"|"true","false"
+minecraft:redstone_torch	lit="true"|"true","false"
+minecraft:redstone_wall_torch	facing="north"|"north","south","west","east"	lit="true"|"true","false"
+minecraft:redstone_wire	east="none"|"up","side","none"	north="none"|"up","side","none"	power="0"|"0","1","2","3","4","5","6","7","8","9","10","11","12","13","14","15"	south="none"|"up","side","none"	west="none"|"up","side","none"
+minecraft:reinforced_deepslate
+minecraft:repeater	delay="1"|"1","2","3","4"	facing="north"|"north","south","west","east"	locked="false"|"true","false"	powered="false"|"true","false"
+minecraft:repeating_command_block	conditional="false"|"true","false"	facing="north"|"north","east","south","west","up","down"
+minecraft:resin_block
+minecraft:resin_brick_slab	type="bottom"|"top","bottom","double"
+minecraft:resin_brick_stairs	facing="north"|"north","south","west","east"	half="bottom"|"top","bottom"	shape="straight"|"straight","inner_left","inner_right","outer_left","outer_right"
+minecraft:resin_brick_wall	east="none"|"none","low","tall"	north="none"|"none","low","tall"	south="none"|"none","low","tall"	up="true"|"true","false"	west="none"|"none","low","tall"
+minecraft:resin_bricks
+minecraft:resin_clump	down="false"|"true","false"	east="false"|"true","false"	north="false"|"true","false"	south="false"|"true","false"	up="false"|"true","false"	west="false"|"true","false"
+minecraft:respawn_anchor	charges="0"|"0","1","2","3","4"
+minecraft:rooted_dirt
+minecraft:rose_bush	half="lower"|"upper","lower"
+minecraft:sand
+minecraft:sandstone
+minecraft:sandstone_slab	type="bottom"|"top","bottom","double"
+minecraft:sandstone_stairs	facing="north"|"north","south","west","east"	half="bottom"|"top","bottom"	shape="straight"|"straight","inner_left","inner_right","outer_left","outer_right"
+minecraft:sandstone_wall	east="none"|"none","low","tall"	north="none"|"none","low","tall"	south="none"|"none","low","tall"	up="true"|"true","false"	west="none"|"none","low","tall"
+minecraft:scaffolding	bottom="false"|"true","false"	distance="7"|"0","1","2","3","4","5","6","7"
+minecraft:sculk
+minecraft:sculk_catalyst	bloom="false"|"true","false"
+minecraft:sculk_sensor	power="0"|"0","1","2","3","4","5","6","7","8","9","10","11","12","13","14","15"	sculk_sensor_phase="inactive"|"inactive","active","cooldown"
+minecraft:sculk_shrieker	can_summon="false"|"true","false"	shrieking="false"|"true","false"
+minecraft:sculk_vein	down="false"|"true","false"	east="false"|"true","false"	north="false"|"true","false"	south="false"|"true","false"	up="false"|"true","false"	west="false"|"true","false"
+minecraft:sea_lantern
+minecraft:sea_pickle	pickles="1"|"1","2","3","4"
+minecraft:seagrass
+minecraft:shelf_mushroom	age="0"|"0","1"	facing="north"|"north","south","west","east"
+minecraft:short_dry_grass
+minecraft:short_grass
+minecraft:shroomlight
+minecraft:shulker_box	facing="up"|"north","east","south","west","up","down"
+minecraft:skeleton_skull	powered="false"|"true","false"	rotation="0"|"0","1","2","3","4","5","6","7","8","9","10","11","12","13","14","15"
+minecraft:skeleton_wall_skull	facing="north"|"north","south","west","east"	powered="false"|"true","false"
+minecraft:slime_block
+minecraft:small_amethyst_bud	facing="up"|"north","east","south","west","up","down"
+minecraft:small_dripleaf	facing="north"|"north","south","west","east"	half="lower"|"upper","lower"
+minecraft:smithing_table
+minecraft:smoker	facing="north"|"north","south","west","east"	lit="false"|"true","false"
+minecraft:smooth_basalt
+minecraft:smooth_quartz
+minecraft:smooth_quartz_slab	type="bottom"|"top","bottom","double"
+minecraft:smooth_quartz_stairs	facing="north"|"north","south","west","east"	half="bottom"|"top","bottom"	shape="straight"|"straight","inner_left","inner_right","outer_left","outer_right"
+minecraft:smooth_red_sandstone
+minecraft:smooth_red_sandstone_slab	type="bottom"|"top","bottom","double"
+minecraft:smooth_red_sandstone_stairs	facing="north"|"north","south","west","east"	half="bottom"|"top","bottom"	shape="straight"|"straight","inner_left","inner_right","outer_left","outer_right"
+minecraft:smooth_sandstone
+minecraft:smooth_sandstone_slab	type="bottom"|"top","bottom","double"
+minecraft:smooth_sandstone_stairs	facing="north"|"north","south","west","east"	half="bottom"|"top","bottom"	shape="straight"|"straight","inner_left","inner_right","outer_left","outer_right"
+minecraft:smooth_stone
+minecraft:smooth_stone_slab	type="bottom"|"top","bottom","double"
+minecraft:sniffer_egg	hatch="0"|"0","1","2"
+minecraft:snow	layers="1"|"1","2","3","4","5","6","7","8"
+minecraft:snow_block
+minecraft:soul_campfire	facing="north"|"north","south","west","east"	lit="true"|"true","false"	signal_fire="false"|"true","false"
+minecraft:soul_fire
+minecraft:soul_lantern	hanging="false"|"true","false"
+minecraft:soul_sand
+minecraft:soul_soil
+minecraft:soul_torch
+minecraft:soul_wall_torch	facing="north"|"north","south","west","east"
+minecraft:spawner
+minecraft:sponge
+minecraft:spore_blossom
+minecraft:spruce_button	face="wall"|"floor","wall","ceiling"	facing="north"|"north","south","west","east"	powered="false"|"true","false"
+minecraft:spruce_door	facing="north"|"north","south","west","east"	half="lower"|"upper","lower"	hinge="left"|"left","right"	open="false"|"true","false"	powered="false"|"true","false"
+minecraft:spruce_fence	east="false"|"true","false"	north="false"|"true","false"	south="false"|"true","false"	west="false"|"true","false"
+minecraft:spruce_fence_gate	facing="north"|"north","south","west","east"	in_wall="false"|"true","false"	open="false"|"true","false"	powered="false"|"true","false"
+minecraft:spruce_hanging_sign	attached="false"|"true","false"	rotation="8"|"0","1","2","3","4","5","6","7","8","9","10","11","12","13","14","15"
+minecraft:spruce_leaves	distance="7"|"1","2","3","4","5","6","7"	persistent="false"|"true","false"
+minecraft:spruce_log	axis="y"|"x","y","z"
+minecraft:spruce_planks
+minecraft:spruce_pressure_plate	powered="false"|"true","false"
+minecraft:spruce_sapling	stage="0"|"0","1"
+minecraft:spruce_shelf	facing="north"|"north","south","west","east"	powered="false"|"true","false"	side_chain="unconnected"|"unconnected","right","center","left"
+minecraft:spruce_sign	rotation="8"|"0","1","2","3","4","5","6","7","8","9","10","11","12","13","14","15"
+minecraft:spruce_slab	type="bottom"|"top","bottom","double"
+minecraft:spruce_stairs	facing="north"|"north","south","west","east"	half="bottom"|"top","bottom"	shape="straight"|"straight","inner_left","inner_right","outer_left","outer_right"
+minecraft:spruce_trapdoor	facing="north"|"north","south","west","east"	half="bottom"|"top","bottom"	open="false"|"true","false"	powered="false"|"true","false"
+minecraft:spruce_wall_hanging_sign	facing="north"|"north","south","west","east"
+minecraft:spruce_wall_sign	facing="north"|"north","south","west","east"
+minecraft:spruce_wood	axis="y"|"x","y","z"
+minecraft:sticky_piston	extended="false"|"true","false"	facing="north"|"north","east","south","west","up","down"
+minecraft:stone
+minecraft:stone_brick_slab	type="bottom"|"top","bottom","double"
+minecraft:stone_brick_stairs	facing="north"|"north","south","west","east"	half="bottom"|"top","bottom"	shape="straight"|"straight","inner_left","inner_right","outer_left","outer_right"
+minecraft:stone_brick_wall	east="none"|"none","low","tall"	north="none"|"none","low","tall"	south="none"|"none","low","tall"	up="true"|"true","false"	west="none"|"none","low","tall"
+minecraft:stone_bricks
+minecraft:stone_button	face="wall"|"floor","wall","ceiling"	facing="north"|"north","south","west","east"	powered="false"|"true","false"
+minecraft:stone_pressure_plate	powered="false"|"true","false"
+minecraft:stone_slab	type="bottom"|"top","bottom","double"
+minecraft:stone_stairs	facing="north"|"north","south","west","east"	half="bottom"|"top","bottom"	shape="straight"|"straight","inner_left","inner_right","outer_left","outer_right"
+minecraft:stonecutter	facing="north"|"north","south","west","east"
+minecraft:straw_bed	facing="north"|"north","south","west","east"	occupied="false"|"true","false"	part="foot"|"head","foot"
+minecraft:stripped_acacia_log	axis="y"|"x","y","z"
+minecraft:stripped_acacia_wood	axis="y"|"x","y","z"
+minecraft:stripped_bamboo_block	axis="y"|"x","y","z"
+minecraft:stripped_birch_log	axis="y"|"x","y","z"
+minecraft:stripped_birch_wood	axis="y"|"x","y","z"
+minecraft:stripped_cherry_log	axis="y"|"x","y","z"
+minecraft:stripped_cherry_wood	axis="y"|"x","y","z"
+minecraft:stripped_crimson_hyphae	axis="y"|"x","y","z"
+minecraft:stripped_crimson_stem	axis="y"|"x","y","z"
+minecraft:stripped_dark_oak_log	axis="y"|"x","y","z"
+minecraft:stripped_dark_oak_wood	axis="y"|"x","y","z"
+minecraft:stripped_jungle_log	axis="y"|"x","y","z"
+minecraft:stripped_jungle_wood	axis="y"|"x","y","z"
+minecraft:stripped_mangrove_log	axis="y"|"x","y","z"
+minecraft:stripped_mangrove_wood	axis="y"|"x","y","z"
+minecraft:stripped_oak_log	axis="y"|"x","y","z"
+minecraft:stripped_oak_wood	axis="y"|"x","y","z"
+minecraft:stripped_pale_oak_log	axis="y"|"x","y","z"
+minecraft:stripped_pale_oak_wood	axis="y"|"x","y","z"
+minecraft:stripped_poplar_log	axis="y"|"x","y","z"
+minecraft:stripped_poplar_wood	axis="y"|"x","y","z"
+minecraft:stripped_spruce_log	axis="y"|"x","y","z"
+minecraft:stripped_spruce_wood	axis="y"|"x","y","z"
+minecraft:stripped_warped_hyphae	axis="y"|"x","y","z"
+minecraft:stripped_warped_stem	axis="y"|"x","y","z"
+minecraft:structure_block	mode="load"|"save","load","corner","data"
+minecraft:structure_void
+minecraft:sugar_cane	age="0"|"0","1","2","3","4","5","6","7","8","9","10","11","12","13","14","15"
+minecraft:sulfur
+minecraft:sulfur_brick_slab	type="bottom"|"top","bottom","double"
+minecraft:sulfur_brick_stairs	facing="north"|"north","south","west","east"	half="bottom"|"top","bottom"	shape="straight"|"straight","inner_left","inner_right","outer_left","outer_right"
+minecraft:sulfur_brick_wall	east="none"|"none","low","tall"	north="none"|"none","low","tall"	south="none"|"none","low","tall"	up="true"|"true","false"	west="none"|"none","low","tall"
+minecraft:sulfur_bricks
+minecraft:sulfur_slab	type="bottom"|"top","bottom","double"
+minecraft:sulfur_spike	thickness="tip"|"tip_merge","tip","frustum","middle","base"	vertical_direction="up"|"up","down"
+minecraft:sulfur_stairs	facing="north"|"north","south","west","east"	half="bottom"|"top","bottom"	shape="straight"|"straight","inner_left","inner_right","outer_left","outer_right"
+minecraft:sulfur_wall	east="none"|"none","low","tall"	north="none"|"none","low","tall"	south="none"|"none","low","tall"	up="true"|"true","false"	west="none"|"none","low","tall"
+minecraft:sunflower	half="lower"|"upper","lower"
+minecraft:suspicious_gravel	dusted="0"|"0","1","2","3"
+minecraft:suspicious_sand	dusted="0"|"0","1","2","3"
+minecraft:sweet_berry_bush	age="0"|"0","1","2","3"
+minecraft:tall_dry_grass
+minecraft:tall_grass	half="lower"|"upper","lower"
+minecraft:tall_seagrass	half="lower"|"upper","lower"
+minecraft:target	power="0"|"0","1","2","3","4","5","6","7","8","9","10","11","12","13","14","15"
+minecraft:terracotta
+minecraft:test_block	mode="start"|"start","log","fail","accept"
+minecraft:test_instance_block
+minecraft:tinted_glass
+minecraft:tnt	unstable="false"|"true","false"
+minecraft:torch
+minecraft:torchflower
+minecraft:torchflower_crop	age="0"|"0","1"
+minecraft:trapped_chest	facing="north"|"north","south","west","east"	type="single"|"single","left","right"
+minecraft:trial_spawner	ominous="false"|"true","false"	trial_spawner_state="inactive"|"inactive","waiting_for_players","active","waiting_for_reward_ejection","ejecting_reward","cooldown"
+minecraft:tripwire	attached="false"|"true","false"	disarmed="false"|"true","false"	east="false"|"true","false"	north="false"|"true","false"	powered="false"|"true","false"	south="false"|"true","false"	west="false"|"true","false"
+minecraft:tripwire_hook	attached="false"|"true","false"	facing="north"|"north","south","west","east"	powered="false"|"true","false"
+minecraft:tube_coral
+minecraft:tube_coral_block
+minecraft:tube_coral_fan
+minecraft:tube_coral_wall_fan	facing="north"|"north","south","west","east"
+minecraft:tuff
+minecraft:tuff_brick_slab	type="bottom"|"top","bottom","double"
+minecraft:tuff_brick_stairs	facing="north"|"north","south","west","east"	half="bottom"|"top","bottom"	shape="straight"|"straight","inner_left","inner_right","outer_left","outer_right"
+minecraft:tuff_brick_wall	east="none"|"none","low","tall"	north="none"|"none","low","tall"	south="none"|"none","low","tall"	up="true"|"true","false"	west="none"|"none","low","tall"
+minecraft:tuff_bricks
+minecraft:tuff_slab	type="bottom"|"top","bottom","double"
+minecraft:tuff_stairs	facing="north"|"north","south","west","east"	half="bottom"|"top","bottom"	shape="straight"|"straight","inner_left","inner_right","outer_left","outer_right"
+minecraft:tuff_wall	east="none"|"none","low","tall"	north="none"|"none","low","tall"	south="none"|"none","low","tall"	up="true"|"true","false"	west="none"|"none","low","tall"
+minecraft:turtle_egg	eggs="1"|"1","2","3","4"	hatch="0"|"0","1","2"
+minecraft:twisting_vines	age="0"|"0","1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18","19","20","21","22","23","24","25"
+minecraft:twisting_vines_plant
+minecraft:vault	facing="north"|"north","south","west","east"	ominous="false"|"true","false"	vault_state="inactive"|"inactive","active","unlocking","ejecting"
+minecraft:verdant_froglight	axis="y"|"x","y","z"
+minecraft:vine	east="false"|"true","false"	north="false"|"true","false"	south="false"|"true","false"	up="false"|"true","false"	west="false"|"true","false"
+minecraft:void_air
+minecraft:wall_torch	facing="north"|"north","south","west","east"
+minecraft:warped_button	face="wall"|"floor","wall","ceiling"	facing="north"|"north","south","west","east"	powered="false"|"true","false"
+minecraft:warped_door	facing="north"|"north","south","west","east"	half="lower"|"upper","lower"	hinge="left"|"left","right"	open="false"|"true","false"	powered="false"|"true","false"
+minecraft:warped_fence	east="false"|"true","false"	north="false"|"true","false"	south="false"|"true","false"	west="false"|"true","false"
+minecraft:warped_fence_gate	facing="north"|"north","south","west","east"	in_wall="false"|"true","false"	open="false"|"true","false"	powered="false"|"true","false"
+minecraft:warped_fungus
+minecraft:warped_hanging_sign	attached="false"|"true","false"	rotation="8"|"0","1","2","3","4","5","6","7","8","9","10","11","12","13","14","15"
+minecraft:warped_hyphae	axis="y"|"x","y","z"
+minecraft:warped_nylium
+minecraft:warped_planks
+minecraft:warped_pressure_plate	powered="false"|"true","false"
+minecraft:warped_roots
+minecraft:warped_shelf	facing="north"|"north","south","west","east"	powered="false"|"true","false"	side_chain="unconnected"|"unconnected","right","center","left"
+minecraft:warped_sign	rotation="8"|"0","1","2","3","4","5","6","7","8","9","10","11","12","13","14","15"
+minecraft:warped_slab	type="bottom"|"top","bottom","double"
+minecraft:warped_stairs	facing="north"|"north","south","west","east"	half="bottom"|"top","bottom"	shape="straight"|"straight","inner_left","inner_right","outer_left","outer_right"
+minecraft:warped_stem	axis="y"|"x","y","z"
+minecraft:warped_trapdoor	facing="north"|"north","south","west","east"	half="bottom"|"top","bottom"	open="false"|"true","false"	powered="false"|"true","false"
+minecraft:warped_wall_hanging_sign	facing="north"|"north","south","west","east"
+minecraft:warped_wall_sign	facing="north"|"north","south","west","east"
+minecraft:warped_wart_block
+minecraft:water	level="0"|"0","1","2","3","4","5","6","7","8","9","10","11","12","13","14","15"
+minecraft:water_cauldron	level="1"|"1","2","3"
+minecraft:waxed_chiseled_copper
+minecraft:waxed_copper_bars	east="false"|"true","false"	north="false"|"true","false"	south="false"|"true","false"	west="false"|"true","false"
+minecraft:waxed_copper_block
+minecraft:waxed_copper_bulb	lit="false"|"true","false"	powered="false"|"true","false"
+minecraft:waxed_copper_chain	axis="y"|"x","y","z"
+minecraft:waxed_copper_chest	facing="north"|"north","south","west","east"	type="single"|"single","left","right"
+minecraft:waxed_copper_door	facing="north"|"north","south","west","east"	half="lower"|"upper","lower"	hinge="left"|"left","right"	open="false"|"true","false"	powered="false"|"true","false"
+minecraft:waxed_copper_golem_statue	copper_golem_pose="standing"|"standing","sitting","running","star"	facing="north"|"north","south","west","east"
+minecraft:waxed_copper_grate
+minecraft:waxed_copper_lantern	hanging="false"|"true","false"
+minecraft:waxed_copper_trapdoor	facing="north"|"north","south","west","east"	half="bottom"|"top","bottom"	open="false"|"true","false"	powered="false"|"true","false"
+minecraft:waxed_cut_copper
+minecraft:waxed_cut_copper_slab	type="bottom"|"top","bottom","double"
+minecraft:waxed_cut_copper_stairs	facing="north"|"north","south","west","east"	half="bottom"|"top","bottom"	shape="straight"|"straight","inner_left","inner_right","outer_left","outer_right"
+minecraft:waxed_exposed_chiseled_copper
+minecraft:waxed_exposed_copper
+minecraft:waxed_exposed_copper_bars	east="false"|"true","false"	north="false"|"true","false"	south="false"|"true","false"	west="false"|"true","false"
+minecraft:waxed_exposed_copper_bulb	lit="false"|"true","false"	powered="false"|"true","false"
+minecraft:waxed_exposed_copper_chain	axis="y"|"x","y","z"
+minecraft:waxed_exposed_copper_chest	facing="north"|"north","south","west","east"	type="single"|"single","left","right"
+minecraft:waxed_exposed_copper_door	facing="north"|"north","south","west","east"	half="lower"|"upper","lower"	hinge="left"|"left","right"	open="false"|"true","false"	powered="false"|"true","false"
+minecraft:waxed_exposed_copper_golem_statue	copper_golem_pose="standing"|"standing","sitting","running","star"	facing="north"|"north","south","west","east"
+minecraft:waxed_exposed_copper_grate
+minecraft:waxed_exposed_copper_lantern	hanging="false"|"true","false"
+minecraft:waxed_exposed_copper_trapdoor	facing="north"|"north","south","west","east"	half="bottom"|"top","bottom"	open="false"|"true","false"	powered="false"|"true","false"
+minecraft:waxed_exposed_cut_copper
+minecraft:waxed_exposed_cut_copper_slab	type="bottom"|"top","bottom","double"
+minecraft:waxed_exposed_cut_copper_stairs	facing="north"|"north","south","west","east"	half="bottom"|"top","bottom"	shape="straight"|"straight","inner_left","inner_right","outer_left","outer_right"
+minecraft:waxed_exposed_lightning_rod	facing="up"|"north","east","south","west","up","down"	powered="false"|"true","false"
+minecraft:waxed_lightning_rod	facing="up"|"north","east","south","west","up","down"	powered="false"|"true","false"
+minecraft:waxed_oxidized_chiseled_copper
+minecraft:waxed_oxidized_copper
+minecraft:waxed_oxidized_copper_bars	east="false"|"true","false"	north="false"|"true","false"	south="false"|"true","false"	west="false"|"true","false"
+minecraft:waxed_oxidized_copper_bulb	lit="false"|"true","false"	powered="false"|"true","false"
+minecraft:waxed_oxidized_copper_chain	axis="y"|"x","y","z"
+minecraft:waxed_oxidized_copper_chest	facing="north"|"north","south","west","east"	type="single"|"single","left","right"
+minecraft:waxed_oxidized_copper_door	facing="north"|"north","south","west","east"	half="lower"|"upper","lower"	hinge="left"|"left","right"	open="false"|"true","false"	powered="false"|"true","false"
+minecraft:waxed_oxidized_copper_golem_statue	copper_golem_pose="standing"|"standing","sitting","running","star"	facing="north"|"north","south","west","east"
+minecraft:waxed_oxidized_copper_grate
+minecraft:waxed_oxidized_copper_lantern	hanging="false"|"true","false"
+minecraft:waxed_oxidized_copper_trapdoor	facing="north"|"north","south","west","east"	half="bottom"|"top","bottom"	open="false"|"true","false"	powered="false"|"true","false"
+minecraft:waxed_oxidized_cut_copper
+minecraft:waxed_oxidized_cut_copper_slab	type="bottom"|"top","bottom","double"
+minecraft:waxed_oxidized_cut_copper_stairs	facing="north"|"north","south","west","east"	half="bottom"|"top","bottom"	shape="straight"|"straight","inner_left","inner_right","outer_left","outer_right"
+minecraft:waxed_oxidized_lightning_rod	facing="up"|"north","east","south","west","up","down"	powered="false"|"true","false"
+minecraft:waxed_weathered_chiseled_copper
+minecraft:waxed_weathered_copper
+minecraft:waxed_weathered_copper_bars	east="false"|"true","false"	north="false"|"true","false"	south="false"|"true","false"	west="false"|"true","false"
+minecraft:waxed_weathered_copper_bulb	lit="false"|"true","false"	powered="false"|"true","false"
+minecraft:waxed_weathered_copper_chain	axis="y"|"x","y","z"
+minecraft:waxed_weathered_copper_chest	facing="north"|"north","south","west","east"	type="single"|"single","left","right"
+minecraft:waxed_weathered_copper_door	facing="north"|"north","south","west","east"	half="lower"|"upper","lower"	hinge="left"|"left","right"	open="false"|"true","false"	powered="false"|"true","false"
+minecraft:waxed_weathered_copper_golem_statue	copper_golem_pose="standing"|"standing","sitting","running","star"	facing="north"|"north","south","west","east"
+minecraft:waxed_weathered_copper_grate
+minecraft:waxed_weathered_copper_lantern	hanging="false"|"true","false"
+minecraft:waxed_weathered_copper_trapdoor	facing="north"|"north","south","west","east"	half="bottom"|"top","bottom"	open="false"|"true","false"	powered="false"|"true","false"
+minecraft:waxed_weathered_cut_copper
+minecraft:waxed_weathered_cut_copper_slab	type="bottom"|"top","bottom","double"
+minecraft:waxed_weathered_cut_copper_stairs	facing="north"|"north","south","west","east"	half="bottom"|"top","bottom"	shape="straight"|"straight","inner_left","inner_right","outer_left","outer_right"
+minecraft:waxed_weathered_lightning_rod	facing="up"|"north","east","south","west","up","down"	powered="false"|"true","false"
+minecraft:weathered_chiseled_copper
+minecraft:weathered_copper
+minecraft:weathered_copper_bars	east="false"|"true","false"	north="false"|"true","false"	south="false"|"true","false"	west="false"|"true","false"
+minecraft:weathered_copper_bulb	lit="false"|"true","false"	powered="false"|"true","false"
+minecraft:weathered_copper_chain	axis="y"|"x","y","z"
+minecraft:weathered_copper_chest	facing="north"|"north","south","west","east"	type="single"|"single","left","right"
+minecraft:weathered_copper_door	facing="north"|"north","south","west","east"	half="lower"|"upper","lower"	hinge="left"|"left","right"	open="false"|"true","false"	powered="false"|"true","false"
+minecraft:weathered_copper_golem_statue	copper_golem_pose="standing"|"standing","sitting","running","star"	facing="north"|"north","south","west","east"
+minecraft:weathered_copper_grate
+minecraft:weathered_copper_lantern	hanging="false"|"true","false"
+minecraft:weathered_copper_trapdoor	facing="north"|"north","south","west","east"	half="bottom"|"top","bottom"	open="false"|"true","false"	powered="false"|"true","false"
+minecraft:weathered_cut_copper
+minecraft:weathered_cut_copper_slab	type="bottom"|"top","bottom","double"
+minecraft:weathered_cut_copper_stairs	facing="north"|"north","south","west","east"	half="bottom"|"top","bottom"	shape="straight"|"straight","inner_left","inner_right","outer_left","outer_right"
+minecraft:weathered_lightning_rod	facing="up"|"north","east","south","west","up","down"	powered="false"|"true","false"
+minecraft:weeping_vines	age="0"|"0","1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18","19","20","21","22","23","24","25"
+minecraft:weeping_vines_plant
+minecraft:wet_sponge
+minecraft:wheat	age="0"|"0","1","2","3","4","5","6","7"
+minecraft:white_banner	rotation="8"|"0","1","2","3","4","5","6","7","8","9","10","11","12","13","14","15"
+minecraft:white_bed	facing="north"|"north","south","west","east"	occupied="false"|"true","false"	part="foot"|"head","foot"
+minecraft:white_candle	candles="1"|"1","2","3","4"	lit="false"|"true","false"
+minecraft:white_candle_cake	lit="false"|"true","false"
+minecraft:white_carpet
+minecraft:white_concrete
+minecraft:white_concrete_powder
+minecraft:white_concrete_slab	type="bottom"|"top","bottom","double"
+minecraft:white_concrete_stairs	facing="north"|"north","south","west","east"	half="bottom"|"top","bottom"	shape="straight"|"straight","inner_left","inner_right","outer_left","outer_right"
+minecraft:white_glazed_terracotta	facing="north"|"north","south","west","east"
+minecraft:white_shulker_box	facing="up"|"north","east","south","west","up","down"
+minecraft:white_stained_glass
+minecraft:white_stained_glass_pane	east="false"|"true","false"	north="false"|"true","false"	south="false"|"true","false"	west="false"|"true","false"
+minecraft:white_terracotta
+minecraft:white_tulip
+minecraft:white_wall_banner	facing="north"|"north","south","west","east"
+minecraft:white_wool
+minecraft:white_wool_slab	type="bottom"|"top","bottom","double"
+minecraft:white_wool_stairs	facing="north"|"north","south","west","east"	half="bottom"|"top","bottom"	shape="straight"|"straight","inner_left","inner_right","outer_left","outer_right"
+minecraft:wildflowers	facing="north"|"north","south","west","east"	flower_amount="1"|"1","2","3","4"
+minecraft:wither_rose
+minecraft:wither_skeleton_skull	powered="false"|"true","false"	rotation="0"|"0","1","2","3","4","5","6","7","8","9","10","11","12","13","14","15"
+minecraft:wither_skeleton_wall_skull	facing="north"|"north","south","west","east"	powered="false"|"true","false"
+minecraft:yellow_banner	rotation="8"|"0","1","2","3","4","5","6","7","8","9","10","11","12","13","14","15"
+minecraft:yellow_bed	facing="north"|"north","south","west","east"	occupied="false"|"true","false"	part="foot"|"head","foot"
+minecraft:yellow_candle	candles="1"|"1","2","3","4"	lit="false"|"true","false"
+minecraft:yellow_candle_cake	lit="false"|"true","false"
+minecraft:yellow_carpet
+minecraft:yellow_concrete
+minecraft:yellow_concrete_powder
+minecraft:yellow_concrete_slab	type="bottom"|"top","bottom","double"
+minecraft:yellow_concrete_stairs	facing="north"|"north","south","west","east"	half="bottom"|"top","bottom"	shape="straight"|"straight","inner_left","inner_right","outer_left","outer_right"
+minecraft:yellow_glazed_terracotta	facing="north"|"north","south","west","east"
+minecraft:yellow_poplar_leaves	distance="7"|"1","2","3","4","5","6","7"	persistent="false"|"true","false"
+minecraft:yellow_shulker_box	facing="up"|"north","east","south","west","up","down"
+minecraft:yellow_stained_glass
+minecraft:yellow_stained_glass_pane	east="false"|"true","false"	north="false"|"true","false"	south="false"|"true","false"	west="false"|"true","false"
+minecraft:yellow_terracotta
+minecraft:yellow_wall_banner	facing="north"|"north","south","west","east"
+minecraft:yellow_wool
+minecraft:yellow_wool_slab	type="bottom"|"top","bottom","double"
+minecraft:yellow_wool_stairs	facing="north"|"north","south","west","east"	half="bottom"|"top","bottom"	shape="straight"|"straight","inner_left","inner_right","outer_left","outer_right"
+minecraft:zombie_head	powered="false"|"true","false"	rotation="0"|"0","1","2","3","4","5","6","7","8","9","10","11","12","13","14","15"
+minecraft:zombie_wall_head	facing="north"|"north","south","west","east"	powered="false"|"true","false"

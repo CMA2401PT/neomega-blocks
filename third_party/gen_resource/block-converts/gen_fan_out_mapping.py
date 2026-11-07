@@ -9,7 +9,6 @@ from pymc_specification import get_specification
 
 SCRIPT_DIR = Path(__file__).resolve().parent
 TMP_DIR = SCRIPT_DIR / "tmp"
-JAVA_DIR = SCRIPT_DIR.parents[2] / "presets" / "java" / "v1"
 
 translations = PyMCTranslate.new_translation_manager()
 
@@ -97,7 +96,7 @@ def all_blocks(platform_name:str,version:Tuple[int,...],allow_missing:bool=True)
 
 def iter_full_blocks(platform_name:str,version:Tuple[int,...])->Iterator[Block]:
     # 每个字段都取遍自己的取值域，做完整笛卡尔积；没有缺字段的残缺态。
-    # viewer 据此建 javaHash→状态 表，才能渲染北连栅栏这类 Bedrock 表达不了的状态。
+    # 中心状态必须包含 Java 独有属性，才能生成兼容表并分析转换中的信息损失。
     version_data=translations.get_version(platform_name,version)
     block_translator=version_data.block
     block_names=block_translator.base_names("minecraft",force_blockstate=True)
@@ -119,43 +118,10 @@ def iter_full_blocks(platform_name:str,version:Tuple[int,...])->Iterator[Block]:
             yield cast(Block,Block("minecraft",block_name,props))
 
 
-def iter_block_schema(platform_name:str,version:Tuple[int,...]):
-    # 每个方块一条：属性名、取值域、默认值。fixer 据此知道某方块能改哪些
-    # 属性、默认是什么，不必从完整组合反推（反推不出默认值）。
-    version_data=translations.get_version(platform_name,version)
-    block_translator=version_data.block
-    for block_name in block_translator.base_names("minecraft",force_blockstate=True):
-        spec=get_specification(
-            translator=block_translator,
-            platform=platform_name,
-            version=version,
-            name=block_name,
-        )
-        properties:Dict[str,List[str]]=cast(Dict[str,List[str]],spec.get("properties",{}))
-        defaults:Dict[str,str]=cast(Dict[str,str],spec.get("defaults",{}))
-        yield block_name,properties,defaults
-
-
-def schema_line(block_name:str,properties:Dict[str,List[str]],defaults:Dict[str,str])->str:
-    # 格式：minecraft:name<TAB>key=default|v1,v2,v3<TAB>key2=...
-    # 默认值写在等号后、取值域前，二者用竖线分隔；无属性方块只有方块名。
-    fields=[]
-    for key,values in properties.items():
-        default=defaults.get(key,values[0] if values else "")
-        fields.append(f"{key}={default}|{','.join(values)}")
-    return "\t".join([f"minecraft:{block_name}",*fields])
-
-
-def main(*, tmp_dir: Path = TMP_DIR, java_dir: Path = JAVA_DIR) -> None:
+def main(*, tmp_dir: Path = TMP_DIR) -> None:
     tmp_dir.mkdir(parents=True, exist_ok=True)
-    java_dir.mkdir(parents=True, exist_ok=True)
-    # 方块知识库：名称 → 属性域 + 默认值。presets/java/v1 据此支持 fixer 的查询。
-    with (java_dir / "java_block_schema.list").open("w") as f:
-        for block_name,properties,defaults in iter_block_schema("java",(1,21,4)):
-            f.write(f"{schema_line(block_name,properties,defaults)}\n")
-
-    # Java 侧完整状态全集：每行一个字段齐全的状态，供 viewer 直读建表。
-    with (java_dir / "fan_out_java_full.list").open("w") as f:
+    # 转换中心的完整 Java 状态供状态迁移、原理图与往返分析共用。
+    with (tmp_dir / "hub_java_states.list").open("w") as f:
         for java_block in iter_full_blocks("java",(1,21,4)):
             f.write(f"{block_to_blockstr(java_block)}\n")
 

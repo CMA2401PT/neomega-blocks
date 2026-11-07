@@ -12,6 +12,8 @@ import (
 // Sparse, complete single-layer states: source#target. Target identities are
 // supplied by JavaFullStates. Generation visits source versions newest first.
 //
+// 由 third_party/gen_resource/java-states 的 TestGenerateJavaStates 连接中心兼容表与迁移表生成。
+//
 //go:embed java_compatibility.list
 var dataCompatibility string
 

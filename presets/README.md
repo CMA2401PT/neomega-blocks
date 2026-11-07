@@ -1,7 +1,5 @@
 # 预置方块能力
 
-本地新增 [java/v26_3](java/v26_3/README.md)：Java 26.3 完整状态与 Geyser Bedrock 1.26.60 主方块映射，由独立版本锁和生成器维护。其真实含水状态、严格校验与多候选反查规则不同于旧 `v1`；以下 `v1` 说明仍指原始 1.21.4 预设。
-
 `presets` 把选定 Minecraft 版本的数据和转换规则封装成可直接使用的 Go 包。资源文件与使用它们的 Go 文件放在一起，通过 `go:embed` 编入程序。运行时直接读取这些资源。
 
 需要更新这些资源时，使用 [离线生成工具](../third_party/gen_resource/README.md)。生成脚本及其输入保存在 `third_party/gen_resource`，中间文件保存在对应脚本目录的 `tmp/`。
@@ -12,11 +10,13 @@
 | --- | --- |
 | [`block-converts/v1`](block-converts/v1) | 以 NEMC palette 为目标集合，将多版本 Bedrock、Java 和旧 Schematic ID/meta 转入；将目标方块转出为 Java 1.21.4。另提供网络哈希、方块文本和 legacy data value 的查询。Bedrock 转换参考版本为 1.21.50。 |
 | [`block-converts/specific-converts`](block-converts/specific-converts) | 墙与悬挂告示牌的 Java/Bedrock 专用转换规则。`v1` 与生成端共用这些规则。墙的函数用于 `IRStates.Update`；悬挂告示牌函数处理整个方块。旁边的 JSON 是说明状态差异的样例。 |
-| [`java/v1`](java/v1) | Java 1.21.4 状态枚举、旧状态到目标版本的兼容映射、方块状态与哈希互查，以及目标版本的属性默认值和取值域查询。哈希反查还收录附带 `waterlogged="true"/"false"` 的状态，供转换器和状态修复使用。 |
+| [`java/v1`](java/v1) | Java 26.3 状态枚举、旧状态到目标版本的兼容映射、方块状态与哈希互查，以及目标版本的属性默认值和取值域查询。哈希反查还收录附带 `waterlogged="true"/"false"` 的状态，供转换器和状态修复使用。 |
 
-`java/v1.JavaFullStates` 枚举的是 PyMCTranslate specification 中的完整属性组合。PyMCTranslate 将含水作为附加方块层处理，因此枚举结果本身没有 `waterlogged`；哈希反查中的含水变体由 Go 加入。
+两个包的 `v1` 都是预置数据格式的修订号。`block-converts/v1.JavaTargetVersion` 固定为 1.21.4，因为转换中心将 PyMCTranslate（Amulet）的 Java 数据使用范围限定到这里，以尊重 Amulet 的许可；converter 也按此版本写存档。`java/v1.JavaTargetVersion` 为 26.3，因为浏览、渲染和 fixer 需要认识当前目标版本的方块。
 
-为了显示旧存档中的改名或旧属性，`JavaCompatibility` 提供额外输入到 1.21.4 状态的映射，`JavaCompatibleStates` 枚举目标全集与这些额外输入。生成时按源版本从高到低处理，同一完整状态取首次出现的解释，运行时不需要源版本。兼容目标是尽力显示旧状态，不保证还原每个历史版本的外观。目标版本的属性查询和 `JavaFullStates` 保持原有含义。
+`java/v1.JavaFullStates` 枚举 Mojang 官方报告中的完整单层状态，按注册 ID 排序并去重。单层状态把含水交给独立层表达，因此状态全集和 `BlockProperties` 都不含 `waterlogged`；哈希反查中的含水变体由 Go 加入。
+
+为了显示历史名称和属性，`JavaCompatibility` 提供历史完整状态到当前目标状态的映射，`JavaCompatibleStates` 枚举目标全集与这些额外输入。生成器先用 Amulet 兼容表把历史输入解释为 1.21.4，再用迁移表把中心状态解释为 26.3，并用目标默认值补齐属性。Amulet 兼容表对同一完整源状态优先采用较高版本的解释。目标全集中的状态优先保留自身身份，运行时不需要源版本。
 
 需要取得兼容状态的目标解释时，调用 `NormalizeSingleLayer`。它忽略 `waterlogged`，查询完整单层状态，返回目标状态与是否命中。几何表已经为兼容输入建立共享形状索引，因此 viewer 拆层后可直接用原始状态的 hash 查几何。`HashToBlock` 反查仍保留原始输入身份及其含水属性，便于诊断与拆层。
 
@@ -26,7 +26,7 @@
 
 `IRBlock` 是“方块名 + 属性”的文本表示。`Tidy` 会补默认命名空间并整理空白、属性顺序；`Canon` 进一步依据预置默认属性补缺项、去掉多余项。完成 Tidy 不等于属性齐全，也不等于方块属于目标集合。
 
-使用 `block-converts/v1` 时，调用方应先对外部输入执行 `Tidy()`。转换入口会在部分路径执行 Canon，但直接命中和回退路径仍会使用输入哈希，不能依赖它们替调用方整理所有输入。成功返回的方块已经 tidy，可直接比较或取哈希。Java 输出可能省略含水等属性；需要完整 Java 状态时，应结合 `java/v1` 和源数据处理。
+使用 `block-converts/v1` 时，调用方应先对外部输入执行 `Tidy()`。转换入口会在部分路径执行 Canon，但直接命中和回退路径仍会使用输入哈希，不能依赖它们替调用方整理所有输入。成功返回的方块已经 tidy，可直接比较或取哈希。Java 输出使用转换中心的 1.21.4 状态；需要当前目标的完整单层状态时，调用 `java/v1.NormalizeSingleLayer`，含水属性另结合源数据处理。
 
 `BedrockCanon` 和 `JavaCanon` 自己会先执行 Tidy；即使返回 `false`，返回值也已经过 Tidy，只是没有找到对应默认属性。`BedrockHashToBlockStrict`、`BedrockDataValueToBlock` 和 `BedrockBlocks` 返回的预置方块已经 tidy。转换失败时应检查 `bool`，不要将失败返回值当作有效方块。
 
@@ -38,12 +38,12 @@
 
 ## 更新嵌入资源
 
-从 `neomega-blocks` 根目录运行：
+先按 [Java 状态生成说明](../third_party/gen_resource/java-states/README.md) 准备 Mojang 报告，再从 `neomega-blocks` 根目录执行：
 
 ```sh
 sh third_party/gen_resource/block-converts/generate.sh
 ```
 
-这个入口按依赖顺序更新两个 `v1` 包的资源。每处 `go:embed` 的注释标明了对应的生成步骤。具体输入、产物关系、单步命令和验证方式见[生成工具说明](../third_party/gen_resource/README.md)。
+入口按 Python 中间结果、Java 状态迁移、Go 转换表的顺序更新两个 `v1` 包的资源。每处 `go:embed` 的注释标明了对应的生成步骤。具体输入、产物关系、单步命令和验证方式见[生成工具说明](../third_party/gen_resource/README.md)。
 
 渲染几何与实心表由 [viewer-core 的建表器](../../neomega-viewer-core/viewer-assets/cmd/build-tables/README.md) 生成与分发。

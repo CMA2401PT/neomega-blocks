@@ -12,6 +12,8 @@ python="$module_root/.venv/bin/python"
 "$python" gen_fan_out_mapping.py
 "$python" gen_java_compat.py
 
+(cd ../java-states && go test -tags resourcegen -v -count=1 -run '^TestGenerateJavaStates$' .)
+
 for step in \
     TestStep0ReadBlocksFromPalette \
     TestReadDefaultsReadBlocksConsistency \

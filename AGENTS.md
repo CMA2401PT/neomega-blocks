@@ -12,7 +12,7 @@
 | `storage` | 名称和数值映射的紧凑存储，不负责方块语义。 |
 | `presets/block-converts/v1` | 目标 palette、默认属性、输入映射与 Java 输出。 |
 | `presets/block-converts/specific-converts` | 运行时和生成端共用的特殊语义规则。 |
-| `presets/java/v1` | Java 状态全集、兼容状态与属性查询。 |
+| `presets/java/v1` | 当前 Java 目标的状态全集、兼容状态与属性查询。 |
 | `third_party/gen_resource` | 数据来源、离线生成步骤和固定输入。 |
 | `examples` | 可运行的使用教程，与 README 同步。 |
 
@@ -47,17 +47,25 @@ Canon 只适合处理缺参。它也会删掉目标版本没有的键，而旧�
 
 表加载在地址满足对齐要求时直接引用输入字节；不满足时复制到对齐存储。加载器可能共享输入内存，因此调用者应避免修改输入字节。静态表与前缀树的 dump 含 Go 数字或节点的原生内存布局，生成和使用时应保持兼容的布局与字节序。
 
+## Java 转换版本与状态知识
+
+转换中心 `presets/block-converts/v1` 的 Java 侧为 1.21.4。项目将 PyMCTranslate（Amulet）的 Java 数据使用范围固定到这里，以尊重 Amulet 的许可；converter 按这个版本写存档，由游戏加载时升级。判断转换中心认识的方块名时使用 `block-converts/v1.IsJavaBlock`，其默认属性表合并了各历史版本。
+
+浏览、渲染和 fixer 使用 `presets/java/v1` 的 Java 26.3 状态知识。这里的 `v1` 是预置数据格式修订号，当前 Minecraft 版本由 `JavaTargetVersion` 表达。Mojang 报告提供完整状态、属性域与默认值，含水统一由独立层表达。
+
+历史状态先经 Amulet 兼容映射解释为中心的 1.21.4 状态，再经迁移表解释为当前目标状态。`third_party/gen_resource/java-states/migrate.go` 保存改名与属性改写规则，并在迁移后补齐目标默认值。迁移结果不属于目标全集时，生成步骤报出源状态，维护者据此补规则。运行时通过 `java/v1.NormalizeSingleLayer` 解释中心输出。
+
 ## 转换表从哪里来
 
-离线生成工具保存在 [`third_party/gen_resource`](third_party/gen_resource/README.md)。Python 借助 uv 安装的 PyMCTranslate 生成候选映射，Go 再将它们修正到 NEMC palette 的目标集合，并压缩为运行时表。固定输入跟随脚本保存，中间文件写入各脚本目录下被 Git 忽略的 `tmp/`，最终资源直接写入 `presets` 中消费它们的 Go 包。
+离线生成工具保存在 [`third_party/gen_resource`](third_party/gen_resource/README.md)。Python 借助 uv 安装的 PyMCTranslate 生成候选映射和中心 Java 中间结果。`java-states` 将 Mojang 报告与中心兼容表连接，生成当前目标的 Java 状态资源及中心迁移表。Go 再将候选转换修正到 NEMC palette 的目标集合，并压缩为运行时表。固定输入跟随脚本保存，中间文件写入各脚本目录下被 Git 忽略的 `tmp/`，最终资源直接写入 `presets` 中消费它们的 Go 包。
 
-更新时，在模块根目录执行：
+更新前先按 [Java 状态生成说明](third_party/gen_resource/java-states/README.md) 准备目标版本的 Mojang 报告，再在模块根目录执行：
 
 ```sh
 sh third_party/gen_resource/block-converts/generate.sh
 ```
 
-该入口根据根目录的 `pyproject.toml` 和 `uv.lock` 在 `.venv/` 初始化 Python 3.11 环境，并依次生成默认属性、候选映射、运行时转换表和 Java 状态定义。源码树不再保存 PyMCTranslate；NEMC 的 `custom_appearance` 扩展由生成端的 `pymc_specification.py` 显式补充。
+该入口根据根目录的 `pyproject.toml` 和 `uv.lock` 在 `.venv/` 初始化 Python 3.11 环境，并依次生成默认属性、候选映射、Java 状态资源与迁移表、运行时转换表。PyMCTranslate 安装在该环境中；NEMC 的 `custom_appearance` 扩展由生成端的 `pymc_specification.py` 显式补充。
 
 PyMCTranslate 的来源声明与 Required Notice 见 [third_party/pymctranslate-notices/NOTICE.md](third_party/pymctranslate-notices/NOTICE.md)。输入来源、每张表的生成步骤、更新版本和单步验证方式见[生成工具说明](third_party/gen_resource/README.md)。
 
@@ -69,7 +77,9 @@ PyMCTranslate 的来源声明与 Required Notice 见 [third_party/pymctranslate-
 
 **修正某类方块的语义转换**时，参考 `specific-converts` 中的墙和悬挂告示牌规则。接入运行时入口的同时，也要让生成端识别同一规则，避免把同类转换再次写入表中。测试应覆盖显式属性、缺参补默认值，以及确实可逆的状态往返。
 
-**增加表驱动映射或更新目标版本**时，沿生成工具说明中的准备流程修改数据来源、默认属性和 `outputFix`，重新生成受影响的产物。扩展旧 Schematic 输入则从 `third_party/gen_resource/block-converts/schematic.json` 开始，并使用已有 Java 转入逻辑生成最终索引。
+**更新 Java 状态目标**时，准备新版本的 Mojang 报告，修改 `java/v1.JavaTargetVersion`，补充 `java-states/migrate.go` 中的迁移规则，再重新生成。中心的 Java 版本保持 1.21.4。
+
+**增加表驱动映射或更新转换中心集合**时，沿生成工具说明中的准备流程修改数据来源、默认属性和 `outputFix`，重新生成受影响的产物。扩展旧 Schematic 输入则从 `third_party/gen_resource/block-converts/schematic.json` 开始，并使用已有 Java 转入逻辑生成最终索引。
 
 若只需要自定义查询表，可以单独使用 `storage/blocks-name` 或 `storage/num_lookup`；preset 的全局表没有提供运行时注册接口。
 

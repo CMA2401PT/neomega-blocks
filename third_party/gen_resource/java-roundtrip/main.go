@@ -5,12 +5,14 @@ import (
 	"cmp"
 	"fmt"
 	"maps"
+	"path/filepath"
+	"runtime"
 	"slices"
 	"strings"
 
 	"neomega-blocks/ir"
 	converts "neomega-blocks/presets/block-converts/v1"
-	java "neomega-blocks/presets/java/v1"
+	blockconverts "neomega-blocks/third_party/gen_resource/block-converts"
 )
 
 type propertyStats struct {
@@ -43,7 +45,9 @@ func main() {
 	byName := make(map[string]*blockStats)
 	total, bad, fromFailed, toFailed, renamed, propertyChanged := 0, 0, 0, 0, 0, 0
 	waterloggedStates := 0
-	for input := range java.JavaFullStates() {
+	_, source, _, _ := runtime.Caller(0)
+	statesPath := filepath.Join(filepath.Dir(source), "../block-converts/tmp/hub_java_states.list")
+	for _, input := range blockconverts.ReadJavaStates(statesPath) {
 		input = input.Tidy()
 		if _, exists := input.States().Get("waterlogged"); exists {
 			waterloggedStates++
@@ -126,9 +130,9 @@ func main() {
 
 	fmt.Println("# Java → NEMC → Java 往返差异报告")
 	fmt.Println()
-	fmt.Println("本报告枚举 JavaFullStates()，依次调用 ConvertFromJava 和 ConvertToJava，将原状态和返回状态分别 Tidy 后比较。它反映当前转换链的信息损失或不一致，不能单独证明 Bedrock 本身无法表达，也不能保证所有差异都能由 fixer 恢复。")
+	fmt.Println("本报告枚举转换中心的 hub_java_states.list，依次调用 ConvertFromJava 和 ConvertToJava，将原状态和返回状态分别 Tidy 后比较。它反映当前转换链的信息损失或不一致，不能单独证明 Bedrock 本身无法表达，也不能保证所有差异都能由 fixer 恢复。")
 	fmt.Println()
-	fmt.Printf("输入：presets/java/v1，Java %s；转换：presets/block-converts/v1。\n", java.JavaTargetVersion)
+	fmt.Printf("输入：block-converts/tmp/hub_java_states.list，Java %s；转换：presets/block-converts/v1。\n", converts.JavaTargetVersion)
 	fmt.Println()
 	fmt.Println("在仓库根目录重新生成：")
 	fmt.Println()

@@ -89,7 +89,6 @@ class MappingGeneratorsTest(unittest.TestCase):
             with patch.object(fan_out, "translations", FakeManager(translator)):
                 fan_out.main(
                     tmp_dir=Path(folder) / "tmp",
-                    java_dir=Path(folder) / "java",
                 )
             rows = (Path(folder) / "tmp" / "fan_out_java.mapping").read_text().splitlines()
             allowed = (Path(folder) / "tmp" / "fan_out_java_allowed.list").read_text().splitlines()

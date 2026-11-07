@@ -1,56 +1,67 @@
 # 预置资源的离线生成
 
-这里的工具把上游方块定义和本地 NEMC palette 转换为 Go 运行时使用的预置资源。Python 使用 PyMCTranslate 枚举状态并生成候选映射；Go 依据 NEMC 目标集合和专用规则修正映射，再压缩成查询表。运行时包及其使用约定见 [`presets`](../../presets/README.md)。
+这里的工具把上游方块定义和 NEMC palette 转成运行时预置资源。转换中心以 NEMC 方块集合连接多版本 Bedrock、Java 与旧 Schematic，Java 侧使用 1.21.4。浏览、渲染与 fixer 需要认识当前目标存档，因此独立的 Java 状态知识以 26.3 为目标。运行时包的使用约定见 [`presets`](../../presets/README.md)。
 
-脚本按目的组织：`block-converts` 生成方块转换表及它依赖的 Java 状态定义；`java-roundtrip` 分析已有预置转换的往返差异。脚本所需的固定输入跟随脚本保存，中间文件只写入各自的 `tmp/`。`tmp/` 被 Git 忽略，可删除后重新生成。最终嵌入资源直接写入 `presets` 的对应 Go 包。
+两套 Java 状态通过迁移表连接。迁移表记录中心状态到当前目标状态的名称与属性变化，历史状态则先经 Amulet 兼容映射解释为中心状态。`block-converts` 生成转换中心及其中间结果，`java-states` 连接 Mojang 报告与这些中间结果，`java-roundtrip` 分析转换中心的往返差异。固定输入跟随脚本保存，中间文件写入各自被 Git 忽略的 `tmp/`，最终资源写入 `presets` 的消费包。
 
-## 准备 Python 环境
+## 数据来源与版本分工
 
-模块根目录的 `pyproject.toml` 声明 Python 3.11、PyMCTranslate 1.2.30 和 amulet-nbt 2.1.8；`uv.lock` 固定完整依赖。PyMCTranslate 通过 uv 安装，源码目录不保存在仓库中。
+转换中心使用 PyMCTranslate（Amulet）的跨版本转换数据，Java 数据使用范围固定到 1.21.4，以尊重 Amulet 的许可。converter 按此版本写 Java 存档，游戏打开时自行升级。Bedrock 转换参考为 1.21.50，NEMC 的实际目标集合由 `block_palette.json` 决定。来源声明见 [NOTICE](../pymctranslate-notices/NOTICE.md)。
 
-从 `neomega-blocks` 根目录初始化：
+Java 状态知识来自 Mojang 官方服务端的数据生成器。官方报告列出注册状态、默认状态和属性域。`java/v1.JavaTargetVersion` 选择当前目标，包名里的 `v1` 表示预置数据格式修订号。`java-states` 去掉 `waterlogged` 后生成单层状态，因为含水由独立层表达。
+
+## 准备环境与官方报告
+
+模块根目录的 `pyproject.toml` 声明 Python 3.11、PyMCTranslate 1.2.30 和 amulet-nbt 2.1.8；`uv.lock` 固定依赖。初始化命令在 `neomega-blocks` 根目录执行：
 
 ```sh
 uv sync --locked
 ```
 
-环境创建在 `neomega-blocks/.venv/`，该目录被 Git 忽略。Go 生成步骤读取 Python 导出的默认属性，不依赖上游包内部是 JSON 目录还是压缩数据库。
+环境创建在 `.venv/`。Go 生成步骤读取 Python 导出的默认属性，输入与上游内部存储形式无关。
 
-## block-converts：生成运行时方块资源
+Java 状态生成需要先准备与目标常量一致的报告。在安装了目标游戏版本支持的 Java 运行时后执行：
 
-生成以 `block_palette.json` 定义的 NEMC 方块集合为中心。Bedrock 转换参考为 1.21.50，Java 输出目标为 1.21.4。源版本按从高到低的顺序枚举，相同输入优先保留较高版本的解释。
+```sh
+.venv/bin/python third_party/gen_resource/java-states/prepare-report.py --version 26.3
+```
+
+脚本从 Mojang version manifest 定位版本，下载版本元数据与服务端，运行官方数据生成器，把 `blocks.json` 和服务端内的 `version.json` 放到 `java-states/tmp/`。指定 Java 可执行文件与单步生成的方法见 [java-states 说明](java-states/README.md)。
+
+## block-converts：建立转换中心
+
+生成以 `block_palette.json` 定义的 NEMC 方块集合为中心。源版本从高到低枚举，相同输入优先保留较高版本的解释。
 
 固定输入包括：
 
-- `block_palette.json`：NEMC 的实际方块名、状态、网络哈希和 data value。`read_blocks.go` 将其转换为 tidy IRBlock，并核对网络哈希。
-- `nemc3.7_be1.21.50_block_palette.nbt`：保留的原始 palette 参考文件；当前生成入口读取前面的 JSON。
-- `schematic.json`：旧 Schematic 的 `id:meta` 到 Java 方块文本的映射。
-- uv 安装的 PyMCTranslate：提供各版本的默认属性、合法取值和经 universal 中间表示连接的转换关系。来源声明见 [NOTICE](../pymctranslate-notices/NOTICE.md)。
+- `block_palette.json` 保存实际方块名、状态、网络哈希与 data value。`read_blocks.go` 将其转成 tidy IRBlock，并核对网络哈希。
+- `nemc3.7_be1.21.50_block_palette.nbt` 保存原始 palette 参考；当前入口读取前面的 JSON。
+- `schematic.json` 保存旧 Schematic 的 `id:meta` 到 Java 方块文本的映射。
+- PyMCTranslate 提供默认属性、合法取值与 Universal 转换关系。Universal 是连接各版本方块的中间表示。
 
-NEMC 的工作台、熔炉和点燃熔炉多一个 `custom_appearance` byte 属性。`pymc_specification.py` 在读取 Bedrock 1.21.50 specification 时补上其取值和默认值。这个规则用于枚举和默认属性导出，不改动安装环境中的上游库。
-
-主要代码各自承担这些工作：
+NEMC 的工作台、熔炉和点燃熔炉多一个 `custom_appearance` byte 属性。`pymc_specification.py` 在读取 Bedrock 1.21.50 specification 时补上其取值和默认值，供枚举与默认属性导出使用。
 
 | 入口或代码 | 解决的问题 |
 | --- | --- |
-| `generate.sh` | 初始化 uv 环境，依次运行 Python 和 Go 生成步骤，最后验证预置包。 |
-| `export_defaults.py` | 通过库接口导出各版本默认属性，写入 `tmp/defaults/{platform}_{version}.json`，供 Go 读取。 |
-| `gen_fan_in_mapping.py` | 将各版本 Bedrock、Java 状态转入 Bedrock 参考版本，生成 `tmp/fan_in_bedrock.mapping` 和 `tmp/fan_in_java.mapping`。 |
-| `gen_fan_out_mapping.py` | 生成 `tmp/fan_out_java.mapping`、允许的 Java 状态清单，以及直接写入 `presets/java/v1` 的完整状态全集和属性定义。 |
-| `gen_java_compat.py` | 枚举各版本的完整单层 Java 状态，生成高版本优先的 Java → 1.21.4 兼容映射及诊断报告。 |
-| `step0_read_blocks_test.go`、`step1_read_consistency_test.go` | 建立目标方块集合，并核对 palette 与默认属性的 key 集合。 |
-| `step2_gen_fan_in_test.go` | 修正旧名称和属性差异，裁减可由 Canon 复用的映射，建立 Bedrock 与 Java 转入表。 |
-| `step3_gen_fan_out_test.go` | 建立目标 Bedrock 到 Java 的映射，检查 palette 中的方块均能转出。 |
-| `step4_block_data.go`、`step4_block_data_test.go` | 建立名称、legacy data value 到网络哈希的索引。 |
-| `step5_schematic_test.go` | 经 Java 默认属性与兼容映射对齐历史名称，同时生成旧 Schematic ID/meta 的直接 Java 1.21.4 表和经 Java 转入逻辑连接的 Bedrock 表。 |
-| `test_mapping_generators.py` | 用内存样例检查缺参输入键对应的转换对象始终补齐默认属性。 |
-| `java_assets_test.go` | 可选地核对 palette 的 Java 转出结果能选择到匹配版本的模型资源。 |
+| `generate.sh` | 初始化环境，依次运行 Python 中间结果、Java 状态迁移和 Go 转换表生成，最后验证预置包。 |
+| `export_defaults.py` | 导出各版本默认属性到 `tmp/defaults/{platform}_{version}.json`。 |
+| `gen_fan_in_mapping.py` | 将多版本输入转入参考 Bedrock，写出 `tmp/fan_in_bedrock.mapping` 与 `tmp/fan_in_java.mapping`。 |
+| `gen_fan_out_mapping.py` | 写出转出候选、允许状态和中心完整状态 `tmp/hub_java_states.list`。 |
+| `gen_java_compat.py` | 写出历史 Java → 中心状态的 `tmp/hub_java_compatibility.list` 和诊断报告。 |
+| `hub_java.go` | 读取并整理中心状态与源#目标映射，供原理图、迁移生成和往返分析共用。 |
+| `step0_read_blocks_test.go`、`step1_read_consistency_test.go` | 建立目标集合，并核对 palette 与默认属性的 key 集合。 |
+| `step2_gen_fan_in_test.go` | 修正旧名称与属性，裁减 Canon 可复用的映射；使用迁移表为 Java 转入键补充当前目标形式。 |
+| `step3_gen_fan_out_test.go` | 建立 Bedrock → Java 中心状态的映射，检查 palette 均能转出。 |
+| `step4_block_data.go`、`step4_block_data_test.go` | 建立名称、legacy data value 与网络哈希的索引。 |
+| `step5_schematic_test.go` | 使用中心完整状态与兼容表对齐历史名称，生成直接 Java 1.21.4 表与 Bedrock 转入表。 |
+| `test_mapping_generators.py` | 用内存样例验证缺参输入对应的转换对象会补齐默认属性。 |
+| `java_assets_test.go` | 可选地核对中心 Java 输出与匹配版本的模型资源。 |
 
-Python 可以保留缺参形式作为映射键，但传给 `to_universal` 的对象必须补齐默认属性。脚本中的 `allow_missing` 参数为兼容原调用保留，不改变此行为。运行时由 Canon 补齐默认值，再复用完整状态的转换结果。
+Python 可以保留缺参形式作为映射键，但传给 `to_universal` 的对象必须补齐默认属性。保留的 `allow_missing` 参数不改变此行为。运行时由 Canon 补默认值，再复用完整状态映射。
 
 ### 最终嵌入资源
 
-以下产物与消费它们的 Go 文件放在一起。默认属性的 `.bin` 文件实际保存 JSON，其余 `.bin` 使用各自的紧凑存储格式。
+资源与消费它们的 Go 文件放在一起。默认属性的 `.bin` 实际保存 JSON，其余 `.bin` 使用各自的紧凑格式。
 
 | 最终目录 | 文件 | 生成步骤 |
 | --- | --- | --- |
@@ -62,24 +73,29 @@ Python 可以保留缺参形式作为映射键，但传给 `to_universal` 的对
 | 同上 | `3_to_java.bin` | `TestStep3GenJavaFanout` |
 | 同上 | `4_block_data.bin` | `TestStep4BuildBlockDataByName` |
 | 同上 | `6_schematic_fan_in.bin`、`7_schematic_to_java.json.gz` | `TestSchematic` |
-| `presets/java/v1` | `fan_out_java_full.list`、`java_block_schema.list` | `gen_fan_out_mapping.py` |
-| 同上 | `java_compatibility.list` | `gen_java_compat.py` |
+| `presets/java/v1` | `java_states.list`、`java_block_schema.list`、`java_compatibility.list` | `java-states/TestGenerateJavaStates` |
 
-`*_tidy.mapping` 是 Go 筛选后的诊断映射，仍属于中间文件，保存在 `block-converts/tmp/`。
+`*_tidy.mapping` 是 Go 筛选后的诊断映射，保存在 `block-converts/tmp/`。
 
-### 执行完整生成
+## java-states：连接历史输入与当前目标
 
-需要已安装 uv 和 Go，并从带有现成嵌入资源的仓库开始。Go 生成端会调用预置包；这些包在生成端编译时就需要读取现有嵌入资源。
+生成器按“历史状态 → Amulet 兼容表 → Java 1.21.4 → 迁移表 → Java 26.3”连接状态。目标全集已有的状态直接保留身份。中心状态的改名和属性替换由 `java-states/migrate.go` 定义，迁移后用目标默认状态补齐缺项；迁移结果不属于目标全集时，错误指出需要补规则的源状态。
 
-在模块根目录执行：
+`gen_java_compat.py` 按源版本从高到低选择同一完整状态的解释。需要邻居或方块实体的候选，在能形成合法中心状态时采用默认结果，并写入 `tmp/java_compatibility_report.json` 的 `contextDependent`。报告还记录无法形成合法中心状态的候选及原因。状态兼容用于显示与修复，旧 MCA/NBT 布局的读取仍由存档读取器处理。
+
+用锁定依赖运行下节两个 Python 脚本，输入为 PyMCTranslate 的 Java 历史版本与中心 1.21.4，得到 18,254 个中心状态和 2,062 条中心兼容映射。兼容报告中有 666 个需要上下文的候选，没有被拒绝的候选。`TestGenerateJavaStates` 用这些中间结果和 Mojang 26.3 报告生成 22,398 个单层状态、2,077 条兼容映射与 15 条中心迁移；命令及输入位置见 [java-states 说明](java-states/README.md)。
+
+## 按依赖顺序生成
+
+完整生成需要 uv、Go、预先准备的 Mojang 报告，以及仓库现有的嵌入资源。Go 生成端调用预置包，编译时就需要读取现有资源。在模块根目录运行：
 
 ```sh
 sh third_party/gen_resource/block-converts/generate.sh
 ```
 
-入口脚本可以从其他目录调用，它会先切换到自身目录。生成中遇到失败会停止；检查失败原因后重新运行对应步骤。生成失败可能留下部分更新的资源，提交前应检查产物差异。
+入口可以从其他目录调用。发生错误时脚本停止，生成失败可能留下部分更新的资源，检查原因后可重跑对应步骤。
 
-需要单步检查时，在模块根目录准备 Python 中间文件：
+需要单步生成时，在模块根目录执行 Python 步骤：
 
 ```sh
 .venv/bin/python -m unittest discover -s third_party/gen_resource/block-converts -p test_mapping_generators.py
@@ -89,39 +105,28 @@ sh third_party/gen_resource/block-converts/generate.sh
 .venv/bin/python third_party/gen_resource/block-converts/gen_java_compat.py
 ```
 
-然后进入 `third_party/gen_resource/block-converts`，按最终产物表中从上到下的 Go 步骤逐个执行，例如：
+然后先生成 Java 状态与迁移表：
+
+```sh
+(cd third_party/gen_resource/java-states && go test -tags resourcegen -v -count=1 -run '^TestGenerateJavaStates$' .)
+```
+
+再进入 `third_party/gen_resource/block-converts`，按产物表顺序逐个运行 Go 步骤，例如：
 
 ```sh
 go test -tags resourcegen -v -count=1 -run '^TestStep0ReadBlocksFromPalette$' .
 go test -tags resourcegen -v -count=1 -run '^TestReadDefaultsReadBlocksConsistency$' .
 ```
 
-每个步骤都必须单独启动 `go test`，使后一步重新编译并读取前一步更新的 embed。`-count=1` 保证实际执行生成。写资源的入口使用 `resourcegen` 构建标签，普通 `go test ./...` 和工作区 `check.sh` 不会执行它们。
+每个步骤单独启动 `go test`，使下一步重新编译前一步更新的 embed。`-count=1` 保证执行生成。写资源入口使用 `resourcegen` 标签，普通测试和工作区检查不会执行它们；报告解析与迁移逻辑由普通单元测试覆盖。
 
-更换目标版本时，需要一起核对 Python 脚本中的参考版本、`pymc_specification.py` 的 NEMC 规则、Go 生成步骤中的默认属性版本，以及两个预置包公开的版本常量。palette 与专用转换规则也必须匹配新的目标集合。
+更新 Java 状态目标时，先准备新报告，再修改 `java/v1.JavaTargetVersion`，补迁移规则并重新生成。转换中心的 Java 侧保持 1.21.4。更换中心集合时，需核对 Python 参考版本、NEMC 扩展、默认属性、palette 与专用规则。
 
-## Java 存档的兼容状态
+## java-roundtrip：分析中心状态的往返差异
 
-浏览旧存档时，需要让旧名称和旧属性也能查询目标版本几何。`gen_java_compat.py` 从锁定的 PyMCTranslate 数据库枚举 Java 完整状态，去掉 `waterlogged` 并按属性名排序，再通过源版本 → Universal → Java 1.21.4 得到目标状态。完整源状态按版本从高到低去重，首次出现的解释生效。映射不保存源版本，目标是无冲突时尽力兼容旧输入。
+工具读取 `block-converts/tmp/hub_java_states.list`，执行 Java → NEMC → Java，并将输入输出 Tidy 后比较。报告按方块和属性统计差异，帮助定位转换丢失的信息。差异不能单独证明 Bedrock 无法表达源状态，也不能保证从邻居恢复。
 
-1.21.4 原生状态直接保留身份映射，沿用 `fan_out_java_full.list`。额外映射写入 `presets/java/v1/java_compatibility.list`，每行为 `源 IR#目标 IR`。几何生成器只烘焙目标全集，随后让兼容输入共享目标模型。Go 端再为兼容状态统一展开含水变体，viewer 按现有规则拆层。
-
-只更新这部分时，从 blocks 根目录执行：
-
-```sh
-.venv/bin/python third_party/gen_resource/block-converts/gen_java_compat.py
-(cd ../neomega-viewer-core && go generate ./viewer/resources)
-```
-
-第二条命令使用 viewer-core 的 `viewer-assets/dist/final` 输入。第一条命令还写出 `block-converts/tmp/java_compatibility_report.json`，记录源版本范围、状态数量、拒绝原因和需要上下文的转换。需要邻居或方块实体信息的候选，在能够形成合法目标状态时接受默认结果，并列入 `contextDependent`；这部分属于近似预览。无法形成合法目标状态的候选不写入映射，较低版本也不会覆盖同一输入的高版本解释。
-
-使用锁定依赖执行第一条命令，得到 18,254 个原生状态、2,062 个额外映射，以及其中 666 个需要上下文的候选；没有被拒绝的候选。状态兼容不等于存档格式兼容，读取旧 MCA/NBT 布局仍由存档读取器负责。
-
-## java-roundtrip：生成转换差异报告
-
-`main.go` 枚举 `presets/java/v1.JavaFullStates()`，执行 Java → NEMC → Java，再将输入输出 Tidy 后比较。报告按方块和属性统计差异，帮助定位转换丢失的信息。它不单独证明某个状态无法在 Bedrock 表达，也不保证所有差异都能从邻居恢复。
-
-这个工具读取已经嵌入的预置数据，无需 Python。报告是分析结果，保存到它自己的 `tmp/`。在模块根目录运行：
+先用 `gen_fan_out_mapping.py` 准备中心状态清单，再在模块根目录运行：
 
 ```sh
 mkdir -p third_party/gen_resource/java-roundtrip/tmp
@@ -130,17 +135,17 @@ go run ./third_party/gen_resource/java-roundtrip > third_party/gen_resource/java
 
 ## 验证资源
 
-完整生成入口已包括默认属性解析、data value 索引的导出载入检查和所有预置包测试。日常修改在工作区根目录运行：
+完整入口包括默认属性解析、data value 索引导出载入检查与预置包测试。日常修改在工作区根目录执行：
 
 ```sh
 ./check.sh neomega-blocks
 ```
 
-如需核对 Java 输出与渲染资源，在模块根目录执行：
+核对中心输出的模型选择时，提供与中心 Java 版本一致的资源目录，在模块根目录执行：
 
 ```sh
-NEOMEGA_ASSETS_DIR="$(cd ../neomega-viewer-core/viewer-assets/dist/final && pwd)" \
+NEOMEGA_ASSETS_DIR=/path/to/resources \
   go test -v -count=1 -run '^TestJavaTargetAssets$' ./third_party/gen_resource/block-converts
 ```
 
-该检查读取 `build-info.json` 和 `blockstates.json`，验证目标版本、方块名称和 variant 选择。单层预览以 `waterlogged=false` 补全显示条件；处理存档时仍需结合独立水层确定含水状态。
+检查读取 `build-info.json` 和 `blockstates.json`，验证中心版本、方块名称与 variant 选择。单层选择以 `waterlogged=false` 补全显示条件；存档含水状态仍需结合独立水层确定。面向当前目标的渲染资源应使用 `java/v1` 的版本与状态全集。

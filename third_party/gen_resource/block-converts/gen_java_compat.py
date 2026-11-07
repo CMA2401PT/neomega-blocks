@@ -5,7 +5,7 @@ import json
 
 from amulet_nbt import from_snbt
 from PyMCTranslate.py3.api import Block
-from gen_fan_out_mapping import translations, iter_full_blocks, JAVA_DIR, TMP_DIR
+from gen_fan_out_mapping import translations, iter_full_blocks, TMP_DIR
 
 TARGET_VERSION = (1, 21, 4)
 
@@ -111,6 +111,6 @@ def generate(*, output: Path, report_path: Path) -> dict:
 
 if __name__ == "__main__":
     generate(
-        output=JAVA_DIR / "java_compatibility.list",
+        output=TMP_DIR / "hub_java_compatibility.list",
         report_path=TMP_DIR / "java_compatibility_report.json",
     )

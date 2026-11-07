@@ -115,6 +115,15 @@ func javaNameToDefaultProps(name string) (ir.IRStates, bool) {
 	return props, ok
 }
 
+func IsJavaBlock(name string) bool {
+	// 转换中心的默认属性合并了各 Java 版本，可用于判断转换范围内的方块名称。
+	if !strings.Contains(name, ":") {
+		name = "minecraft:" + name
+	}
+	_, ok := javaNameToDefaultProps(name)
+	return ok
+}
+
 // JavaCanon 标准化 Java 的方块，根据记录删除不应该存在的key，并填补缺失的 key
 // 如果失败则返回原值
 func JavaCanon(blk ir.IRBlock) (ir.IRBlock, bool) {

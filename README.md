@@ -1,14 +1,12 @@
 # neomega-blocks
 
-本地研究扩展：新增独立的 [Java 26.3 预设](presets/java/v26_3/README.md)，使用官方 Java 状态报告与 Geyser 映射。调用 `v26_3.Open()` 获取明确版本的目录；`go run ./examples/java26` 可验证。原 `v1` 数据、目标版本和下文所述行为保持原样。新流程见 `third_party/gen_resource/geyser`，来源声明见 `third_party/geyser-notices/NOTICE.md`。
-
 `neomega-blocks` 用来描述、查找和转换 Minecraft 方块。不同版本可能使用不同的方块名、属性名和属性值；旧格式还可能只给出数字 ID 与附加值。这个库把这些输入转换到一套确定的 NEMC/Bedrock 方块集合，并提供向 Java 方块的输出转换。
 
 项目分为两个相互配合的部分：**运行时读取已经准备好的转换表；离线工具负责生成、修正和验证这些表。** `ir`、`storage` 和 `encode-decode` 提供通用逻辑；`presets` 提供选定版本的数据与规则；`third_party` 保存离线生成工具和来源声明。使用现成 preset 时只需调用 Go 接口。各包能力和 IRBlock 的 Tidy 约定见 [presets/README.md](presets/README.md)。
 
 模型、几何和渲染资源由 [neomega-viewer-core](../neomega-viewer-core/README.md) 管理。
 
-直接浏览 Java 存档时，`presets/java/v1` 另提供旧 Java 状态到 1.21.4 的兼容映射。它由 PyMCTranslate 的 Universal 表示连接源状态与目标状态，高版本解释优先，运行时不带源版本。几何生成器让兼容输入共享目标状态的形状；含水仍由 viewer 单独拆层。使用方式见 [Java preset 说明](presets/README.md)。
+浏览、渲染和 fixer（按方块状态修复属性的工具）需要认识当前目标版本的存档，因此 `presets/java/v1` 提供 Java 26.3 的状态全集、属性域、默认值与历史状态兼容映射。`v1` 表示预置数据格式的修订号。转换中心的 Java 侧与状态知识使用各自的版本常量，通过离线生成的迁移表连接。使用方式见 [Java preset 说明](presets/README.md)。
 
 ## 为什么要有一个转换中心
 
@@ -16,12 +14,20 @@
 
 ```text
 其他版本的 Bedrock ─┐
-Java 方块 ─────────┼─→ preset 的 NEMC/Bedrock 方块集合 ─→ Java 方块
+Java 方块 ─────────┼─→ preset 的 NEMC/Bedrock 方块集合 ─→ Java 1.21.4
 旧 Schematic ID ───┘                ↕
                            网络哈希、名称与 data value
 ```
 
-这里的“当前方块集合”由 preset 的数据决定，不是运行时检测出来的游戏版本。生成脚本以 Bedrock `1.21.50` 为转换参考，Java 输出目标为 `1.21.4`。运行时可通过 `v1.JavaTargetVersion` 和 `v1.BedrockTargetVersion` 查询预设目标；渲染资源应与 Java 目标一致。实际可用的 NEMC 方块由输入的 `block_palette.json` 决定。
+转换中心的目标集合由 NEMC 的 `block_palette.json` 决定，Bedrock 转换参考为 1.21.50。中心使用 PyMCTranslate（Amulet）的版本转换数据，Java 数据的使用范围固定到 1.21.4，以尊重 Amulet 的许可。converter 也按 Java 1.21.4 格式写存档，游戏打开时自行升级。`block-converts/v1.JavaTargetVersion` 和 `BedrockTargetVersion` 分别公开这两个版本。
+
+Java 状态知识来自 Mojang 官方报告，`java/v1.JavaTargetVersion` 为 26.3，渲染资源应与这个目标匹配。迁移表记录中心状态到目标状态的名称和属性变化，运行时通过 `java/v1.NormalizeSingleLayer` 解释转换中心的输出。历史输入先经 Amulet 兼容映射解释为 1.21.4，再经迁移表解释为 26.3：
+
+```text
+历史 Java 状态 → Amulet 兼容映射 → Java 1.21.4 状态 → 迁移表 → Java 26.3 状态
+```
+
+生成器补齐目标默认属性，并要求迁移结果属于目标全集。这样更新 Java 状态知识时，转换中心仍可保持原有存档输出格式。
 
 转换通常不能保证可逆。不同源方块可能归到同一个目标方块，某些源属性也没有对应的目标属性。例如，NEMC 的 `micro_block` 在 Java 输出表中被映射为 `air`。
 

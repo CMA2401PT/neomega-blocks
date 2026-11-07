@@ -520,6 +520,18 @@ func TestStep2_3_GenJavaFanin(t *testing.T) {
 		}
 	}
 
+	// 为中心状态的每个转入键保留含水属性，追加等价的当前目标版本形式。
+	migration := ReadJavaMappings("../java-states/tmp/hub_to_target.mapping")
+	for _, pair := range tidyPairs {
+		dry := ir.IRBlock(pair.In.NameWithNameSpace() + " " + string(pair.In.States().Delete("waterlogged"))).Tidy()
+		if target, ok := migration[dry]; ok {
+			if waterlogged, exists := pair.In.States().Get("waterlogged"); exists {
+				target = ir.IRBlock(target.NameWithNameSpace() + " " + string(target.States().Set("waterlogged", waterlogged))).Tidy()
+			}
+			tidyPairs = append(tidyPairs, MappingPair{In: target, Out: pair.Out})
+		}
+	}
+
 	fmt.Println(len(fullPairs))
 	fmt.Printf("skip %v pairs because cannon, skip %v pairs because direct, %v (%v non cannon) remaining\n", ignorePairs, directConvert, len(tidyPairs), nonCannonPairs)
 	outStr := ""
