@@ -72,12 +72,12 @@ func TestJavaFullStates(t *testing.T) {
 	}
 }
 
-func TestLegacyStateMigration(t *testing.T) {
-	// 完整旧状态先按转换中心解释，再迁移名称和属性，含水仍由独立层表达。
+func TestLegacyStateCompatibility(t *testing.T) {
+	// 历史完整状态直接按 PyMCTranslate 解释为目标状态，含水由独立层表达。
 	for source, want := range map[ir.IRBlock]ir.IRBlock{
 		`minecraft:chain ["axis"="y"]`:                                             `minecraft:iron_chain ["axis"="y"]`,
 		`minecraft:creaking_heart ["active"="true","axis"="x","natural"="true"]`:   `minecraft:creaking_heart ["axis"="x","creaking_heart_state"="awake","natural"="true"]`,
-		`minecraft:creaking_heart ["active"="false","axis"="z","natural"="false"]`: `minecraft:creaking_heart ["axis"="z","creaking_heart_state"="uprooted","natural"="false"]`,
+		`minecraft:creaking_heart ["active"="false","axis"="z","natural"="false"]`: `minecraft:creaking_heart ["axis"="z","creaking_heart_state"="dormant","natural"="false"]`,
 	} {
 		if got, ok := java.NormalizeSingleLayer(source); !ok || got != want {
 			t.Fatalf("%s → %s (%v)，期望 %s", source, got, ok, want)
@@ -93,7 +93,7 @@ func TestLegacyStateMigration(t *testing.T) {
 }
 
 func TestTargetBlockProperties(t *testing.T) {
-	// 浏览与 fixer 使用当前目标的属性域，不能局限于转换中心认识的方块。
+	// 浏览、fixer 与转换中心共用目标属性域。
 	properties, ok := java.BlockProperties("minecraft:copper_chest")
 	if !ok || properties["facing"].Default != `"north"` {
 		t.Fatalf("copper_chest 属性 = %v (%v)", properties, ok)

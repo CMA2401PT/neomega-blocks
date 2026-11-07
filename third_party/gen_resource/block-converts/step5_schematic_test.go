@@ -7,6 +7,7 @@ import (
 	"encoding/json"
 	"neomega-blocks/ir"
 	v1 "neomega-blocks/presets/block-converts/v1"
+	java "neomega-blocks/presets/java/v1"
 	"neomega-blocks/storage/num_lookup"
 	"os"
 	"path/filepath"
@@ -32,10 +33,6 @@ func TestSchematic(t *testing.T) {
 		panic(err)
 	}
 
-	hubTargets := ReadJavaMappings("tmp/hub_java_compatibility.list")
-	for _, state := range ReadJavaStates("tmp/hub_java_states.list") {
-		hubTargets[state] = state
-	}
 	javaMapping := make(map[string]string, len(schematicData))
 	lookup := num_lookup.NewTwoLayerNumMap[uint32, uint32]()
 	for schematicIDStr, javaStr := range schematicData {
@@ -50,7 +47,7 @@ func TestSchematic(t *testing.T) {
 			t.Fatalf("Java defaults missing: %s", blk)
 		}
 		singleLayer := ir.IRBlock(canonical.NameWithNameSpace() + " " + string(canonical.States().Delete("waterlogged"))).Tidy()
-		target, ok := hubTargets[singleLayer]
+		target, ok := java.NormalizeSingleLayer(singleLayer)
 		if !ok {
 			t.Fatalf("Java target missing: %s", canonical)
 		}

@@ -24,14 +24,16 @@ class FakeTranslator:
             "defaults": {"a": '"default"', "b": "0"},
         }
 
-    def to_universal(self, block: Block):
+    def to_universal(self, block: Block, *, force_blockstate: bool):
+        assert force_blockstate
         # An incomplete input here would permit the unwanted fallback path.
         if set(block.properties) != {"a", "b"}:
             raise AssertionError(f"incomplete translation input: {block}")
         self.converted += 1
         return block, None, False
 
-    def from_universal(self, block: Block):
+    def from_universal(self, block: Block, *, force_blockstate: bool):
+        assert force_blockstate
         return block, None, False
 
 
@@ -89,12 +91,37 @@ class MappingGeneratorsTest(unittest.TestCase):
             with patch.object(fan_out, "translations", FakeManager(translator)):
                 fan_out.main(
                     tmp_dir=Path(folder) / "tmp",
+                    java_dir=Path(folder) / "java",
                 )
             rows = (Path(folder) / "tmp" / "fan_out_java.mapping").read_text().splitlines()
             allowed = (Path(folder) / "tmp" / "fan_out_java_allowed.list").read_text().splitlines()
         self.assertEqual(translator.converted, 9)
         self.assertEqual(len(allowed), 9)
         self.assertTrue(any(row.startswith("minecraft:example []#") for row in rows))
+
+    def test_legacy_blockstates_preserve_properties(self) -> None:
+        # 数字 ID 时代的 schema 必须与转换使用同一选项，才能保留颜色和朝向。
+        target = fan_in.translations.get_version("bedrock", fan_in.BEDROCK_VERSION).block
+        source = fan_in.translations.get_version("java", (1, 12, 2)).block
+        samples: list[tuple[Block, str]] = [
+            (
+                Block("minecraft", "carpet", {"color": StringTag("black")}),
+                "minecraft:black_carpet []",
+            ),
+            (
+                Block(
+                    "minecraft",
+                    "observer",
+                    {"facing": StringTag("east"), "powered": StringTag("true")},
+                ),
+                'minecraft:observer ["minecraft:facing_direction"="east","powered_bit"=true]',
+            ),
+        ]
+        for block, expected in samples:
+            universal, _, _ = source.to_universal(block, force_blockstate=True)
+            result, _, _ = target.from_universal(universal, force_blockstate=True)
+            self.assertEqual(fan_in.block_to_blockstr(result), expected)
+
 
 
 class JavaCompatibilityTest(unittest.TestCase):
@@ -147,11 +174,27 @@ class JavaCompatibilityTest(unittest.TestCase):
         self.assertTrue(high.assert_dry)
         self.assertEqual(low.calls, 0)
 
-    def test_real_grass_and_wall_translate_to_target_java(self) -> None:
+    def test_real_legacy_states_translate_to_target_java(self) -> None:
+        # 告示牌的旧实体默认值不能阻断纯方块状态兼容，墙的旧属性也应保留。
         import gen_java_compat as compat
         target = compat.translations.get_version("java", compat.TARGET_VERSION).block
         samples = [
             ((1, 20, 1), Block("minecraft", "grass"), "minecraft:short_grass []"),
+            (
+                (1, 13, 2),
+                Block("minecraft", "sign", {"rotation": StringTag("7")}),
+                'minecraft:oak_sign ["rotation"="7"]',
+            ),
+            (
+                (1, 13, 2),
+                Block("minecraft", "wall_sign", {"facing": StringTag("east")}),
+                'minecraft:oak_wall_sign ["facing"="east"]',
+            ),
+            (
+                (1, 12, 2),
+                Block("minecraft", "standing_sign", {"rotation": StringTag("7")}),
+                'minecraft:oak_sign ["rotation"="7"]',
+            ),
             ((1, 15, 2), Block("minecraft", "cobblestone_wall", {
                 "north": StringTag("true"), "east": StringTag("false"),
                 "south": StringTag("false"), "west": StringTag("false"), "up": StringTag("true"),
@@ -159,7 +202,12 @@ class JavaCompatibilityTest(unittest.TestCase):
         ]
         for version, block, expected in samples:
             source = compat.translations.get_version("java", version).block
-            actual, _ = compat.translate_state(source=source, target=target, block=block, native={expected})
+            actual, _ = compat.translate_state(
+                source=source,
+                target=target,
+                block=block,
+                native={expected},
+            )
             self.assertEqual(actual, expected)
 
 

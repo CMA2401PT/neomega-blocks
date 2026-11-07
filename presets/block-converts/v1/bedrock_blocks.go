@@ -12,8 +12,8 @@ import (
 	"sync"
 )
 
-// 目标 palette 的网络哈希、方块和 data value，由 third_party/gen_resource/block-converts/step0_read_blocks_test.go
-// 中的 TestStep0ReadBlocksFromPalette 生成。
+// 目标 Bedrock 全集的网络哈希与方块，由 third_party/gen_resource/block-converts/step0_read_blocks_test.go
+// 中的 TestStep0ReadBedrockStates 生成。
 // 在模块根目录运行 sh third_party/gen_resource/block-converts/generate.sh，按依赖顺序更新资源。
 //
 //go:embed 0_bedrock_blocks.bin
@@ -33,12 +33,23 @@ var data1BedrockDefaultPropsBytes []uint8
 //go:embed 4_block_data.bin
 var data4BlockDataBytes []uint8
 
-var nemcBedrockNameStorage *blocks_name.BlockNameStorage[uint16]
-var nemcBedrockNameStorageLoaded sync.Once
-var nemcBedrockDefaultProps map[string]ir.IRStates
-var nemcBedrockDefaultPropsLoaded sync.Once
-var nemcBedrockDataValueToHash map[string][]uint32
-var nemcBedrockDataValueToHashLoaded sync.Once
+// 旧物品 aux 指向的方块来自历史 palette（block_palette.json），与目标全集分开存放，
+// 这样目标版本升级时旧 aux 仍能查到原来的状态。
+// 由 third_party/gen_resource/block-converts/step4_block_data_test.go 中的 TestStep4BuildBlockDataByName 生成。
+//
+//go:embed 5_legacy_blocks.bin
+var dataLegacyBlocks []byte
+
+var legacyBlocks = sync.OnceValue(func() *blocks_name.BlockNameStorage[uint16] {
+	return blocks_name.LoadBlockNameStorage[uint16](dataLegacyBlocks)
+})
+
+var bedrockNameStorage *blocks_name.BlockNameStorage[uint16]
+var bedrockNameStorageLoaded sync.Once
+var bedrockDefaultProps map[string]ir.IRStates
+var bedrockDefaultPropsLoaded sync.Once
+var bedrockDataValueToHash map[string][]uint32
+var bedrockDataValueToHashLoaded sync.Once
 
 //	func GetInstance() *Singleton {
 //		once.Do(func() {
@@ -46,48 +57,47 @@ var nemcBedrockDataValueToHashLoaded sync.Once
 //		})
 //		return instance
 //	}
-func loadNemcBedrockNameStorage() {
+func loadBedrockNameStorage() {
 	// ensure load only once
-	nemcBedrockNameStorageLoaded.Do(func() {
-		nemcBedrockNameStorage = blocks_name.LoadBlockNameStorage[uint16](data0BedrockBlocksBytes)
+	bedrockNameStorageLoaded.Do(func() {
+		bedrockNameStorage = blocks_name.LoadBlockNameStorage[uint16](data0BedrockBlocksBytes)
 	})
 }
 
-func loadNemcBedrockDefaultProps() {
-	nemcBedrockDefaultPropsLoaded.Do(func() {
+func loadBedrockDefaultProps() {
+	bedrockDefaultPropsLoaded.Do(func() {
 		var defaults map[string]ir.IRStates
 		if err := json.Unmarshal(data1BedrockDefaultPropsBytes, &defaults); err != nil {
 			panic(err)
 		}
-		nemcBedrockDefaultProps = defaults
+		bedrockDefaultProps = defaults
 	})
 }
 
-func loadNemcBedrockDataValueToHash() {
-	nemcBedrockDataValueToHashLoaded.Do(func() {
+func loadBedrockDataValueToHash() {
+	bedrockDataValueToHashLoaded.Do(func() {
 		loaded, err := loadStep4Storage(data4BlockDataBytes)
 		if err != nil {
 			panic(err)
 		}
-		nemcBedrockDataValueToHash = loaded
+		bedrockDataValueToHash = loaded
 	})
 }
 
 func HasBedrockBlockHash(hash uint32) bool {
-	loadNemcBedrockNameStorage()
-	return nemcBedrockNameStorage.Has(blocks_name.BlockHash(hash))
+	loadBedrockNameStorage()
+	return bedrockNameStorage.Has(blocks_name.BlockHash(hash))
 }
 
-// 从 NEMC 的 hash 映射到 方块，必须保证 hash 在 NEMC 的表中存在
+// BedrockHashToBlockStrict 只查询目标 Bedrock 全集中的状态。
 func BedrockHashToBlockStrict(hash uint32) (ir.IRBlock, bool) {
-	loadNemcBedrockNameStorage()
-	return nemcBedrockNameStorage.Get(blocks_name.BlockHash(hash))
+	loadBedrockNameStorage()
+	return bedrockNameStorage.Get(blocks_name.BlockHash(hash))
 }
 
-// 从 NEMC 的 hash 映射到 数据值
+// BedrockHashToBlockData 查询历史 palette 中的名称与 data value。
 func BedrockHashToBlockData(hash uint32) (string, uint16, bool) {
-	loadNemcBedrockNameStorage()
-	return nemcBedrockNameStorage.GetExtraValue(blocks_name.BlockHash(hash))
+	return legacyBlocks().GetExtraValue(blocks_name.BlockHash(hash))
 }
 
 // BedrockDataValueToHash 将 legacy data value 映射到 hash。
@@ -100,8 +110,8 @@ func BedrockDataValueToHash(name string, value uint32) (hash uint32, ok bool) {
 	if !strings.Contains(name, ":") {
 		name = "minecraft:" + name
 	}
-	loadNemcBedrockDataValueToHash()
-	arr, ok := nemcBedrockDataValueToHash[name]
+	loadBedrockDataValueToHash()
+	arr, ok := bedrockDataValueToHash[name]
 	if !ok {
 		return 0, false
 	}
@@ -129,13 +139,13 @@ func BedrockDataValueToBlock(name string, value uint32) (block ir.IRBlock, ok bo
 	if !ok {
 		return ir.IRBlock("minecraft:unknown []"), false
 	}
-	return BedrockHashToBlockStrict(hash)
+	return legacyBlocks().Get(blocks_name.BlockHash(hash))
 }
 
 // 通过方块名（含命名空间）获取默认属性。
-func nemcBedrockNameToDefaultProps(name string) (ir.IRStates, bool) {
-	loadNemcBedrockDefaultProps()
-	props, ok := nemcBedrockDefaultProps[name]
+func bedrockNameToDefaultProps(name string) (ir.IRStates, bool) {
+	loadBedrockDefaultProps()
+	props, ok := bedrockDefaultProps[name]
 	return props, ok
 }
 
@@ -143,7 +153,7 @@ func nemcBedrockNameToDefaultProps(name string) (ir.IRStates, bool) {
 // 如果失败则返回原值
 func BedrockCanon(blk ir.IRBlock) (ir.IRBlock, bool) {
 	blk = blk.Tidy()
-	props, ok := nemcBedrockNameToDefaultProps(blk.NameWithNameSpace())
+	props, ok := bedrockNameToDefaultProps(blk.NameWithNameSpace())
 	if !ok {
 		return blk, false
 	}
@@ -198,10 +208,10 @@ func loadStep4Storage(data []byte) (map[string][]uint32, error) {
 // BedrockBlocks iterates the preset's actual ID space without exposing its
 // compact storage. IDs are network hashes; no new viewer-specific IDs are made.
 func BedrockBlocks() iter.Seq2[uint32, ir.IRBlock] {
-	loadNemcBedrockNameStorage()
+	loadBedrockNameStorage()
 	return func(yield func(uint32, ir.IRBlock) bool) {
-		for hash := range nemcBedrockNameStorage.NumLookup.All() {
-			block, ok := nemcBedrockNameStorage.Get(hash)
+		for hash := range bedrockNameStorage.NumLookup.All() {
+			block, ok := bedrockNameStorage.Get(hash)
 			if ok && !yield(uint32(hash), block) {
 				return
 			}

@@ -3,69 +3,21 @@
 package blockconverts
 
 import (
-	"fmt"
 	"os"
-	"path/filepath"
-	"runtime"
 	"testing"
 
 	blocks_name "neomega-blocks/storage/blocks-name"
 )
 
-// 从 NEMC 的 block_palette.json 中读取所有方块的状态，并保存到 0_bedrock_blocks.bin
-func TestStep0ReadBlocksFromPalette(t *testing.T) {
-	_, cur, _, ok := runtime.Caller(0)
-	if !ok {
-		t.Fatal("runtime.Caller failed")
-	}
-	palettePath := filepath.Join(filepath.Dir(cur), "block_palette.json")
-
-	blocks := ReadBlocks(palettePath)
-	if len(blocks) < 1000 {
-		t.Fatalf("unexpected small block count: got %d", len(blocks))
-	}
-
+func TestStep0ReadBedrockStates(t *testing.T) {
+	// 状态全集取自目标 specification，网络哈希由保留 NBT 类型的 IR 计算。
+	blocks := ReadStates("tmp/bedrock_states.list")
 	storage := blocks_name.NewBlockNameStorage[uint16]()
-	for _, b := range blocks {
-		storage.Set(b.IRBlock)
-		storage.SetExtraValue(blocks_name.BlockHash(b.IRBlock.Hash()), uint16(b.Data))
+	for _, block := range blocks {
+		storage.Set(block)
 	}
-
-	for _, b := range blocks {
-		got, ok := storage.Get(blocks_name.BlockHash(b.IRBlock.Hash()))
-		if !ok {
-			t.Fatalf("storage.Get(%q hash) found = false", b.IRBlock)
-		}
-		if got != b.IRBlock {
-			t.Fatalf("storage.Get(%q hash) = %q, want %q", b.IRBlock, got, b.IRBlock)
-		}
-	}
-
-	dumped := storage.Dump()
-	loaded := blocks_name.LoadBlockNameStorage[uint16](dumped)
-
-	for _, b := range blocks {
-		got, ok := loaded.Get(blocks_name.BlockHash(b.IRBlock.Hash()))
-		if !ok {
-			t.Fatalf("loaded.Get(%q hash) found = false", b.IRBlock)
-		}
-		if got != b.IRBlock {
-			t.Fatalf("loaded.Get(%q hash) = %q, want %q", b.IRBlock, got, b.IRBlock)
-		}
-		name, data, ok := loaded.GetExtraValue(blocks_name.BlockHash(b.IRBlock.Hash()))
-		if name != b.IRBlock.NameWithNameSpace() || data != uint16(b.Data) || !ok {
-			t.Fatalf("loaded.Get(%q data) = %q, want %q", b.IRBlock, data, b.Data)
-		}
-	}
-	fmt.Printf("%v MiB\n", float32(len(storage.Dump()))/(1<<20))
-	if err := os.WriteFile("../../../presets/block-converts/v1/0_bedrock_blocks.bin", storage.Dump(), 0644); err != nil {
+	if err := os.WriteFile("../../../presets/block-converts/v1/0_bedrock_blocks.bin", storage.Dump(), 0o644); err != nil {
 		t.Fatal(err)
 	}
-
-	outNames := []uint8{}
-	for _, b := range blocks {
-		outNames = append(outNames, []uint8(b.IRBlock)...)
-	}
-	fmt.Printf("%v MiB\n", float32(len(outNames))/(1<<20))
-	// 调试导出应写入 tmp/。
+	t.Logf("Bedrock states=%d", len(blocks))
 }

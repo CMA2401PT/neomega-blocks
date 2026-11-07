@@ -40,7 +40,7 @@ dependencies = [
 [package.metadata]
 requires-dist = [
     { name = "amulet-nbt", specifier = "==2.1.8" },
-    { name = "pymctranslate", specifier = "==1.2.30" },
+    { name = "pymctranslate", specifier = "==1.2.53" },
 ]
 
 [[package]]
@@ -61,13 +61,13 @@ wheels = [
 
 [[package]]
 name = "pymctranslate"
-version = "1.2.30"
+version = "1.2.53"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "amulet-nbt" },
     { name = "numpy" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/cc/88/821fbcb5b20170822c4b994fcd211e48796c158835ee1825719ee8a637a9/pymctranslate-1.2.30.tar.gz", hash = "sha256:a2c1a3c6e8372ae37c84390d0eb0b4a2cfc1ec4554b0bfac3faa137da1b76014", size = 12580504, upload-time = "2024-12-05T13:30:32.269Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/d0/99/af3b70fc3c1b425fcf8d7b9d14b0bdf1e2b899073c788f5b8e516e959760/pymctranslate-1.2.53.tar.gz", hash = "sha256:8e684b7b9659c3a11e19ddc2ed32046ae2c824ae1a43eb6e18667ec3ff280ff1", size = 18920471, upload-time = "2026-10-30T18:05:01.768Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/67/fb/2941ba12067abbf35dde282038bc8d78e757dda15dd3c78facc74f40dcff/PyMCTranslate-1.2.30-py3-none-any.whl", hash = "sha256:ea2fc9842f3efe2b8a914a5d02ef9b2ee82eca38c44437fc46edab50a1acf021", size = 1207631, upload-time = "2024-12-05T13:30:30.139Z" },
+    { url = "https://files.pythonhosted.org/packages/d8/25/92cbcfb838662f214ac56253760f86ea20cbc86274bd14675ede7daf5b9c/pymctranslate-1.2.53-py3-none-any.whl", hash = "sha256:79c7351b59ad8566c472160854b4b234209ddf1c46eba3aee851850292af5f60", size = 1703835, upload-time = "2026-10-30T18:05:00.037Z" },
 ]

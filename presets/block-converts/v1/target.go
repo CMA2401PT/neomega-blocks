@@ -1,11 +1,10 @@
 package v1
 
+import java "neomega-blocks/presets/java/v1"
+
 // JavaTargetVersion is the Java state schema produced by this preset.
 // Consumers should load a matching resource bundle.
-// 转换中心将 Amulet 的 Java 数据使用范围固定到 1.21.4，converter 按此版本写存档。
-// 浏览、渲染或 fixer 需要当前目标状态时，调用 java/v1.NormalizeSingleLayer。
-const JavaTargetVersion = "1.21.4"
+const JavaTargetVersion = java.JavaTargetVersion
 
-// BedrockTargetVersion is the translation reference. The NEMC palette defines
-// the actual set of block hashes, including its platform-specific extensions.
-const BedrockTargetVersion = "1.21.50"
+// BedrockTargetVersion 是目标状态全集与转换表共同使用的国际版版本。
+const BedrockTargetVersion = "26.60"

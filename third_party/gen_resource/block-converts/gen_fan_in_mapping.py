@@ -3,7 +3,7 @@ from typing import Dict, Iterator, List, Set, Tuple, cast
 import PyMCTranslate
 from amulet_nbt import ByteTag,IntTag,StringTag
 from PyMCTranslate.py3.api import Block
-from pymc_specification import get_specification
+from target_versions import BEDROCK_VERSION
 
 
 TMP_DIR = Path(__file__).resolve().parent / "tmp"
@@ -61,7 +61,7 @@ def block_to_blockstr(block:Block)->str:
         else:
             assert isinstance(prop,StringTag)
             return prop.to_snbt()
-    prop_strings=[f'"{k}"={cast_prop(v)}' for k,v in props.items()]
+    prop_strings=[f'"{k}"={cast_prop(v)}' for k,v in sorted(props.items())]
     return f"{name} [{','.join(prop_strings)}]"
 
 def all_blocks(platform_name:str,version:Tuple[int,...],allow_missing:bool=True):
@@ -72,11 +72,10 @@ def all_blocks(platform_name:str,version:Tuple[int,...],allow_missing:bool=True)
     def iter_blocks()->Iterator[Tuple[Block,Block]]:
         block_names=block_translator.base_names("minecraft",force_blockstate=True)
         for block_name in block_names:
-            block_specification = get_specification(
-                translator=block_translator,
-                platform=platform_name,
-                version=version,
-                name=block_name,
+            block_specification = block_translator.get_specification(
+                namespace="minecraft",
+                base_name=block_name,
+                force_blockstate=True,
             )
             properties: Dict[str, List[str]] = cast(Dict[str,List[str]],block_specification.get("properties", {}))
             defaults: Dict[str, str]=cast(Dict[str,str],block_specification.get("defaults",{}))
@@ -95,7 +94,7 @@ def all_blocks(platform_name:str,version:Tuple[int,...],allow_missing:bool=True)
 def gen_fan_in(output_file:str | Path,platform:str,output_translator:PyMCTranslate.BlockTranslator,allow_missing:bool=True):
     exist:Set[str]=set()
     with open(output_file,"w") as f:
-        for version_number in translations.version_numbers(platform)[::-1]:
+        for version_number in sorted(translations.version_numbers(platform), reverse=True):
             # for blocks like stone, hanging sign, newer version could have more correct mapping than older version
             print(version_number)
             translater,block_iter=all_blocks(platform,version_number,allow_missing)
@@ -104,8 +103,14 @@ def gen_fan_in(output_file:str | Path,platform:str,output_translator:PyMCTransla
                 if blk_str in exist:
                     continue
                 exist.add(blk_str)
-                uni_block=translater.to_universal(block_with_default)[0]
-                out_block=output_translator.from_universal(uni_block)[0]
+                uni_block=translater.to_universal(
+                    block_with_default,
+                    force_blockstate=True,
+                )[0]
+                out_block=output_translator.from_universal(
+                    uni_block,
+                    force_blockstate=True,
+                )[0]
                 out_str=block_to_blockstr(out_block)
                 f.write(f"{blk_str}#{out_str}\n")
 
@@ -113,12 +118,12 @@ def main() -> None:
     TMP_DIR.mkdir(parents=True, exist_ok=True)
     platform="bedrock"
     output_file=TMP_DIR / f"fan_in_{platform}.mapping"
-    output_translator: PyMCTranslate.BlockTranslator=translations.get_version("bedrock",(1,21,50)).block
+    output_translator: PyMCTranslate.BlockTranslator=translations.get_version("bedrock",BEDROCK_VERSION).block
     gen_fan_in(output_file,platform,output_translator,allow_missing=False)
 
     platform="java"
     output_file=TMP_DIR / f"fan_in_{platform}.mapping"
-    output_translator: PyMCTranslate.BlockTranslator=translations.get_version("bedrock",(1,21,50)).block
+    output_translator: PyMCTranslate.BlockTranslator=translations.get_version("bedrock",BEDROCK_VERSION).block
     gen_fan_in(output_file,platform,output_translator,allow_missing=False)
 
 

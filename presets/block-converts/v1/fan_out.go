@@ -53,8 +53,7 @@ func ConvertToJava(bedrock ir.IRBlock) (javaBlock ir.IRBlock, ok bool) {
 	if javaBlock, ok = bedrockHangingSignDirectConvert(bedrock); ok {
 		return javaBlock, true
 	}
-	// The target palette can contain explicit mappings without a vanilla default
-	// specification (for example NEMC micro_block). Preserve those exact entries.
+	// 完整目标状态直接查表；缺参输入再补齐默认属性。
 	loadToJavaNameStorage()
 	if javaBlock, ok = toJavaNameStorage.Get(blocks_name.BlockHash(bedrock.Hash())); ok {
 		return javaBlock, true

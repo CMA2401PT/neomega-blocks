@@ -42,12 +42,14 @@ func TestJavaTargetAssets(t *testing.T) {
 	if err := json.Unmarshal(data, &states); err != nil {
 		t.Fatal(err)
 	}
-	palette := ReadBlocks("block_palette.json")
+	palette := presets.BedrockBlocks()
+	count := 0
 	names := map[string]bool{}
 	for _, block := range palette {
-		source, ok := presets.BedrockHashToBlockStrict(block.IRBlock.Hash())
+		count++
+		source, ok := presets.BedrockHashToBlockStrict(block.Hash())
 		if !ok {
-			t.Fatalf("palette hash missing: %s", block.IRBlock)
+			t.Fatalf("palette hash missing: %s", block)
 		}
 		java, ok := presets.ConvertToJava(source)
 		if !ok {
@@ -90,5 +92,5 @@ func TestJavaTargetAssets(t *testing.T) {
 			t.Fatalf("converted state matches no variant: %s -> %s", source, java)
 		}
 	}
-	t.Logf("checked %d palette states, %d Java block names against resources %s", len(palette), len(names), info.Version)
+	t.Logf("checked %d palette states, %d Java block names against resources %s", count, len(names), info.Version)
 }

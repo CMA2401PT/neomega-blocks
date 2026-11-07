@@ -5,9 +5,9 @@ import json
 
 from amulet_nbt import from_snbt
 from PyMCTranslate.py3.api import Block
-from gen_fan_out_mapping import translations, iter_full_blocks, TMP_DIR
+from gen_fan_out_mapping import translations, iter_full_blocks, TMP_DIR, JAVA_DIR
 
-TARGET_VERSION = (1, 21, 4)
+from target_versions import JAVA_VERSION as TARGET_VERSION
 
 
 def single_layer(block: Block) -> Block:
@@ -28,10 +28,12 @@ def state_text(block: Block) -> str:
 
 
 def translate_state(*, source, target, block: Block, native: set[str]) -> tuple[str, bool]:
-    universal, entity, needs_context = source.to_universal(block, force_blockstate=True)
+    universal, _, needs_context = source.to_universal(block, force_blockstate=True)
     source_needs_context = needs_context
+    # 兼容表只解释状态；源转换附带的实体默认值不参与方块翻译。
     result, _, needs_context = target.from_universal(
-        universal, entity, force_blockstate=True,
+        universal,
+        force_blockstate=True,
     )
     if not isinstance(result, Block):
         raise ValueError("target translation produces an entity")
@@ -111,6 +113,6 @@ def generate(*, output: Path, report_path: Path) -> dict:
 
 if __name__ == "__main__":
     generate(
-        output=TMP_DIR / "hub_java_compatibility.list",
+        output=JAVA_DIR / "java_compatibility.list",
         report_path=TMP_DIR / "java_compatibility_report.json",
     )

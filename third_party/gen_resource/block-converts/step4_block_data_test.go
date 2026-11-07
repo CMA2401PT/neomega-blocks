@@ -4,6 +4,7 @@ package blockconverts
 
 import (
 	"fmt"
+	blocks_name "neomega-blocks/storage/blocks-name"
 	"os"
 	"path/filepath"
 	"runtime"
@@ -21,6 +22,15 @@ func TestStep4BuildBlockDataByName(t *testing.T) {
 	if len(blocks) < 1000 {
 		t.Fatalf("unexpected small block count: got %d", len(blocks))
 	}
+	legacy := blocks_name.NewBlockNameStorage[uint16]()
+	for _, block := range blocks {
+		legacy.Set(block.IRBlock)
+		legacy.SetExtraValue(blocks_name.BlockHash(block.NetworkID), uint16(block.Data))
+	}
+	if err := os.WriteFile("../../../presets/block-converts/v1/5_legacy_blocks.bin", legacy.Dump(), 0o644); err != nil {
+		t.Fatal(err)
+	}
+
 	storage := BuildStep4Storage(blocks)
 	emptyCount := 0
 	nonEmptyCount := 0

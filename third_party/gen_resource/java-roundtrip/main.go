@@ -1,4 +1,4 @@
-// 枚举 Java 完整状态，只读分析 Java → NEMC → Java 的差异。
+// 枚举 Java 完整状态，只读分析 Java → Bedrock → Java 的差异。
 package main
 
 import (
@@ -47,7 +47,7 @@ func main() {
 	waterloggedStates := 0
 	_, source, _, _ := runtime.Caller(0)
 	statesPath := filepath.Join(filepath.Dir(source), "../block-converts/tmp/hub_java_states.list")
-	for _, input := range blockconverts.ReadJavaStates(statesPath) {
+	for _, input := range blockconverts.ReadStates(statesPath) {
 		input = input.Tidy()
 		if _, exists := input.States().Get("waterlogged"); exists {
 			waterloggedStates++
@@ -128,7 +128,7 @@ func main() {
 		)
 	})
 
-	fmt.Println("# Java → NEMC → Java 往返差异报告")
+	fmt.Println("# Java → Bedrock → Java 往返差异报告")
 	fmt.Println()
 	fmt.Println("本报告枚举转换中心的 hub_java_states.list，依次调用 ConvertFromJava 和 ConvertToJava，将原状态和返回状态分别 Tidy 后比较。它反映当前转换链的信息损失或不一致，不能单独证明 Bedrock 本身无法表达，也不能保证所有差异都能由 fixer 恢复。")
 	fmt.Println()
@@ -144,7 +144,7 @@ func main() {
 	fmt.Println()
 	fmt.Printf("- 枚举：%d 个状态，%d 种方块。\n", total, len(byName))
 	fmt.Printf("- 往返不一致或失败：%d 个状态（%.2f%%），涉及 %d 种方块；一致 %d 个状态。\n", bad, 100*float64(bad)/float64(total), len(blocks), total-bad)
-	fmt.Printf("- Java → NEMC 失败：%d；NEMC → Java 失败：%d。\n", fromFailed, toFailed)
+	fmt.Printf("- Java → Bedrock 失败：%d；Bedrock → Java 失败：%d。\n", fromFailed, toFailed)
 	fmt.Printf("- 两步成功但不一致：%d；其中方块名变化 %d，属性变化 %d（两者可能重叠）。\n", bad-fromFailed-toFailed, renamed, propertyChanged)
 	fmt.Printf("- 输入包含 waterlogged 属性的状态：%d。结论只覆盖输入实际枚举的属性，未枚举的属性不能据此判断是否保留。\n", waterloggedStates)
 	printFamilies(byName)
@@ -161,7 +161,7 @@ func main() {
 	fmt.Println()
 	fmt.Println("## 按方块列出全部差异")
 	fmt.Println()
-	fmt.Println("按不一致状态数降序排列。方块名省略 minecraft: 前缀；属性后的数字为受影响状态数，括号标明差异类型。失败列依次为 Java → NEMC / NEMC → Java。方块改名时，属性差异仍按原名归组，需结合返回方块名理解。")
+	fmt.Println("按不一致状态数降序排列。方块名省略 minecraft: 前缀；属性后的数字为受影响状态数，括号标明差异类型。失败列依次为 Java → Bedrock / Bedrock → Java。方块改名时，属性差异仍按原名归组，需结合返回方块名理解。")
 	fmt.Println()
 	fmt.Println("| 方块 | 不一致 / 总状态 | 变化或丢失的属性 | 返回新增属性 | 返回方块名（状态数） | 失败 |")
 	fmt.Println("| --- | ---: | --- | --- | --- | ---: |")

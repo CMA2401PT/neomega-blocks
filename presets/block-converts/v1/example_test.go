@@ -21,7 +21,7 @@ func ExampleConvertFromJava() {
 	restored, ok = blocks.BedrockHashToBlockStrict(bedrock.Hash())
 	fmt.Println(restored == bedrock, ok)
 	// Output:
-	// minecraft:jungle_fence_gate ["direction"=2,"in_wall_bit"=false,"open_bit"=true]
+	// minecraft:jungle_fence_gate ["in_wall_bit"=false,"minecraft:cardinal_direction"="north","open_bit"=true]
 	// true true
 }
 

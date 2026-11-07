@@ -11,8 +11,6 @@ import (
 	presets "neomega-blocks/presets/block-converts/v1"
 	blocks_name "neomega-blocks/storage/blocks-name"
 	"os"
-	"path/filepath"
-	"runtime"
 	"strings"
 	"testing"
 )
@@ -138,26 +136,20 @@ func TestStep3GenJavaFanout(t *testing.T) {
 	for _, p := range tidyPairs {
 		storage.SetWithSpecificHash(p.Out, blocks_name.BlockHash(p.In.Hash()))
 	}
-	storage.SetWithSpecificHash("minecraft:air []", blocks_name.BlockHash(ir.IRBlock("minecraft:micro_block []").Hash()))
 	dumped := storage.Dump()
 	loaded := blocks_name.LoadBlockNameStorage[uint16](dumped)
-	_, cur, _, ok := runtime.Caller(0)
-	if !ok {
-		t.Fatal("runtime.Caller failed")
-	}
-	palettePath := filepath.Join(filepath.Dir(cur), "block_palette.json")
-	for _, b := range ReadBlocks(palettePath) {
-		_, ok := bedrockWallDirectConvert(b.IRBlock)
+	for _, b := range ReadStates("tmp/bedrock_states.list") {
+		_, ok := bedrockWallDirectConvert(b)
 		if ok {
 			continue
 		}
-		_, ok = bedrockHangingSignDirectConvert(b.IRBlock)
+		_, ok = bedrockHangingSignDirectConvert(b)
 		if ok {
 			continue
 		}
-		_, ok = loaded.Get(blocks_name.BlockHash(b.IRBlock.Hash()))
+		_, ok = loaded.Get(blocks_name.BlockHash(b.Hash()))
 		if !ok {
-			t.Fatalf("%v cannot convert to java", b.IRBlock)
+			t.Fatalf("%v cannot convert to java", b)
 		}
 	}
 	fmt.Printf("%v MiB\n", float32(len(storage.Dump()))/(1<<20))

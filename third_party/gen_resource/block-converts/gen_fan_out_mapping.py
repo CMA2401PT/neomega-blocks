@@ -4,11 +4,13 @@ from typing import Dict, Iterator, List, Set, Tuple, cast
 import PyMCTranslate
 from amulet_nbt import ByteTag,IntTag,StringTag
 from PyMCTranslate.py3.api import Block
-from pymc_specification import get_specification
+from target_versions import JAVA_VERSION, BEDROCK_VERSION
 
 
 SCRIPT_DIR = Path(__file__).resolve().parent
 TMP_DIR = SCRIPT_DIR / "tmp"
+
+JAVA_DIR = SCRIPT_DIR.parents[2] / "presets" / "java" / "v1"
 
 translations = PyMCTranslate.new_translation_manager()
 
@@ -63,7 +65,7 @@ def block_to_blockstr(block:Block)->str:
         else:
             assert isinstance(prop,StringTag)
             return prop.to_snbt()
-    prop_strings=[f'"{k}"={cast_prop(v)}' for k,v in props.items()]
+    prop_strings=[f'"{k}"={cast_prop(v)}' for k,v in sorted(props.items())]
     return f"{name} [{','.join(prop_strings)}]"
 
 def all_blocks(platform_name:str,version:Tuple[int,...],allow_missing:bool=True):
@@ -74,11 +76,10 @@ def all_blocks(platform_name:str,version:Tuple[int,...],allow_missing:bool=True)
     def iter_blocks()->Iterator[Tuple[Block,Block]]:
         block_names=block_translator.base_names("minecraft",force_blockstate=True)
         for block_name in block_names:
-            block_specification = get_specification(
-                translator=block_translator,
-                platform=platform_name,
-                version=version,
-                name=block_name,
+            block_specification = block_translator.get_specification(
+                namespace="minecraft",
+                base_name=block_name,
+                force_blockstate=True,
             )
             properties: Dict[str, List[str]] = cast(Dict[str,List[str]],block_specification.get("properties", {}))
             defaults: Dict[str, str]=cast(Dict[str,str],block_specification.get("defaults",{}))
@@ -101,11 +102,10 @@ def iter_full_blocks(platform_name:str,version:Tuple[int,...])->Iterator[Block]:
     block_translator=version_data.block
     block_names=block_translator.base_names("minecraft",force_blockstate=True)
     for block_name in block_names:
-        block_specification=get_specification(
-            translator=block_translator,
-            platform=platform_name,
-            version=version,
-            name=block_name,
+        block_specification=block_translator.get_specification(
+            namespace="minecraft",
+            base_name=block_name,
+            force_blockstate=True,
         )
         properties:Dict[str,List[str]]=cast(Dict[str,List[str]],block_specification.get("properties",{}))
         keys=list(properties.keys())
@@ -118,25 +118,80 @@ def iter_full_blocks(platform_name:str,version:Tuple[int,...])->Iterator[Block]:
             yield cast(Block,Block("minecraft",block_name,props))
 
 
-def main(*, tmp_dir: Path = TMP_DIR) -> None:
+def iter_block_schema(
+    platform_name: str,
+    version: tuple[int, ...],
+) -> Iterator[tuple[str, dict[str, list[str]], dict[str, str]]]:
+    # 每个方块一条：属性名、取值域、默认值。fixer 据此知道某方块能改哪些
+    # 属性、默认是什么，不必从完整组合反推（反推不出默认值）。
+    version_data=translations.get_version(platform_name,version)
+    block_translator=version_data.block
+    for block_name in block_translator.base_names("minecraft",force_blockstate=True):
+        spec=block_translator.get_specification(
+            namespace="minecraft",
+            base_name=block_name,
+            force_blockstate=True,
+        )
+        properties:Dict[str,List[str]]=cast(Dict[str,List[str]],spec.get("properties",{}))
+        defaults:Dict[str,str]=cast(Dict[str,str],spec.get("defaults",{}))
+        yield block_name,properties,defaults
+
+
+def schema_line(block_name:str,properties:Dict[str,List[str]],defaults:Dict[str,str])->str:
+    # 格式：minecraft:name<TAB>key=default|v1,v2,v3<TAB>key2=...
+    # 默认值写在等号后、取值域前，二者用竖线分隔；无属性方块只有方块名。
+    fields: list[str]=[]
+    for key,values in sorted(properties.items()):
+        if key == "waterlogged":
+            continue
+        default=defaults[key]
+        fields.append(f"{key}={default}|{','.join(values)}")
+    return "\t".join([f"minecraft:{block_name}",*fields])
+
+
+def main(*, tmp_dir: Path = TMP_DIR, java_dir: Path = JAVA_DIR) -> None:
     tmp_dir.mkdir(parents=True, exist_ok=True)
-    # 转换中心的完整 Java 状态供状态迁移、原理图与往返分析共用。
+    java_dir.mkdir(parents=True, exist_ok=True)
+    with (java_dir / "java_block_schema.list").open("w") as f:
+        for name, properties, defaults in iter_block_schema("java", JAVA_VERSION):
+            f.write(f"{schema_line(name, properties, defaults)}\n")
+    # 单层全集将水交给独立层表达；完整含水状态另供往返分析。
+    dry_states: set[str] = {
+        block_to_blockstr(Block(
+            block.namespace,
+            block.base_name,
+            {key: value for key, value in block.properties.items() if key != "waterlogged"},
+        ))
+        for block in iter_full_blocks("java", JAVA_VERSION)
+    }
+    (java_dir / "java_states.list").write_text("".join(f"{state}\n" for state in sorted(dry_states)))
+    # Bedrock 的原始 NBT 类型随 specification 保留，Go 用它计算网络哈希。
+    with (tmp_dir / "bedrock_states.list").open("w") as f:
+        for block in iter_full_blocks("bedrock", BEDROCK_VERSION):
+            f.write(f"{block_to_blockstr(block)}\n")
+
     with (tmp_dir / "hub_java_states.list").open("w") as f:
-        for java_block in iter_full_blocks("java",(1,21,4)):
+        for java_block in iter_full_blocks("java",JAVA_VERSION):
             f.write(f"{block_to_blockstr(java_block)}\n")
 
-    output_translator,output_iter=all_blocks("java",(1,21,4))
+    output_translator,output_iter=all_blocks("java",JAVA_VERSION)
     with (tmp_dir / "fan_out_java_allowed.list").open("w") as f:
         for java_block,_ in output_iter:
             f.write(f"{block_to_blockstr(java_block)}\n")
 
 
-    input_translator,input_iter=all_blocks("bedrock",(1,21,50))
+    input_translator,input_iter=all_blocks("bedrock",BEDROCK_VERSION)
     with (tmp_dir / "fan_out_java.mapping").open("w") as f:
         for bedrock_block,block_with_default in input_iter:
             input_str:str=block_to_blockstr(bedrock_block)
-            uni_block,_,ok=input_translator.to_universal(block_with_default)
-            out_block,_,ok=output_translator.from_universal(uni_block)
+            uni_block,_,ok=input_translator.to_universal(
+                block_with_default,
+                force_blockstate=True,
+            )
+            out_block,_,ok=output_translator.from_universal(
+                uni_block,
+                force_blockstate=True,
+            )
             output_str=block_to_blockstr(out_block)
             f.write(f"{input_str}#{output_str}\n")
 

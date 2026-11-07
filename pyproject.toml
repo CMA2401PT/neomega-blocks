@@ -3,7 +3,7 @@ name = "neomega-blocks-resources"
 version = "0.0.0"
 requires-python = ">=3.11,<3.12"
 dependencies = [
-    "PyMCTranslate==1.2.30",
+    "PyMCTranslate==1.2.53",
     "amulet-nbt==2.1.8",
 ]
 

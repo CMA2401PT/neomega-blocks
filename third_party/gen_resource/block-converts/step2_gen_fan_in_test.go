@@ -297,18 +297,18 @@ func TestStep2_1_GenBedrockFanin(t *testing.T) {
 	for i, p := range pairs {
 		cannonOut, ok := presets.BedrockCanon(outputFix(p.Out))
 		if !ok {
-			t.Errorf("output %v not in NEMC block space", p.Out.String())
+			t.Errorf("output %v not in Bedrock block space", p.Out.String())
 		}
 		_, ok = presets.BedrockHashToBlockStrict(cannonOut.Hash())
 		if !ok {
-			t.Errorf("output %v not in NEMC block space: hash=%v", p.Out.String(), p.Out.Hash())
+			t.Errorf("output %v not in Bedrock block space: hash=%v", p.Out.String(), p.Out.Hash())
 		}
 		pairs[i].Out = cannonOut
 	}
 	for _, p := range pairs {
 		_, ok := presets.BedrockHashToBlockStrict(p.Out.Hash())
 		if !ok {
-			t.Fatalf("output %v not in NEMC block space: hash=%v", p.Out.String(), p.Out.Hash())
+			t.Fatalf("output %v not in Bedrock block space: hash=%v", p.Out.String(), p.Out.Hash())
 		}
 		cannonIn, _ := presets.BedrockCanon(p.In)
 		_, ok = presets.BedrockHashToBlockStrict(cannonIn.Hash())
@@ -369,18 +369,17 @@ func TestStep2_2_GenJavaDefaultPropFanin(t *testing.T) {
 			continue
 		}
 		parts := strings.Split(strings.TrimSuffix(strings.TrimPrefix(e.Name(), "java_"), ".json"), "_")
-		if len(parts) != 3 {
-			continue
-		}
-		maj, err1 := strconv.Atoi(parts[0])
-		min, err2 := strconv.Atoi(parts[1])
-		patch, err3 := strconv.Atoi(parts[2])
-		if err1 != nil || err2 != nil || err3 != nil {
-			continue
+		var version [3]int
+		for index, part := range parts {
+			number, err := strconv.Atoi(part)
+			if err != nil {
+				t.Fatal(err)
+			}
+			version[index] = number
 		}
 		javaDirs = append(javaDirs, javaVersionDir{
 			name: e.Name(),
-			ver:  [3]int{maj, min, patch},
+			ver:  version,
 		})
 	}
 	if len(javaDirs) == 0 {
@@ -448,10 +447,6 @@ func javaHangingSignDirectConvert(inJava ir.IRBlock) (outBedrock ir.IRBlock, ok 
 	if !ok {
 		return "", false
 	}
-	// bedrockBlock, ok := presets.NEMCBedrockCanon(out)
-	// if !ok {
-	// 	return "", false
-	// }
 	if presets.HasBedrockBlockHash(out.Hash()) {
 		return out, ok
 	}
@@ -468,18 +463,18 @@ func TestStep2_3_GenJavaFanin(t *testing.T) {
 	for i, p := range pairs {
 		cannonOut, ok := presets.BedrockCanon(outputFix(p.Out))
 		if !ok {
-			t.Errorf("output %v not in NEMC block space", p.Out.String())
+			t.Errorf("output %v not in Bedrock block space", p.Out.String())
 		}
 		_, ok = presets.BedrockHashToBlockStrict(cannonOut.Hash())
 		if !ok {
-			t.Errorf("output %v not in NEMC block space: hash=%v", p.Out.String(), p.Out.Hash())
+			t.Errorf("output %v not in Bedrock block space: hash=%v", p.Out.String(), p.Out.Hash())
 		}
 		pairs[i].Out = cannonOut
 	}
 	for _, p := range pairs {
 		_, ok := presets.BedrockHashToBlockStrict(p.Out.Hash())
 		if !ok {
-			t.Fatalf("output %v not in NEMC block space", p.Out.String())
+			t.Fatalf("output %v not in Bedrock block space", p.Out.String())
 		}
 		if _, ok := javaWallDirectConvert(p.In); ok {
 			continue
@@ -517,18 +512,6 @@ func TestStep2_3_GenJavaFanin(t *testing.T) {
 		} else {
 			nonCannonPairs += 1
 			tidyPairs = append(tidyPairs, p)
-		}
-	}
-
-	// 为中心状态的每个转入键保留含水属性，追加等价的当前目标版本形式。
-	migration := ReadJavaMappings("../java-states/tmp/hub_to_target.mapping")
-	for _, pair := range tidyPairs {
-		dry := ir.IRBlock(pair.In.NameWithNameSpace() + " " + string(pair.In.States().Delete("waterlogged"))).Tidy()
-		if target, ok := migration[dry]; ok {
-			if waterlogged, exists := pair.In.States().Get("waterlogged"); exists {
-				target = ir.IRBlock(target.NameWithNameSpace() + " " + string(target.States().Set("waterlogged", waterlogged))).Tidy()
-			}
-			tidyPairs = append(tidyPairs, MappingPair{In: target, Out: pair.Out})
 		}
 	}
 

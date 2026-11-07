@@ -12,17 +12,17 @@ import (
 	"testing"
 )
 
-// 从 PyMCTranslate 的数据库中读取所有方块的默认状态, 并比对和 NEMC 方块的匹配程度
+// 从目标 specification 读取默认属性，核对完整状态中的属性键。
 func TestReadDefaultsReadBlocksConsistency(t *testing.T) {
 	_, cur, _, ok := runtime.Caller(0)
 	if !ok {
 		t.Fatal("runtime.Caller failed")
 	}
 	baseDir := filepath.Dir(cur)
-	palettePath := filepath.Join(baseDir, "block_palette.json")
-	defaultsPath := filepath.Join(baseDir, "tmp", "defaults", "bedrock_1_21_50.json")
+	statesPath := filepath.Join(baseDir, "tmp", "bedrock_states.list")
+	defaultsPath := filepath.Join(baseDir, "tmp", "bedrock_defaults.json")
 
-	blocks := ReadBlocks(palettePath)
+	blocks := ReadStates(statesPath)
 	defaults := ReadDefaults(defaultsPath)
 
 	type classInfo struct {
@@ -32,8 +32,8 @@ func TestReadDefaultsReadBlocksConsistency(t *testing.T) {
 	}
 	classes := map[string]*classInfo{}
 	for _, b := range blocks {
-		name := b.IRBlock.NameWithNameSpace()
-		keys := keySetFromStates(b.IRBlock.States())
+		name := b.NameWithNameSpace()
+		keys := keySetFromStates(b.States())
 		info, found := classes[name]
 		if !found {
 			classes[name] = &classInfo{

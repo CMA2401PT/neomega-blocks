@@ -5,7 +5,7 @@ import (
 	"testing"
 )
 
-func TestNEMCBedrockHashGet(t *testing.T) {
+func TestBedrockHashGet(t *testing.T) {
 	blk, _ := BedrockHashToBlockStrict(3690217760)
 	if blk != "minecraft:air []" {
 		t.FailNow()
@@ -26,8 +26,8 @@ func TestNEMCBedrockHashGet(t *testing.T) {
 	}
 }
 
-func TestNEMCBedrockNameToDefaultProps(t *testing.T) {
-	props, ok := nemcBedrockNameToDefaultProps("minecraft:bed")
+func TestBedrockNameToDefaultProps(t *testing.T) {
+	props, ok := bedrockNameToDefaultProps("minecraft:bed")
 	if !ok {
 		t.Fatal("expected default props for minecraft:bed")
 	}
@@ -71,7 +71,7 @@ func TestBedrockDataValueToHash(t *testing.T) {
 	}
 }
 
-func TestNEMCBedrockCanon(t *testing.T) {
+func TestBedrockCanon(t *testing.T) {
 	blk := ir.IRBlock(`minecraft:bed ["occupied_bit"=true,"direction"=3,"extraKey"="???"]`)
 	out, _ := BedrockCanon(blk)
 	if out != `minecraft:bed ["direction"=3,"head_piece_bit"=false,"occupied_bit"=true]` {
@@ -91,14 +91,14 @@ func TestNEMCBedrockCanon(t *testing.T) {
 	}
 }
 
-func TestConvertBedrockToNEMCBedrock(t *testing.T) {
+func TestConvertBedrockToTarget(t *testing.T) {
 	blk, _ := ConvertFromBedrock(ir.IRBlock(`minecraft:nether_wart ["age"="3"]`))
 	if blk != `minecraft:nether_wart ["age"=3]` {
 		t.FailNow()
 	}
 	blk = ir.IRBlock(`minecraft:tripWire ["powered_bit"=true]`)
 	out, _ := ConvertFromBedrock(blk)
-	if out != `minecraft:trip_wire ["attached_bit"=false,"disarmed_bit"=false,"powered_bit"=true,"suspended_bit"=false]` {
+	if out != `minecraft:tripWire ["attached_bit"=false,"disarmed_bit"=false,"powered_bit"=true,"suspended_bit"=false]` {
 		t.Fatalf("output= %v", out)
 	}
 
@@ -133,7 +133,7 @@ func TestConvertBedrockToNEMCBedrock(t *testing.T) {
 		{
 			name:  "furnace_east",
 			input: `minecraft:furnace ["facing_direction"=5]`,
-			want:  `minecraft:furnace ["custom_appearance"=false,"minecraft:cardinal_direction"="east"]`,
+			want:  `minecraft:furnace ["minecraft:cardinal_direction"="east"]`,
 		},
 		{
 			name:  "bamboo_slab_top",
@@ -148,7 +148,7 @@ func TestConvertBedrockToNEMCBedrock(t *testing.T) {
 		{
 			name:  "acacia_door_defaults",
 			input: `minecraft:acacia_door ["upper_block_bit"=true]`,
-			want:  `minecraft:acacia_door ["direction"=0,"door_hinge_bit"=false,"open_bit"=false,"upper_block_bit"=true]`,
+			want:  `minecraft:acacia_door ["door_hinge_bit"=false,"minecraft:cardinal_direction"="south","open_bit"=false,"upper_block_bit"=true]`,
 		},
 	} {
 		t.Run(tc.name, func(t *testing.T) {
@@ -193,7 +193,7 @@ func TestJavaCanon(t *testing.T) {
 func TestConvertFromJava(t *testing.T) {
 	blk := ir.IRBlock(`minecraft:jungle_fence_gate   [ "powered"="false",  "open"="false"]`)
 	out, _ := ConvertFromJava(blk)
-	if out != `minecraft:jungle_fence_gate ["direction"=2,"in_wall_bit"=false,"open_bit"=false]` {
+	if out != `minecraft:jungle_fence_gate ["in_wall_bit"=false,"minecraft:cardinal_direction"="north","open_bit"=false]` {
 		t.Fatalf("output= %v", out)
 	}
 
@@ -241,7 +241,7 @@ func TestConvertFromJava(t *testing.T) {
 
 	blk = ir.IRBlock(`minecraft:jungle_fence_gate ["open"="true"]`)
 	out, _ = ConvertFromJava(blk)
-	if out != `minecraft:jungle_fence_gate ["direction"=2,"in_wall_bit"=false,"open_bit"=true]` {
+	if out != `minecraft:jungle_fence_gate ["in_wall_bit"=false,"minecraft:cardinal_direction"="north","open_bit"=true]` {
 		t.Fatalf("output= %v", out)
 	}
 	blk = ir.IRBlock(`minecraft:grass_block []`)
@@ -314,7 +314,7 @@ func TestConvertFromSchematic(t *testing.T) {
 		t.Fatalf("output= %v", out)
 	}
 	out, _ = ConvertFromSchematic(180, 2)
-	if out != `minecraft:red_sandstone_stairs ["upside_down_bit"=false,"weirdo_direction"=2]` {
+	if out != `minecraft:red_sandstone_stairs ["minecraft:corner"="none","upside_down_bit"=false,"weirdo_direction"=2]` {
 		t.Fatalf("output= %v", out)
 	}
 	out, _ = ConvertFromSchematic(2, 0)
