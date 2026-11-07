@@ -1,5 +1,7 @@
 # neomega-blocks
 
+本地研究扩展：新增独立的 [Java 26.3 预设](presets/java/v26_3/README.md)，使用官方 Java 状态报告与 Geyser 映射。调用 `v26_3.Open()` 获取明确版本的目录；`go run ./examples/java26` 可验证。原 `v1` 数据、目标版本和下文所述行为保持原样。新流程见 `third_party/gen_resource/geyser`，来源声明见 `third_party/geyser-notices/NOTICE.md`。
+
 `neomega-blocks` 用来描述、查找和转换 Minecraft 方块。不同版本可能使用不同的方块名、属性名和属性值；旧格式还可能只给出数字 ID 与附加值。这个库把这些输入转换到一套确定的 NEMC/Bedrock 方块集合，并提供向 Java 方块的输出转换。
 
 项目分为两个相互配合的部分：**运行时读取已经准备好的转换表；离线工具负责生成、修正和验证这些表。** `ir`、`storage` 和 `encode-decode` 提供通用逻辑；`presets` 提供选定版本的数据与规则；`third_party` 保存离线生成工具和来源声明。使用现成 preset 时只需调用 Go 接口。各包能力和 IRBlock 的 Tidy 约定见 [presets/README.md](presets/README.md)。
