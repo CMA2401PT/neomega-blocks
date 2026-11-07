@@ -1,0 +1,53 @@
+{
+  "formatVersion": 1,
+  "javaVersion": "26.3",
+  "bedrockVersion": "1.26.60",
+  "dataVersion": 5023,
+  "inputs": {
+    "blocksReport": {
+      "path": "java-26.3/generated/reports/blocks.json",
+      "source": {
+        "name": "Mojang Java block report",
+        "url": "https://piston-data.mojang.com/v1/objects/33680f5f2ac32864d6d7cf5e56a705fdb3e05f4c/server.jar",
+        "revision": "26.3; server SHA-1 33680f5f2ac32864d6d7cf5e56a705fdb3e05f4c",
+        "sha256": "7a0de8aaf7b04d00c40b8ffdc4cfe75184cff2e821d336a020573201867105a4"
+      }
+    },
+    "blocksNBT": {
+      "path": "geyser-957beb8993a240ce7087b1b1b4266a07a5d10273/blocks.nbt",
+      "source": {
+        "name": "Geyser typed block mappings",
+        "url": "https://raw.githubusercontent.com/GeyserMC/mappings/957beb8993a240ce7087b1b1b4266a07a5d10273/blocks.nbt",
+        "revision": "957beb8993a240ce7087b1b1b4266a07a5d10273",
+        "sha256": "efc9305b53fc170dd153eb417e003a61f2b17f924592892726ecffc3dce58536"
+      }
+    },
+    "blocksDebug": {
+      "path": "geyser-release-2.1.1-build.1/full/data/blocks_debug.json",
+      "source": {
+        "name": "Geyser named debug mappings",
+        "url": "https://github.com/GeyserMC/mappings-generator/releases/download/2.1.1-build.1/mappings-v2.1.1-full.zip",
+        "revision": "2.1.1-build.1",
+        "sha256": "2262c1ae61cfd1dc5008c3d1f13196aa5f27b0ccbce9783e6420ed5b998e1481"
+      }
+    },
+    "gameVersion": {
+      "path": "java-26.3/game-version.json",
+      "source": {
+        "name": "Mojang game version from server JAR",
+        "url": "https://piston-data.mojang.com/v1/objects/33680f5f2ac32864d6d7cf5e56a705fdb3e05f4c/server.jar",
+        "revision": "26.3; server SHA-1 33680f5f2ac32864d6d7cf5e56a705fdb3e05f4c",
+        "sha256": "70444a856374443fbd57e4b23e9acfdd50309b25906ced3e3cf658abf25dd3ae"
+      }
+    },
+    "mappingsReadme": {
+      "path": "geyser-957beb8993a240ce7087b1b1b4266a07a5d10273/README.md",
+      "source": {
+        "name": "Geyser version declaration",
+        "url": "https://raw.githubusercontent.com/GeyserMC/mappings/957beb8993a240ce7087b1b1b4266a07a5d10273/README.md",
+        "revision": "957beb8993a240ce7087b1b1b4266a07a5d10273",
+        "sha256": "498cb09e81d079c5714fa8177dbccc60338a13516fe63e9db0efd13c36302128"
+      }
+    }
+  }
+}

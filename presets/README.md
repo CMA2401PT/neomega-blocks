@@ -1,5 +1,7 @@
 # 预置方块能力
 
+本地新增 [java/v26_3](java/v26_3/README.md)：Java 26.3 完整状态与 Geyser Bedrock 1.26.60 主方块映射，由独立版本锁和生成器维护。其真实含水状态、严格校验与多候选反查规则不同于旧 `v1`；以下 `v1` 说明仍指原始 1.21.4 预设。
+
 `presets` 把选定 Minecraft 版本的数据和转换规则封装成可直接使用的 Go 包。资源文件与使用它们的 Go 文件放在一起，通过 `go:embed` 编入程序。运行时直接读取这些资源。
 
 需要更新这些资源时，使用 [离线生成工具](../third_party/gen_resource/README.md)。生成脚本及其输入保存在 `third_party/gen_resource`，中间文件保存在对应脚本目录的 `tmp/`。
